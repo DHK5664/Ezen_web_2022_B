@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>img_tag</title>
+</head>
+<body>
+
+    <!-- 상대경로 : 현재파일 기준으로 해당 파일의경로 -->
+
+    <!-- 1.현재 html과 같은 폴더에 있을경우 사진파일명 작성 -->
+    <img alt="밤하늘1.jpg" />
+    <!-- 2.현재 html 폴더의 상위폴더[ public 폴더 ]에 있을경우 -->
+    <img alt="../밤하늘1.jpg" />
+    <!-- 3.현재 puvlic -> html 폴더의 상대 폴더에 있을경우 -->
+    <img width="50px" alt="../img/밤하늘1.jpg" />
+   
+    <!-- 절대경로 : 실제파일의 모든 경로의 주소 * pc마다 경로가 다를 수 있음 -->
+    <img src ="C:\Users\504\git\Ezen_web_2022_B\frontend\public\img\밤하늘1.jpg"/>
+       <!-- 해당 파일의 오른쪽 클릭 -> properties -> Location -->
+   
+   
+</body>
+</html>
