@@ -1,13 +1,13 @@
 @charset "UTF-8";
 	
-h3
+h3	/* h3 태그 꾸미기 */
 	
 	{border-left: solid 10px green;/* 왼쪽 테두리 */
 	 padding-left: 10px;	/* 안쪽  여백 */
 	 
 	 
 		}
-ul{ 
+ul{  /* ul 태그 꾸미기 */
 		background-color: #eeeeee; /*배경색*/
 		border: solid 2px #cccccc;	/*테두리*/
 		border-radius: 10px;		/*둥근모서리	*/
