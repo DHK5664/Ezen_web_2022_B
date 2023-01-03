@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+
+.hw_form{ 
+		border-top: solid 2px black;
+		width: 650px;
+		margin: 0 auto;
+		line-height: 150%;
+		}
+
+.hw_ul{list-style-type: none;}
+
+.hw li {display: inline-block;}
+
+.hw{padding: 5px;}
+
+.hw_ul .hw_l1{width: 80px;}
+
+.hw_ul .hw_l2 input{width: 435px; height: 25px;}
+		
+.story{vertical-align: middle; }
+
+textarea{ resize: none;}
+
+.hw_box{
+		padding: 20px;
+		text-align: right;
+		}
