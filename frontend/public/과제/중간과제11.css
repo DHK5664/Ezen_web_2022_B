@@ -94,7 +94,7 @@ li{list-style-type: none;}
 .board_ul{margin: 10px 0px 40px 0px;}
 
 .items{display: flex; justify-content: space-between;
-	padding: 8px 0px;							/* 위 아래 8/ 왼쪽 오른쪽 0*/
+	padding: 8px 0px;							/* 위 아래 8/ 왼쪽 오른쪽 0 */
 }
 
 /* 2. 제품  */
