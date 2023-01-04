@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+.container{
+	display: flex;
+}
+.box{
+	width: 10%; height: 50%;
+	background-color: red; color: white;
+	border: 1px solid white;
+}
+
+
+#flexbox1{justify-content: flex-start;} /* 왼쪽 정렬 */
+
+#flexbox2{justify-content: flex-end;}	/* 오른쪽 정렬 */
+
+#flexbox3{justify-content: center;}		/* 가운데 정렬 */
+
+#flexbox4{justify-content: space-between; } /* 왼쪽 오른쪽 붙이고 균등 배치 메뉴 만들때 많이 쓰는듯 */
+
+#flexbox5{justify-content: space-around;}	/* 비트윈은 왼쪽 오른쪽에 붙고 얘는 떨어짐 */
+
+#flexbox6{justify-content: space-evenly;}	/* around 보다 좀 더 안쪽으로 몰리는 느낌 */
