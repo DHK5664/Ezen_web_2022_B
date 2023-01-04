@@ -1,10 +1,11 @@
 @charset "UTF-8";
 
+/* 초반에 div로 구역을 나누고 border를 넣어서 구역 확인 해주는게 좋음 :추후 삭제 */
 
 .hw_form{ 
-		border-top: solid 2px black;
-		width: 650px;
-		margin: 0 auto;
+		border-top: solid 2px black;	
+		width: 650px;					/* 가로길이 */
+		margin: 0 auto;					/* box 가운데 정렬 */
 		line-height: 150%;
 		}
 
@@ -12,17 +13,24 @@
 
 .hw li {display: inline-block;}
 
-.hw{padding: 5px;}
+.hw{
+	padding: 5px;						/* 안쪽 여백 */
+	border-bottom: solid 1px #eeeeee;	/* 아래줄 테두리 */
+	}
 
 .hw_ul .hw_l1{width: 80px;}
 
-.hw_ul .hw_l2 input{width: 435px; height: 25px;}
+.hw_ul .hw_l2 input{width: 435px; 
+		height: 25px;}
 		
-.story{vertical-align: middle; }
+.story{vertical-align: top; }			/* 얘가 middle 등 모든게 안먹혔던 이유는 
+										사이즈 조정 width나 height가 없어서 
+										기준 점이 없었기 때문 */
 
-textarea{ resize: none;}
+textarea{ resize: none;}				/* 크기 고정 */
 
 .hw_box{
-		padding: 20px;
-		text-align: right;
-		}
+		padding: 20px;					/* 안쪽 여백 */
+		text-align: right;		}		/* 문자만 되는게 아닌 
+										p , h , input ,button , img 등 가로배치 */
+	
