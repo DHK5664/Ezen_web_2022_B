@@ -33,11 +33,13 @@ li { list-style-type: none;}
 /*-----------본문-------------*/
 #content{ display:flex; align-items:flex-start; width: 1200px; margin: 0 auto;  }
 
-.banner{display: flex; width: 500px; margin: 80px 50px;}
-.banner img{padding: 0px 20px;}
+.banner{display: flex; 				/* 가로로 정렬*/
+		width: 500px;				/* 가로 넓이 */
+		margin: 80px 50px;}			/* 각각 세로 가로 바깥 여백 */
+.banner img{padding: 0px 20px;}		/* 각각 세로 가로 안쪽 여백 */
 
 #items{ background-color: #F9F9F9; }
-.item{width: 270px; border: 1px solid red; margin: 30px 30px;}
+.item{width: 270px;  margin: 30px 30px; /* border: 1px solid red; */}
 .item li {padding: 3px 0px; }
 .item img{width: 100%;}
 
