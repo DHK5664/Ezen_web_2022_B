@@ -11,7 +11,7 @@ table{width: 500px; }
 .cal p{text-align: center;}
 .asas{margin-top: 50px; margin-bottom: 50px;}
 .asas #content .li{padding: 30px;}
-h3{border-left: 5px solid black;
+.li h3{border-left: 5px solid black;
 	padding-left: 10px;
 	margin-top: 20px;}
 .li p{margin-top: 20px; color: #007B00;}
