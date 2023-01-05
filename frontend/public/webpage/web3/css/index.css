@@ -5,10 +5,10 @@
 a{text-decoration: none; color: black;}
 li { list-style-type: none;}
 /*--------------------------*/
-*{border: 1px solid blue;}
+/* *{border: 1px solid blue;} */
 /*-----------헤더--------------*/
 #header{
-	width: 1200px; margin: 0 auto; height: 100px; 
+	width: 1200px; margin: 0 auto; height: 100px; /* */
 	position: relative; /* 상위요소에 relative */
 		}
 .h_logo{
@@ -31,15 +31,22 @@ li { list-style-type: none;}
 #main_img{ text-align: center;}
 
 /*-----------본문-------------*/
-#content{ width: 1200px; margin: 0 auto; height: 600px; }
+#content{ display:flex; align-items:flex-start; width: 1200px; margin: 0 auto;  }
 
+.banner{display: flex; width: 500px; margin: 80px 50px;}
+.banner img{padding: 0px 20px;}
 
+#items{ background-color: #F9F9F9; }
+.item{width: 270px; border: 1px solid red; margin: 30px 30px;}
+.item li {padding: 3px 0px; }
+.item img{width: 100%;}
 
 /*-----------푸터------------*/
-#footer{ background-color: #292C32; height: 200px;}
+#footer{ background-color: #292C32; }
 
 .ft_content{
-	widows: 1200px; margin: 0 auto; display: flex; justify-content: space-between;
+	width: 1200px; margin: 0 auto; display: flex;
+	justify-content: space-between;
 	padding: 50px 0px; color: white;
 	
 }
