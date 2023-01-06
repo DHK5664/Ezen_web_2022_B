@@ -1,0 +1,54 @@
+@charset "UTF-8";
+/*--------공통-------------*/
+/* *{border: 1px solid red;} */
+li{list-style-type: none;}
+*{font-family: 'Noto Sans KR', sans-serif;}
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+.notosanskr * { 
+ font-family: 'Noto Sans KR', sans-serif;
+}
+/*-----------------------*/
+
+#main_img{width: 100%;} 					/* 메인 이미지 가로 넓이 */
+
+#main{ width:100%;  }						/* 사이트 가로 넓이 */
+#main #hot_item_top{text-align: center; margin-top: 300px;}
+
+.hot_item{display: flex; justify-content: center; flex-wrap: wrap; font-size: 12px; }
+
+p{color: #A2A2A2; text-align: center; font-size: 12px; padding-bottom: 17px;}
+
+.hot_item1 img{width: 350px; }
+
+.p_review{ color: #888888; text-align: right;}
+
+.hot_item1 .order_im{color: blue; font-weight: bold;}
+
+#order_im_padding{padding-top: 5px; font-size: 10px;}
+
+.hot_item1 .order_im_red{color: red; font-weight: bold;}
+
+.product_s{margin-bottom: 20px;}
+
+.no_sale{text-decoration: line-through; color: #CAD3D4;}
+
+
+.fixed{										/* fixed */
+		width: 48px;
+		border: 2px solid #eeeeee;
+		position: fixed;			/* 화면 위치 고정 */
+		right: 0px; top: 40%;		/* 가장 오른쪽에 위에서부터 40% */
+		opacity : 80%;				/* 투명도 [ %, 소수점 ] */
+		background-color: white;	/* 기본값 : transparent */}
+		
+.fixed div{
+	border: 1px solid #eeeeee;
+	margin: 0 auto;
+	text-align: center;
+	width: 100%; align-items: center; height: 30px; padding-top: 9px;
+	
+	}
+	
+	
+	
