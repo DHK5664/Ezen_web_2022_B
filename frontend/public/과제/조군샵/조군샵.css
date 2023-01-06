@@ -19,15 +19,15 @@ li{list-style-type: none;}
 
 p{color: #A2A2A2; text-align: center; font-size: 12px; padding-bottom: 17px;}
 
-.hot_item1 img{width: 350px; }
+.hot_item1 img{width: 370px; }
 
 .p_review{ color: #888888; text-align: right;}
 
-.hot_item1 .order_im{color: blue; font-weight: bold;}
+.hot_item1 .order_im{color: #00416E; font-weight: bold;}
 
 #order_im_padding{padding-top: 5px; font-size: 10px;}
 
-.hot_item1 .order_im_red{color: red; font-weight: bold;}
+.hot_item1 .order_im_red{color: #C71414; font-weight: bold;}
 
 .product_s{margin-bottom: 20px;}
 
