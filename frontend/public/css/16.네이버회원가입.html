@@ -45,7 +45,7 @@
 				<h3> 이름 </h3>
 				<span class="signup_input" >
 					<input class="input_id" type="text">
-				</span>
+				</span> <!-- 아이디 , 비밀번호 , 비밀번호 확인 구역 e -->
 				
 				<h3> 생년월일 </h3>
 				<span class="birthbox">
@@ -68,8 +68,48 @@
 						<input class="input_id" type="text" placeholder="일">
 					</span>	
 				</span>
-			</div>
+				
+				<h3>성별</h3>
+				<span class="signup_input">
+					<select class="input_id">
+						<option>성별</option> <option>남자</option>
+						<option>여자</option> <option>선택안함</option>
+					</select>
+				</span>
 			
+				<h3>본인 확인 이메일<span class="s_text">(선택)</span></h3>		<!-- 구역속에서 또 구역을 나눠서 따로 설정할 수도 있다. -->
+				<span class="signup_input">
+					<input class="input_id" placeholder="선택입력" type="text">
+				</span>
+			</div> <!-- 이름 , 생년월일 , 성별 , 이메일 e-->
+			
+			<div> <!-- 휴대전화 구역 -->
+				<h3>휴대전화</h3>
+				<!-- 국가 입력 -->
+				<span class="signup_input">
+				<select class="input_id">
+					<option> 대한민국 +82 </option>
+				</select>
+				</span>
+				
+				<span class="phonebox">
+					<!-- 전화번호 입력란 -->
+					<span class="signup_input" id="input_phone">
+						<input class="input_id" type="text" placeholder="전화번호 입력">
+					</span>
+					<!--  인증 버튼 -->
+					<input class="btn_auth" type="button" value="인증번호 받기">
+				</span>
+				
+				<!-- 인증번호 입력란 -->
+				<span class="signup_input" id="authbox">
+					<input readonly="readonly" class="input_id" id="input_auth" type="text" placeholder="인증번호 입력하세요">
+				</span>
+				
+			</div> <!-- 휴대전화 구역 e -->
+				
+				
+				
 		</form>
 		<div id="footer">푸터</div>	
 	</div>					<!-- 전체 레이아웃 E-->
