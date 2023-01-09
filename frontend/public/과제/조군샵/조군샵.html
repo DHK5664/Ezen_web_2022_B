@@ -2,10 +2,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
-<link href="조군샵.css" rel="stylesheet">
-
+<title>끌리는 남성의류 조군샵</title>
+ 	
+ 	<link
+		href="조군샵.css"
+		rel="stylesheet"
+	>
+	
 </head>
 <body>
 	<!-- 
@@ -17,11 +20,131 @@
 	<!-- 헤더 
 		 1. 헤더 메뉴에만 드랍다운 적용
 		 2. 메인 메뉴에만 sticky
-		 3. 큰 
+		 3. 큰 sticky는 하지 말 것
 	-->
-	<div id="header">
+	 <!-- 헤더 -->
 	
-	</div>
+		<div class="top_menu"> <!-- 탑 메뉴 -->
+			<ul class="top_box">
+				<li><a href="#"> LOGIN </a></li> |
+				<li><a href="#"> JOIN </a></li> |
+				<li><a href="#"> MYPAGE </a></li> |
+				<li><a href="#"> ORDER </a></li> |
+				<li><a href="#"> CART(0) </a></li> |
+				<li class="drop_menu"><a href="#">COMMUNITY</a>
+					<div class="sub_menu">
+						<ul>
+							<li><a href="#">Q&A</a></li>
+							<li><a href="#">FAQ</a></li>
+							<li><a href="#">이벤트</a></li>
+							<li><a href="#">당첨자발표</a></li>
+							<li><a href="#">조군스토리</a></li>
+							<li><a href="#">조군TV&코디팁</a></li>
+							<li><a href="#">데일리룩</a></li>
+							<li><a href="#">포토리뷰</a></li>
+						</ul>
+					</div>
+				</li> |			
+				<li><a href="#"><img src="조군샵img/top_icon.png"> </a></li>
+			</ul>
+		</div>
+		
+
+		
+		<div class="main_menu"> 	<!-- 메인 메뉴 -->
+			<div class="logo_img">	<!-- 메인 로고 -->
+				<a href="#">
+					<img src="조군샵img/main_logo.png">
+				</a>
+			</div>
+			<div class="category">	
+				<ul class="catebox"><!-- 메인 카테고리 -->
+					<li><a href="#"> BEST </a></li>		
+					<li id="new_red"><a href="#"> NEW~20% </a></li>
+					<li class="drop_menu"><a href="#"> MADE </a>
+						<ul class="sub_menu">
+							<li>티</li>
+							<li>셔츠</li>
+							<li>바지</li>
+							<li>아우터</li>
+						</ul>
+					</li>
+					<li class="drop_menu"><a href="#"> BIG SIZE </a>
+						<ul class="sub_menu">
+							<li>티</li>
+							<li>셔츠</li>
+							<li>바지</li>
+							<li>아우터</li>
+						</ul>
+					</li>
+					<li class="drop_menu"><a href="#"> TOP </a>
+						<ul class="sub_menu">
+							<li>맨투맨&후드티</li>
+							<li>니트</li>
+							<li>긴팔티</li>
+							<li>반팔티</li>
+							<li>나시</li>
+							<li>프린팅티</li>
+						</ul>
+					</li>
+					<li class="drop_menu"><a href="#"> SHIRTS </a>
+						<ul class="sub_menu">
+							<li>베이직</li>
+							<li>청남방</li>
+							<li>체크&패턴</li>
+							<li>스트라이프</li>
+							<li>헨리넥&차이나</li>
+						</ul>
+					</li>
+					<li class="drop_menu"><a href="#"> PANTS </a>
+						<ul class="sub_menu">
+							<li>슬랙스</li>
+							<li>면바지</li>
+							<li>청바지</li>
+							<li>밴딩팬츠</li>
+							<li>반바지</li>
+						</ul>
+					</li>
+					<li class="drop_menu"><a href="#"> OUTER </a>
+						<ul class="sub_menu">
+							<li>패딩</li>
+							<li>코트</li>
+							<li>수트&블레이져</li>
+							<li>자켓</li>
+							<li>블루종/MA-1</li>
+							<li>가디건&조끼</li>
+							<li>후드&집업</li>
+						</ul>
+					</li>
+					<li class="drop_menu"><a href="#"> SHOES&BAG </a>
+						<ul class="sub_menu">
+							<li>신발</li>
+							<li>가방</li>
+						</ul>
+					</li>
+					<li class="drop_menu"><a href="#"> ACC </a>
+						<ul class="sub_menu">
+							<li>양말&타이</li>
+							<li>모자</li>
+							<li>벨트&시계</li>
+							<li>머플러%장갑</li>
+							<li>안경</li>
+							<li>쥬얼리</li>
+							<li>etc</li>
+						</ul>
+					</li>
+					<li><a href="#"> 당일배송 </a></li>
+					<li><a href="#"> SALE </a></li>
+					<li><a href="#"> BRAND </a></li>
+				</ul>
+			</div>
+			<div class="search">	<!-- 메인 검색창 -->
+				<input type="text"> 
+				<img src="조군샵img/icon_search.gif">
+			</div>
+		</div>
+	
+	
 	
 	<!-- 메인 이미지 
 		 1. 이미지 슬라이드 x 1개만 적용
@@ -33,7 +156,7 @@
 		 오른쪽 메뉴 fixed[스크롤 이벤트 X]
 	-->
 	<div id="main">
-		<div>
+		<div class="main_heder">
 			<h4 id="hot_item_top">HOT ITEM</h4>
 			<p>조군이 추천하는 핫 아이템입니다.</p>
 		</div>	
@@ -131,9 +254,50 @@
 	<!-- 푸터 
 		 푸터 2개
 	-->
-	<div id="footer">
-		<div class="ft_top"></div>
-		<div class="ft_bottom"></div>
+
+	<div id=ft_top>
+		<div class="ft_tbox">
+			<div class="ft_con">
+				<h4> CS CENTER </h4>
+				<h2> 1599-3120 </h2>
+				<p> MON-FRI : 10:00 ~ 17:00 <br/>					LUNCH: 13:00 ~ 14:00 <br/>
+					SAT, SUN, HOLIDAY OFF
+				</p>
+			</div>
+			<div class="ft_con">
+				<h4> DELIVERY </h4>
+				<p> 반품주소:</p>
+				<p> 경기도 부천시 길주로 347(중동) 5층 물류센터 <br/>
+					대한통운 택배 이용 
+				</p>
+			</div>
+			<div class="ft_con">
+				<h4> BANK ACCOUNT </h4>
+				<p> 예금주 : ㈜조군 </p>
+				<p> 우리 1005-601-776813 <br/>
+					농협 351-0286-8129-53 <br/>
+					기업 114-153764-04-011 <br/>
+					국민 594401-04-027446 <br/>
+					신한 140-009-662523
+				</p>
+			</div>
+			<div class="ft_con">
+				<h4> MENU </h4>
+				<ul>
+					<li><a href="#">홈</a></li>
+					<li><a href="#">이용약관</a></li>
+					<li><a href="#">개인정보처리방침</a></li>
+					<li><a href="#">쇼핑몰 이용안내</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="ft_bottom">
+		<p> 
+			㈜ 조군 | 대표 : 조안익 | 사업자 등록 번호 : 130-86-56658 | 통신판매업 신고: 제2011-경기부천-126호 | 개인정보 보호 책임자 : 조안나 <a href="#">[사업자정보확인]</a><br/>
+			E-mail : jogunshop@naver.com | 주소 : 경기도 부천시 원미구 중동 1086-2 6층 조군샵 도로명 : 경기도 부천시 길주로 347(중동) 6층 조군샵<br/>
+			ⓒ 2006. jogun All rights reserved.
+		</p>
 	</div>
 </body>
 </html>
