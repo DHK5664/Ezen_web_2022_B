@@ -7,7 +7,7 @@ for (let i = 1 ; i <=10 ; i++ ){ // for s
 
 // 예2 i는 1부터 10 이하까지 1씩 증가 반복[한 줄에 모두 출력]
 console.log('----------예2----------')
-let output = ' '// 공백을 넣어서 문자 변수로 선언 ( 깡통 )
+let output = ' '// 공백을 넣어서 문자 변수로 선언 ( 깡통 ) 그래서 결과값을 보면 margin left를 준것처럼 왼쪽이 떨어져있다.
 for(let i = 1 ; i<=10 ; i++){ // for s
 	output += i+"\t"; 	// vs output = output + i	//	 누적 기록
 }// for e
