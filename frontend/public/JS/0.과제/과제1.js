@@ -43,18 +43,18 @@ function onLogin(){//함수[onLogin] 시작점
 
 
 
-function insign(){ // 함수 시작
+function insign(){ // 함수 시작 1.
 	
 	
 
 	
-	let snadd = document.querySelector('.snadd')		// <input> 마크업 js로 가져오기
+	let snadd = document.querySelector('.snadd')		// <input> 마크업 js로 가져와서 변수에 저장 2.
 	
-	let snadd_Value = snadd.value;						// <input>에 입력된 데이터 호출
-	
+	let snadd_Value = snadd.value;						// <input>에 입력된 데이터 호출(value(값)) 가져오기 2.2
+														// 브라우저 콘솔창에 옮겨지지 않았으면 2. , 2-2 확인해야 함
 
 	
-	let snadd_Index = studentArray.indexOf(snadd_Value) // indetOf를 통해 존재하나 안하나 찾아보기
+	let snadd_Index = studentArray.indexOf(snadd_Value) // indexOf를 통해 존재하나 안하나 찾아보기
 	
 	let length = snadd_Value.length						// 길이 확인용
 	
@@ -68,21 +68,12 @@ function insign(){ // 함수 시작
 			studentArray.push(snadd.value)				// 데이터 호출값에 대입
 			document.querySelector('.result').innerHTML = '등록 완료';	// 등록완료 호출
 			console.log(studentArray)
+			
 	
 	}
 
 	else {document.querySelector('.result').innerHTML =  '존재하는 학번입니다.';}		// 배열안에 있을 시 존재 X 호출
 	snadd.value = '';
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
 
