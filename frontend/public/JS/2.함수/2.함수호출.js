@@ -92,11 +92,13 @@ function 함수3( x , y ){
 function 함수4(x ,y, z){
 	let result = x + y + z
 	return result;
+//console.log가 없어서 출력 X
 }
 //4. js에서 함수 호출
 함수4( 1 , 2 , 3 ) //??? 반환 후에 코드가 없다.
 let result = 함수4(1,2,3)	// -- 반환된값을 result라는 변수에 저장
 console.log ('함수4 반환 : ' + 함수4(1,2,3))//-- 반환값 출력
+
 
 
 
