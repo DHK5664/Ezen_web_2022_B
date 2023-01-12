@@ -36,8 +36,9 @@ console.log(output)
 
 */
 /*
-// 예시2) 입력받은 수 만큼 * 출력[ 3줄(3qotn)마다 줄 바꿈 ]
+// 예시2) 입력받은 수 만큼 * 출력[ 3줄(3배수)마다 줄 바꿈 ]
 output = '' // 앞전에서 사용한 output 변수를 다시 ''[공백]으로 변경 + 위에서 한번 let을 써서 주민번호가 2개가 생길 수 없듯 걍 선언함
+//(let이 선언하는 넘 인데 let선언 = 주민번호 생성이라고 보면 될듯)
 let s2 = Number(prompt('예시 2 별 개수'))
 for(let i = 1 ; i <= s2 ; i++){//for s
 	// 1. 별출력
@@ -271,6 +272,7 @@ console.log(output)
 		  *   *
 		 *     *
 */
+/*
 output=''
 let line7 = Number(prompt('과제 1 줄 수'))// 다이아를 4등분을 했는데
 for(let i=1 ; i<=line7 ; i++){ // i가 1부터 과제 1의 줄 수까지 1씩 증가하면서 반복 (줄 개수)
@@ -306,9 +308,22 @@ for(let i=1 ; i<=line7-1 ; i++){	// 위에서 반을 또 나눴듯 아래도 반
 	
 }
 console.log(output)
-
-
-
+*/
+/*
+output = ''
+let line8 = Number(prompt('역피라미드 줄 개수'))
+for(let i = 1 ; i<=line8 ; i++){
+	for(let b = 1 ; b<=i-1; b++){
+		output += ' '
+	}
+	for(let s = 1 ; s<=line8*2-i*2+1 ; s++){				--------> 역피라미드
+		output += '*'
+	}
+	output += '\n'
+	
+}
+console.log(output)
+*/
 
 
 
