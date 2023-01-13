@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+
+.wrap{ display: flex; }
+
+.content{
+	width: 50%;	
+	border: 1px solid white;
+}
