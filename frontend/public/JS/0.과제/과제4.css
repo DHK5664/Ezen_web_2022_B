@@ -26,13 +26,12 @@
 	height: 30px;
 	width: 80px;
 }
-.관리자테이블{
+.관리자테이블, .printTable{
 	border: 1px black solid;
 	border-collapse : collapse;
 }
-.관리자테이블 th, .관리자테이블 td{
+.관리자테이블 th, .관리자테이블 td, .printTable th, .printTable td{
 	border: 1px black solid;
 	padding: 5px 10px;
 	vertical-align:middle;
 }
-

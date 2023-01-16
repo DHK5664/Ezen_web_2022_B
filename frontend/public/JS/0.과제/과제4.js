@@ -33,6 +33,9 @@ function 관리자테이블출력(){
 }
 
 function 대출여부(bno){
+	if(대여목록.length==0){
+		return '대여가능'
+	}
 	for(let j =0; j<대여목록.length ; j++){
 		if(대여목록.indexOf(도서목록[bno])>=0){return '대여중'}
 		else{return '대여가능' }
@@ -55,10 +58,10 @@ function onDelete(bno){
 function printTable(){
 	console.log('table print')
 	let html = `<tr>
-					<td>번호</td>
-					<td>도서</td>
-					<td>도서대여여부</td>
-					<td>비고</td>
+					<th> 번호 </th>
+					<th> 도서 </th>
+					<th> 도서대여여부 </th>
+					<th> 비고 </th>
 				</tr>`
 				
 	for(let i=0 ; i<도서목록.length ; i++){
@@ -91,9 +94,8 @@ function 대여버튼(i){
 
 function 반납버튼(j){
 	console.log(j+'반납버튼을 누르셨군요.')
-	if(대여목록.indexOf(대여목록[j])==-1){alert('대여하지 않는 도서입니다')}
-	else{
-	대여목록.splice(대여목록.indexOf(대여목록[j]),1)}
+	if(대여목록.indexOf(도서목록[j])==-1){alert('대여하지 않는 도서입니다')}
+	else{대여목록.splice(대여목록.indexOf(도서목록[j]),1)}
 	console.log(대여목록)
 	printTable()
 	관리자테이블출력()
