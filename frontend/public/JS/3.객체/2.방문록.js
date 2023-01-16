@@ -45,7 +45,7 @@ function 출력(){
 		// 1. 테이블의 제목행 만들기
 	let html = `<tr> <th>번호</th> <th>내용</th> <th>작성자</th> <th>비고</th> </tr>`
 		// 2. 반복문 이용한 배열 내 모든 요소를 행 만들기[누적]
-			// 1. 반복 이용해서 배열 내 객체 하나씩 호출 : boardArray[i]
+			// 1. 반복 이용해서 배열 내 객체 하나씩 호출 : boardArray[i]	그리고 boardArray[i]는 배열 boardArray의 i번째 데이터라는 뜻
 			// 2. 객체 내 속성호출					 : boardArray[i].속성명
 		for(let i = 0 ; i<boardArray.length ; i++ ){
 			html += `<tr>	
@@ -55,7 +55,7 @@ function 출력(){
 						<td> <button onclick="삭제( ${i} )" > 삭제 </button> 
 							 <button onclick="수정( ${i} )" > 수정 </button>
 						</td> 
-					</tr>`;		// 내용이나 작성자는 같은 사람이 또 작성 할 수도 있어서 index로 누굴 삭제할지 구분한다.
+					</tr>`;		//☆☆☆☆☆내용이나 작성자는 같은 사람이 또 작성 할 수도 있어서 index로 누굴 삭제할지 구분한다.☆☆☆☆☆
 		}// for end
 			// 3. 반복문 종료시 누적되 html 해당 table에 출력
 			document.querySelector('.게시물테이블').innerHTML = html;
