@@ -9,9 +9,9 @@ textarea.addEventListener( 'keyup' , ( 이벤트상태 )=>{
 	h3.innerHTML = `글자 수 : ${ textarea.value.length }`
 	// 4. 키 상태 확인(내가 뭘 눌렀는지)
 		console.log(이벤트상태)
-		console.log('조합 alt 키 : ' + 이벤트상태.altKey)
-		console.log('조합 ctrl 키 : ' + 이벤트상태.ctrlKey )
-		console.log('조합 shift 키 :' + 이벤트상태.shiftKey)
+		console.log('조합 alt 키 : ' + 이벤트상태.altKey)		//		--> 얘네 다 조합키라서
+		console.log('조합 ctrl 키 : ' + 이벤트상태.ctrlKey )	//		--> 조합 키 작동할 때에만
+		console.log('조합 shift 키 :' + 이벤트상태.shiftKey)	//		--> 제대로 작동이 된다.
 		console.log('code 키 : ' + 이벤트상태.code)
 		console.log('name 키 : ' + 이벤트상태.key)
 })
