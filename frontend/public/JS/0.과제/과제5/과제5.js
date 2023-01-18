@@ -127,7 +127,6 @@ function order(){
 	console.log(orderList)
 	
 	
-	// 주문목록 구현	
 		// ~~~~~~ 카트리스트 ---> 주문목록
 	// 2. 주문 완료 후
 	cartlist.splice(0);
