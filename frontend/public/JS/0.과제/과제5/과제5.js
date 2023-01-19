@@ -209,7 +209,7 @@ print_BMenu()
 function print_BMenu(){
 	
 	let html = `<tr>
-					<th> 번호 </th><th> 이미지 </th><th> 버거이름 </th>
+					<th> 제품번호 </th><th> 이미지 </th><th> 버거이름 </th>
 					<th> 카테고리 </th><th> 가격 </th><th> 비고 </th>
 				</tr>`
 	
@@ -232,13 +232,15 @@ function print_BMenu(){
 function onDelete(i){ 				// i번째 인덱스의 삭제버튼 클릭
 		burgerList.splice(i,1);		// i번째 인덱스부터 1개 삭제
 		print_BMenu();				// 새로고침
-}
+}// f e
+
+// 가격수정버튼 함수
 let upindex = -1 ;					// 전역변수로 사용하기 위해 선언//다른 숫자 넣어도 상관 없지만 0 이상부터는 인덱스와 겹칠 수 있어서 안정빵으로 -1 넣음
 function p_OnUpdate( i ){			// i번째 인덱스 가격 수정버튼 클릭
 	upindex = i 					// i값을 upindex에 대입 // 내가 선택한 i번째 인덱스
 	document.querySelector('.updatetable').style.display='block'// 가려뒀던 가격수정용 테이블 재등장
 	document.querySelector('.up_Price').value = burgerList[upindex].price// 수정값 대입
-}
+} // f e
 
 let updatebtn = document.querySelector('.updatebtn')
 updatebtn.addEventListener('click' , ()=>{
@@ -248,10 +250,28 @@ updatebtn.addEventListener('click' , ()=>{
 	document.querySelector('.updatetable').style.display = 'none'
 
 print_BMenu();
-})
+})// 가격수정완료버튼 f e
 
 
-
+function b_Order_print(){
+	
+	let html = `<tr>
+					<th> 주문번호 </th><th> 버거이름 </th>
+					<th> 상태 </th><th> 비고 </th>
+				</tr>`
+				
+	for(i = 0 ; i<burgerList.length ; i++){
+		
+		html += `<tr>
+					<td>${i+1}</td>
+					<td><${burgerList[i].name} width="100%"></td>
+					<td>${burgerList[i].name}</td>
+					<td>${burgerList[i].category}</td>
+					<td><button class="orderEnd" onclick="orderEnd( ${ i } )">주문완료</button></td>
+				</tr>`
+	}
+	
+}
 
 
 
