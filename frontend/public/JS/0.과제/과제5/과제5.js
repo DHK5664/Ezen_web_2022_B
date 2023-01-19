@@ -173,6 +173,101 @@ function cart_print(){
 	document.querySelector('.cartbottom').innerHTML = html;	// 2. 구성된 html 마크업에 대입
 }
 
+//--------------- 관리자 부분 ---------------
+// 버거 객체 등록을 위한 배열
+
+let Addbtn = document.querySelector('.Addbtn')
+
+Addbtn.addEventListener('click' , ()=>{
+	
+	let bIf = {
+		name : document.querySelector('.name').value,
+		category : document.querySelector('.category').value,
+		price : parseInt(document.querySelector('.price').value),
+		img : document.querySelector('.img').value
+		
+	}
+
+	// 2. 유효성 검사
+	let check = true;
+	for(i=0; i<burgerList.length; i++){
+		if(burgerList[i].name == bIf.name){
+			alert('이미 등록된 버거명 입니다.'); check=false;
+		}
+	}
+	if(isNaN(bIf.price)){alert('숫자형식으로 입력해주십시오.');check=false;
+	}
+	if(categoryList.includes(bIf.category) ){}
+	else{alert('존재하는 카테고리 내에서 기입하여 주십시오');check=false; }
+	
+	if(check){burgerList.push(bIf);alert('새로운 버거를 등록했습니다'); print_BMenu(); }
+	console.log(burgerList)
+})
+
+
+print_BMenu()
+function print_BMenu(){
+	
+	let html = `<tr>
+					<th> 번호 </th><th> 이미지 </th><th> 버거이름 </th>
+					<th> 카테고리 </th><th> 가격 </th><th> 비고 </th>
+				</tr>`
+	
+	for (i=0; i<burgerList.length; i++){
+			html += `<tr>
+						<td>${i+1}</td>
+						<td><img src="img/${burgerList[i].img}" width="100%"></td>
+						<td>${burgerList[i].name}</td>
+						<td>${burgerList[i].category}</td>
+						<td>${burgerList[i].price}</td>
+						<td><button class="Dbtn" onclick="onDelete( ${ i } )">삭제</button>
+							<button class="Ubtn" onclick="p_OnUpdate( ${ i } )">가격수정</button></td>
+					</tr>`
+					
+	}
+		document.querySelector('.b_M_N').innerHTML= html;
+
+}
+// 삭제버튼 함수
+function onDelete(i){ 				// i번째 인덱스의 삭제버튼 클릭
+		burgerList.splice(i,1);		// i번째 인덱스부터 1개 삭제
+		print_BMenu();				// 새로고침
+}
+let upindex = -1 ;					// 전역변수로 사용하기 위해 선언//다른 숫자 넣어도 상관 없지만 0 이상부터는 인덱스와 겹칠 수 있어서 안정빵으로 -1 넣음
+function p_OnUpdate( i ){			// i번째 인덱스 가격 수정버튼 클릭
+	upindex = i 					// i값을 upindex에 대입 // 내가 선택한 i번째 인덱스
+	document.querySelector('.updatetable').style.display='block'// 가려뒀던 가격수정용 테이블 재등장
+	document.querySelector('.up_Price').value = burgerList[upindex].price// 수정값 대입
+}
+
+let updatebtn = document.querySelector('.updatebtn')
+updatebtn.addEventListener('click' , ()=>{
+	
+	burgerList[upindex].price = parseInt(document.querySelector('.up_Price').value)
+
+	document.querySelector('.updatetable').style.display = 'none'
+
+print_BMenu();
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

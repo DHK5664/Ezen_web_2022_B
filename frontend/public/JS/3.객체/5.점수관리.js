@@ -38,7 +38,7 @@ addbtn.addEventListener( 'click' , () => {
 	if(isNaN(info.kor) || isNaN(info.eng) || isNaN(info.mat) ){
 		alert('숫자형식으로 입력해주세요.');check=false;
 	}
-	// 3. 저장 [위 유효성검사에서 하나도 충족하지 않았을 때]
+	// 3. 저장 [위 유효성검사에서 하나라도 충족하지 않았을 때]
 	if(check){studentArray.push( info ); alert('학생 점수를 등록했습니다');printTable(); }
 		
 } )	//addEvent end
@@ -111,7 +111,7 @@ updatebtn.addEventListener('click' , ()=>{
 	printTable();// 4. 수정 후 새로고침/업데이트
 	
 })
-
+console.log(studentArray)
 
 
 

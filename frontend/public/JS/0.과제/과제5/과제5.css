@@ -100,23 +100,36 @@
 .footer{
 	height: 50px;
 	border: 1px solid blue;			/* 테두리 */
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
+/*-------------------------- 관리자 화면 -----------------------------*/
+
+.bAdd{
+	width: 50%;
+	text-align: center;
+	border: 1px solid black;
+}
+
+.Addbtn{padding: 10px 30px; margin: 5px;}
+		
+
+td{ text-align:center;
+		width: 10%;
+		border: 1px solid black;
+		}	
+
+.updatetable{display: none;}
+	
+.Ubtn{padding: 10px 8px;}
+.Dbtn{padding: 10px 15px;}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
