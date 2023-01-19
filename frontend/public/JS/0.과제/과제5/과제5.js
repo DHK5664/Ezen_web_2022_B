@@ -1,19 +1,44 @@
-/* 공통 - DB */
-// 등록된 카테고리 목록
+
+/* ------------ 공통데이터 : 모든 함수에서 공통으로 사용 할 예정 : 전역변수 ------------ */
+// 등록된 카테고리'문자열' 목록 / 배열
 let categoryList = [ '프리미엄' , '스페셜', '와퍼' , '올데이킹' , '치킨버거' ]
-// 등록된 버거 목록
+// 등록된 '버거객체' 목록 / 배열
 let burgerList = [ 
 	{name :'몬스터X' , price : 9200 , img :'monWimg.png' , category : '프리미엄'} ,
 	{name :'몬스터와퍼' , price : 8200 , img :'몬스터와퍼img.png' , category : '프리미엄'} ,
 	{name :'오믈렛킹모닝' , price : 5000 , img :'오믈렛킹모닝.png' , category : '스페셜'} 
 	
 ]
-let cartlist = [  ]	// 카트 목록
-let orderList = []	// 주문 목록
+/*
+	1. 버거객체   ★★★★★★★★★★★★★★★ 버거객체는 카트배열로 가고 카트배열은 주문객체로 간다.★★★★★★★★★★★★★★★
+	let burger ={
+		name : ,		// 버거이름
+		price: ,		// 버거가격
+		img : ,			// 버거이미지
+		category		// 버거 카테고리
+	}
+	
+	2. 주문객체
+	let order ={
+		 no : no ,
+		 items : map배열 ,					// 카트배열 ---> 새로운 배열
+		 time : new Date() ,				// new Date() : 현재 날짜/시간 호출
+		 state:  true ,						// true : 일단 주문	// false :주문 완료
+		 complete : 0 ,						// 아직 주문 완료 되기전
+		 price : total						// cartlist 배열 내 버거 객체들의 총금액 합계
+	}
+*/
 
-category_print();
-category_select( 0 );// 기본값 : 프리미엄
-product_print( 0 );	// 기본값 : 프리미엄
+// 카트 등록된 '버거객체' 목록/배열
+let cartlist = [  ]	// 카트 목록
+// '주문객체' 목록/배열
+let orderList = [  ]// 주문 목록
+/* ------------ 공통 DB End ------------ */
+
+/* ------------ js 열렸을때 실행되는 함수들 ------------ */
+category_print();		// 카테고리 출력하는 함수 호출
+category_select( 0 );	// 카테고리 선택시 CSS 변경 / 카테고리별 제품출력 함수호출 /기본값 : 프리미엄
+product_print( 0 );		// 제품출력 함수 / 기본값 : 프리미엄
 
 // 1. 카테고리 출력하는 함수 // [1. js 열렸을때]
 function category_print(){
@@ -78,35 +103,29 @@ function product_print( index ){
 function cartadd(i){
 	// 1. 선택한 i번째 버거의 객체를 cartlist에 추가
 	cartlist.push(burgerList[i])
-
-		
 		cart_print(); // 카트 내 제품 화면 렌더링[새로고침]
 	
 }// f e
 
 // 5. 주문취소 버튼
-function cancel(){
-	alert('주문 취소합니다.')
-	cartlist.splice(0);// 개수 생략시 모두 삭제
+function cancel(){	// 모든 취소 이므로 i번쨰 인덱스 필요없음
+	alert('주문 취소합니다.'); cartlist.splice(0);// 개수 생략시 모두 삭제
 	cart_print(); // 카트 내 제품 화면 렌더링[새로고침]
 }
 // 6. 주문하기 버튼
 function order(){
 	alert('주문 합니다.')
 	
-	//1.  주문번호 만들기// 마지막 인덱스 : 배열명.length-1
+	//1. 고유한 주문번호 만들기// 마지막 인덱스 : 배열명.length-1
 	let no = 0;	
 	if(orderList.length == 0){no = 1;}//1. 만약에 길이가 0이면 [주문 하나도 없으면 주문번호 1 ]
 	else{no = orderList[orderList.length-1 ].no+1}// 2. 아니면 마지막인덱스 주문객체의 주문번호+1 을 다운 주문번호 사용
 	
 	// 2. 카트배열 -> 새로운배열 [주문객체에 카트배열 대입시 카트배열 초기화시 주문객체 내 카트배열도 초기화 = 메모리 동일하기 때문에 ]
-	let for배열 = cartlist.forEach((o)=>{console.log(o); return o;})
-	console.log(for배열)
 	
-	console.log('----------------------')
-	let map배열 = cartlist.map((o) => {console.log(o); return o;})
-	console.log(map배열)
-	
+	let map배열 = cartlist.map((o) => {console.log(o); return o;})	// map 함수에서 return된 객체를 새로운 배열에 대입
+		// 간단하게 모두가 같이 사용하는 공공물건(?)인 마트카트에서 내 장바구니로 옮겼다고 생각하자
+		// 물건은 그대로 변함없이 있고 담겨있는 장소(배열)만 바뀐거니까.
 	// 3. 총가격 만들기
 	let total = 0;
 	for( let i = 0 ; i<map배열.length ; i++){total += map배열[i].price}
@@ -114,7 +133,7 @@ function order(){
 	// 1. 주문
 	 // 1. order 객체 만들기
 	 let order = {
-		 no : no ,
+		 no : no ,							// 주문번호 [인덱스사용X 중간에 있는 인덱스가 삭제되면 뒷번호 인덱스가 앞으로 당겨지므로!]
 		 items : map배열 ,					// 카트배열 ---> 새로운 배열
 		 time : new Date() ,				// new Date() : 현재 날짜/시간 호출
 		 state:  true ,						// true : 일단 주문	// false :주문 완료
@@ -129,7 +148,7 @@ function order(){
 	
 		// ~~~~~~ 카트리스트 ---> 주문목록
 	// 2. 주문 완료 후
-	cartlist.splice(0);
+	cartlist.splice(0);	// 전역변수 내 초기화 // 그 전에 안에 들어있는 데이터를 다른 곳으로 옮기자 -> 주석 2번코드
 	cart_print();
 }
 
