@@ -213,7 +213,7 @@ function print_BMenu(){
 					<th> 카테고리 </th><th> 가격 </th><th> 비고 </th>
 				</tr>`
 	
-	for (i=0; i<burgerList.length; i++){
+	for (let i=0; i<burgerList.length; i++){
 			html += `<tr>
 						<td>${i+1}</td>
 						<td><img src="img/${burgerList[i].img}" width="100%"></td>
@@ -252,31 +252,31 @@ updatebtn.addEventListener('click' , ()=>{
 print_BMenu();
 })// 가격수정완료버튼 f e
 
-
-function b_Order_print(){
+function b_Order_print(){// 주문현황
 	
+	let state = ''
 	let html = `<tr>
 					<th> 주문번호 </th><th> 버거이름 </th>
 					<th> 상태 </th><th> 비고 </th>
 				</tr>`
 				
-	for(i = 0 ; i<burgerList.length ; i++){
+	for(let i = 0 ; i<orderList.length ; i++){
 		
-		html += `<tr>
-					<td>${i+1}</td>
-					<td><${burgerList[i].name} width="100%"></td>
-					<td>${burgerList[i].name}</td>
-					<td>${burgerList[i].category}</td>
-					<td><button class="orderEnd" onclick="orderEnd( ${ i } )">주문완료</button></td>
-				</tr>`
-	}
-	
+		if(orderList[i].state){state='주문요청'}
+		else{state='주문완료'}
+		
+		for(let j=0 ; j<orderList[i].items.length ; j++){
+			html += `<tr>
+						<td>${orderList[i].no}</td>
+						<td><${orderList[i].items[j].name}></td>
+						<td>${state}</td>
+						<td><button onclick="orderEnd(${i})">주문완료</button></td>
+					</tr>`
+			}
+
+		}
+	document.querySelector('.orderprint').innerHTML = html;
 }
-
-
-
-
-
 
 
 
