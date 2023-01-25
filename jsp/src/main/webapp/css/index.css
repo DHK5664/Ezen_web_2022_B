@@ -14,6 +14,7 @@
 }
 /* 로고 구역에서 텍스트 가운데 정렬 */
 .logobox{text-align: center; }
+#logoimg{width: 30% !important;}
 
 /* 로고 제목 꾸미기 : 폰트 , 색상 , 사이즈 */
 .title{font-family: 'RixInooAriDuriR';color: black;font-size: 40px;}
@@ -22,10 +23,12 @@
 .h_bottom{top : 40px !important; /* 부트스트랩보다 우선순위 */}
 
 /* a 마크업 색상 변경 */
-.nav-link{ color: black !important; }
+.nav-link{ color: black !important; 
+			font-weight: bold !important;
+}
 
 /* 상단 메뉴 : 오른쪽 배치 */
-.h_topmenu{ width: 100%; display: flex; justify-content: flex-end; font-size: 9px;}
+.h_topmenu{ width: 100%; display: flex; justify-content: flex-end; font-size: 10px;}
 
 /* 하단 메뉴 : 가로 수평정렬 /justify-content: space-between 사용시 width 필수! */
-.h_bottommenu{ width: 100%; display: flex; justify-content: space-between; font-size: 12px;}
+.h_bottommenu{ width: 100%; display: flex; justify-content: space-between; font-size: 20px;}
