@@ -116,6 +116,10 @@ td{ text-align:center;
 		width: 10%;
 		border: 1px solid black;
 		}	
+th{ text-align:center;
+		width: 10%;
+		border: 1px solid black;
+		}	
 
 .updatetable{display: none;}
 	

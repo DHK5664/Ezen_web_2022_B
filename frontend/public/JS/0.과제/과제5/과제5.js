@@ -150,6 +150,8 @@ function order(){
 	// 2. 주문 완료 후
 	cartlist.splice(0);	// 전역변수 내 초기화 // 그 전에 안에 들어있는 데이터를 다른 곳으로 옮기자 -> 주석 2번코드
 	cart_print();
+	b_Order_print();
+	sales_print();
 }
 
 // 7. 카트내 버거 출력 [ 1. 제품 클릭할 때 마다 , 2. 취소/주문 ]
@@ -202,6 +204,7 @@ Addbtn.addEventListener('click' , ()=>{
 	
 	if(check){burgerList.push(bIf);alert('새로운 버거를 등록했습니다'); print_BMenu(); }
 	console.log(burgerList)
+	category_select( 0 )
 })
 
 
@@ -231,7 +234,7 @@ function print_BMenu(){
 // 삭제버튼 함수
 function onDelete(i){ 				// i번째 인덱스의 삭제버튼 클릭
 		burgerList.splice(i,1);		// i번째 인덱스부터 1개 삭제
-		print_BMenu();				// 새로고침
+		print_BMenu();	category_select(0);		// 새로고침
 }// f e
 
 // 가격수정버튼 함수
@@ -249,9 +252,10 @@ updatebtn.addEventListener('click' , ()=>{
 
 	document.querySelector('.updatetable').style.display = 'none'
 
-print_BMenu();
+print_BMenu(); category_select(0);
 })// 가격수정완료버튼 f e
 
+b_Order_print();
 function b_Order_print(){// 주문현황
 	
 	let state = ''
@@ -267,10 +271,14 @@ function b_Order_print(){// 주문현황
 		
 		for(let j=0 ; j<orderList[i].items.length ; j++){
 			html += `<tr>
-						<td>${orderList[i].no}</td>
-						<td><${orderList[i].items[j].name}></td>
-						<td>${state}</td>
-						<td><button onclick="orderEnd(${i})">주문완료</button></td>
+						<th>${orderList[i].no}</th>
+						<th><${orderList[i].items[j].name}></th>
+						<th>${orderList[i].state ? "주문요청" : "주문완료"}</th>
+						<th>
+							${	orderList[i].state ? 
+								'<button onclick="orderEnd( '+i+' )">주문완료</button>' : ''
+							}
+						</th>
 					</tr>`
 			}
 
@@ -279,15 +287,71 @@ function b_Order_print(){// 주문현황
 }
 
 
+// 6. 주문상태 변경 [state 상태]
+function orderEnd(i){console.log(i);
+	orderList[i].state = false; // 주문완료
+	b_Order_print(); // 주문현황 렌더링
+	console.log(orderList)
+}
+
+sales_print()
+// 7.매출 현황 테이블 출력 
+function sales_print(){	// 1. js 열렷을때 // 2. 주문 들어왔을때
+	let html=`<tr>
+				<th width="10%">제품번호</th>
+				<th width="30%">버거이름</th>
+				<th width="10%">판매수량</th>
+				<th width="10%">매출액</th>
+				<th width="10%">순위</th>
+			</tr>`
+	burgerList.forEach((burger , i )=>{ // * 현재 등록된 모든 버거 반복 중
+		html +=
+			`<tr>
+				<th width="10%">${i+1}</th>
+				<th width="30%">${burger.name}</th>
+				<th width="10%">${sales_count(i)}</th>
+				<th width="10%">${(sales_count(i)*burger.price).toLocaleString()}</th>
+				<th width="10%">${sales_rank(i)}</th>
+			</tr>`
+	})		
+			
+	document.querySelector('.salestable').innerHTML = html;
+} // f e
 
 
 
+// 8. index 번쨰 버거의 판매수량 찾기
+function sales_count(index){ console.log(index+'번버거 선택');
+	
+	let count = 0; // 1. i번째 제품의 누적 판매수량 저장하는 변수
+	
+	orderList.forEach( (order, i )=>{	// 주문목록 반복문
+		order.items.forEach(( burger,j )=>{ // 주문 마다 버거리스트 반복문 (주문목록 안에 버거리스트가 또 있으므로)
+			// 만약에 주문목록 내 버거리스트중에서 버거이름과 index 번째 버거이름과 같으면
+			if(burger.name == burgerList[index].name){count++;}
+		})
+	})
+	
+	
+	return count ; // * index번째 제품의 누적 판매수량 변수 반환
+}
 
+// 9. 순위
+function sales_rank(index){console.log(index+'번째 버거 순위');
+	let rank = 1; // 1. index 번째 버거의 순위 저장하는 변수 [기본값 1등]
+	// 2. index 번째 버거의 순위를 구하기
+	// 1. index 번째 버거의 매출액 // 매출액 : 수량 * 금액
+	let total = sales_count(index)*burgerList[index].price ;  
+		// 2. 모든 버거들의 마다의 매출액
+	burgerList.forEach(( burger , i ) => {
+		let total2 = sales_count(i)*burger.price;
+		// 3. 비교[ 만약에 index번쨰 버거의 매출액 보다 현재 반복되는 버거의 i번쨰 버거의 매출액보다 작으면 rank 증가(1등에서 2등으로 감)]
+		if(total < total2){rank++;}
+	})	
+	
+	return rank;	// * index 번째 버거의 순위 반환
 
-
-
-
-
+}
 
 
 
@@ -310,11 +374,32 @@ function b_Order_print(){// 주문현황
 
 
 
+/*
+
+`` 백틱에서 삼항연산자
+`${조건?
+	참 : 거짓
+}` 
+
+*/
 
 
 
 
 
 
+/* 함 = 상자 / 수 = 숫자
+		인수 : 매개변수 : 함수 안으로 들어가는 수
+		반환 : 결과값 : 함수 밖으로 나가는 수 [ 함수 종료시 함수 내 메모리 초기화]
+	function 함수(){					상자(1)
+		return 반환값
+		
+	}
 
+
+
+
+
+
+*/
 
