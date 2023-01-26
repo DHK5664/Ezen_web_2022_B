@@ -7,7 +7,6 @@
 	 <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<style type="text/css">
-		*{border: 1px solid red;}
 		.box1 div{border: 1px solid blue;}
 		div{height: 80px;}
 	</style>
@@ -29,6 +28,9 @@
 	 	그리드[반응형 제작]		: 박스[구역]마다 12조각
 	 		.col-md-조각수
 	 		.offset-md-여백조각수
+	 		.offset-여백조각수
+	 	.table			: 테이블 형식의 기본 css
+	 	.table-striped	: 
 	 -->
 	<div>
 		css 없는 상태 박스권
@@ -81,14 +83,69 @@
 				</div>
 			</div>
 		</div>	
+		
 		<div class="row">
 			<div class="col-md-5 col-6">col-md-5</div>
 			<div class="col-md-5 offset-md-2 col-6">col-md-5</div>
 		</div>
+		
+		<table class="table">	<!-- 테이블 -->
+			<thead>	<!-- 제목 -->
+				<tr> <th> 번호 </th> <th> 제목 </th> <th> 작성일 </th> <th> 조회수 </th> </tr>
+			</thead>
+			<tbody><!-- 내용 -->
+				<tr> <td> 1 </td> <td> 안녕~~ </td> <td> 2023-01-26 </td> <td> 3 </td>  </tr>
+				<tr> <td> 2 </td> <td> JAVA~~ </td> <td> 2023-01-25 </td> <td> 1 </td>  </tr>
+				<tr> <td> 3 </td> <td> JS~~ </td> <td> 2023-01-23 </td> <td> 7 </td>  </tr>
+			</tbody>
+		</table>
+		
+		<!-- 3구역의 테이블 -->
+		<div class="row"> <!-- 하위요소 가로배치 : flex -->
+			<div class="col-md-4">
+				<table class="table table-striped">
+					<thead> <tr> <th>번호</th> <th>제목</th> </tr> </thead>
+					<tbody>
+						<tr> <td> 1 </td> <td> 안녕~~ </td> </tr>
+						<tr> <td> 1 </td> <td> 안녕~~ </td> </tr>
+						<tr> <td> 1 </td> <td> 안녕~~ </td> </tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-md-4">
+				<table class="table table-hover">
+					<thead> <tr> <th>번호</th> <th>제목</th> </tr> </thead>
+					<tbody>
+						<tr> <td> 1 </td> <td> 안녕~~ </td> </tr>
+						<tr> <td> 1 </td> <td> 안녕~~ </td> </tr>
+						<tr> <td> 1 </td> <td> 안녕~~ </td> </tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-md-4">
+				<table class="table table-bordered ">
+					<thead> <tr> <th>번호</th> <th>제목</th> </tr> </thead>
+					<tbody>
+						<tr> <td> 1 </td> <td> 안녕~~ </td> </tr>
+						<tr> <td> 1 </td> <td> 안녕~~ </td> </tr>
+						<tr> <td> 1 </td> <td> 안녕~~ </td> </tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
-
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
