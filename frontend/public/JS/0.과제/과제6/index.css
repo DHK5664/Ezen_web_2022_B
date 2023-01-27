@@ -26,3 +26,18 @@
 	background-size: 70%;
 	transition : all 1s;	/* 애니메이션 1초간 부드럽게 이동 효과 */
 }
+
+#u_HP{
+	width:300px; height: 30px;	position: absolute;
+	left:20px;	top: 40px;
+	background-color: red;
+	border-radius: 50px;
+	border: 2px solid white;
+}
+#m_HP{
+	width:300px; height: 30px;	position: absolute;
+	left:680px;	top: 40px;
+	background-color: red;
+	border-radius: 50px;
+	border: 2px solid white;
+}
