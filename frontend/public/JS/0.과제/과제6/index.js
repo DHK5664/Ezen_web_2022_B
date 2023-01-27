@@ -59,12 +59,12 @@ function mAttack(){
 }
 
 function uDead(){
-	if(userHp==0){document.querySelector('.userbox').style.display='none';  wrap.innerHTML='게임종료'}
+	if(userHp==0){document.querySelector('.userbox').style.display='none';  wrap.innerHTML='GAMEOVER'}
 }
 
 function mDead(){
 	if(monsterHp==0){  mindex++; 몬스터교체(mindex); }
-	if(mindex==3){wrap.innerHTML='게임종료';}
+	if(mindex==3){wrap.innerHTML='CLEAR';}
 }
 
 // 2. 문서 안에서 키 입력 이벤트
@@ -85,7 +85,7 @@ document.addEventListener('keydown' , (e)=>{
 	}
 		userbox.style.left = `${u_left}px`		//*  키 입력후에 css : left 변경
 		// 현재 좌표를 로그에 출력
-		logbox.innerHTML = `<div> 좌표 : ${ u_left }</div>`
+		logbox.innerHTML = `<div> 유저 좌표 : ${ u_left }</div>`
 		
 } )
 
@@ -114,7 +114,7 @@ function mon_moving(){
 	// 3. 몬스터 이동
 	monbox.style.left=`${m_left}px`
 	//* 현재 좌표를 로그에 출력
-	logbox2.innerHTML = `<div> 좌표 : ${m_left}</div>`
+	logbox2.innerHTML = `<div> 몬스터 좌표 : ${m_left}</div>`
 }
 
 
