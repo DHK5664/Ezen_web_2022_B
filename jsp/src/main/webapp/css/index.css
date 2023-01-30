@@ -14,7 +14,7 @@
 }
 /* 로고 구역에서 텍스트 가운데 정렬 */
 .logobox{text-align: center; }
-#logoimg{width: 30% !important;}
+#logoimg{width: 100% !important;}
 
 /* 로고 제목 꾸미기 : 폰트 , 색상 , 사이즈 */
 .title{font-family: 'RixInooAriDuriR';color: black;font-size: 40px;}

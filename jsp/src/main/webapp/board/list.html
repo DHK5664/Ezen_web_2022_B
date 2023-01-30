@@ -9,13 +9,15 @@
 
 	<!-- 사용자 정의 : css -->
 	<link href="/jsp/css/index.css" rel="stylesheet">
-
+	<link href="../css/board/list.css" rel="stylesheet">
+	
 	<!-- 부트스트랩 : css -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 <body>
-	
+
+<!-- 헤더 -->	
 	<!-- 상단 메뉴 / sticky-top : 반응형 상단고정 / bg-white : 배경 흰색 -->
 	<div class="navbar navbar-expand-lg sticky-top bg-white h_top">			<!-- 네비게이션[ 메뉴 ] -->
 		<div class="container">												<!-- 구역 -->
@@ -65,10 +67,80 @@
 			</div>
 		</div>
 	</div>
-	
+<!-- 헤더 end -->
+<!-- 본문 -->
+	<div class="container">	<!-- 반응형 구역 생성 -->
+		<!--  제목 -->
+		<h3> 커뮤니티 </h3>
+		<!-- 반응형 테이블 -->
+		<table class="table text-center">
+			<thead>
+				<tr> 
+					<th width="5%">번호</th><th width="60%">제목</th>
+					<th width="10%">작성자</th><th width="10%">작성일</th>
+					<th width="5%">조회수</th><th width="5%">좋아요</th>
+					<th width="5%">싫어요</th> 
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>5</td> <td>안녕하세요A</td> <td>유재석</td> <td>2023-01-30</td> <td>325</td> <td>9</td> <td>1</td></tr>
+				<tr><td>4</td> 
+					<td>안녕하세요B1안녕하세요B2안녕하세요B3안녕하세요B4안녕하세요B5안녕하세요B6안녕하세요B7안녕하세요B8안녕하세요B9안녕하세요B10안녕하세요B11</td>
+					<td>강호동</td>
+					<td>2023-01-27</td>
+					<td>123</td> 
+					<td>2</td> 
+					<td>0</td>
+				</tr>
+				<tr><td>3</td> <td >안녕하세요C</td> <td>신동엽</td> <td>2023-01-25</td> <td>753</td> <td>3</td> <td>0</td></tr>
+				<tr><td>2</td> <td>안녕하세요D</td> <td>서장훈</td> <td>2023-01-24</td> <td>521</td> <td>10</td> <td>3</td></tr>
+				<tr><td>1</td> <td>안녕하세요E</td> <td>김희철</td> <td>2023-01-23</td> <td>951</td> <td>21</td> <td>4</td></tr>	
+			</tbody>
+		</table>
 		
-		게시판 페이지
-	
+		<div class="row">
+			
+			<div class="col-md-4 offset-md-5 col-12" >	<!-- 페이지네이션 구역 -->
+				<ul class="pagination">
+					<li class="page-item"> <a class="page-link" href="#"> < </a> </li>
+					<li class="page-item"> <a class="page-link" href="#"> 1 </a> </li>
+					<li class="page-item"> <a class="page-link" href="#"> 2 </a> </li>
+					<li class="page-item"> <a class="page-link" href="#"> 3 </a> </li>
+					<li class="page-item"> <a class="page-link" href="#"> 4 </a> </li>
+					<li class="page-item"> <a class="page-link" href="#"> 5 </a> </li>
+					<li class="page-item"> <a class="page-link" href="#"> > </a> </li>
+				</ul>
+			</div>
+			<div class="col-md-2 offset-md-1 col-12">	<!-- 글쓰기 버튼구역 -->
+				<a href="#"><button class="form-control" type="button">글쓰기</button> </a>
+			</div>
+		</div>	<!-- row end -->
+		
+		<div class="row">	<!-- 하단 구역2 -->
+			<div class="col-md-5 offset-md-4 row g-0">
+			
+				<div class="col-md-2">
+					<select class="form-select">
+						<option> 키워드 </option><option> 번호 </option>
+						<option> 제목 </option><option> 작성자 </option>
+					</select>
+				</div>
+				
+				<div class="col-md-5">
+					<input class="form-control" type="text" placeholder="검색어">
+				</div>
+				
+				<div class="col-md-3">
+					<button class="form-control" type="button"> 검색 </button>
+				</div>
+				
+			</div>	<!-- row end -->
+		</div>	<!-- row2 end -->
+		
+	</div>	<!-- container end -->
+<!-- 본문 end -->
+
+
 	<!-- 부트스트랩 : js -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
