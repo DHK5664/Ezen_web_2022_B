@@ -12,6 +12,7 @@
 	color: black;
 	margin: 0; padding: 0px;
 }
+a{color: black !important;  text-decoration: none !important;}
 /* 로고 구역에서 텍스트 가운데 정렬 */
 .logobox{text-align: center; }
 #logoimg{width: 100% !important;}

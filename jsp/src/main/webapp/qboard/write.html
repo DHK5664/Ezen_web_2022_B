@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">	<!-- 한글 인코딩 UTF-8 -->
-	<!-- 반응형 : 뷰포트 -->
-	<title>Ezen Web</title>	<!-- 페이지 제목 -->
-	
+<meta charset="UTF-8">
+<title>Insert title here</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- 사용자 정의 : css -->
 	<link href="/jsp/css/index.css" rel="stylesheet">
-
+	<link href="../css/board/list.css" rel="stylesheet">
+	<link href="write.css" rel="stylesheet">
 	<!-- 부트스트랩 : css -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
 </head>
 <body>
-	
+
+<!-- 헤더 -->	
 	<!-- 상단 메뉴 / sticky-top : 반응형 상단고정 / bg-white : 배경 흰색 -->
 	<div class="navbar navbar-expand-lg sticky-top bg-white h_top">			<!-- 네비게이션[ 메뉴 ] -->
 		<div class="container">												<!-- 구역 -->
@@ -65,13 +64,61 @@
 			</div>
 		</div>
 	</div>
-	
-	로그인 페이지
-	
-	<!-- 부트스트랩 : js -->
+<!-- 헤더 end -->
+	<div class="container">	<!-- 반응형 구역 -->
+		<h3 class="box_title"> 문의글 작성 </h3>
+		<form class="wrForm" action="#"> <!-- 입력양식 -->
+			<div class="row my-3">
+				<div class="col-md-3">
+					<input class="form-control awriter" type="text" placeholder="작성자">	
+				</div>
+				<div class="col-md-3">
+					<input class="form-control apassword" type="password" placeholder="비밀번호">
+				</div>
+			</div>
+			
+			<!--  col-md-12인 경우는 생략한 경우 form-control 이 width:100% -->
+			<input class="form-control my-3 atitle" type="text" placeholder="제목">
+			<!-- 1. 기본 textarea -->
+			<textarea class="form-control my-3 acontent" rows="10" cols="" placeholder="내용"></textarea>
+			
+			<div class="row my-3">
+				<div class="col-md-3">
+					<input class="form-control" type="file">
+				</div>
+			</div>
+				<div class="row col-md-4 offset-md-4 g-0">	<!-- 버튼 구역 -->
+					<div class="col-md-4">
+						<button class="form-control" 
+						onclick="bWrite()" 
+						type="button">등록</button>
+					</div>
+					<div class="col-md-4">
+						<button class="form-control cancel" type="button">취소</button>
+					</div>
+					<div class="col-md-4">
+						<a href="list.html"><button class="form-control" type="button">목록보기</button></a>
+					</div>
+				</div>
+		</form>	<!--  -->
+	</div>	<!--  컨테이너 end  -->
+
+
+	<!-- 부트스트랩 -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	
+	<!-- 사용자지정 js -->
+	<script src="write.js" type="text/javascript"></script>
+
 </body>
 </html>
+
+<!-- 부트스트랩 여백
+	m	: margin
+		m-3 : 위아래 오른쪽 왼쪽 my-3 : 위아래 mx-3 : 왼쪽오른쪽 mt-3 : 위
+		mb-3 : 아래 ms-3 : 왼쪽 me-3 : 오른쪽
+	p	: padding
+ -->
 
 
 

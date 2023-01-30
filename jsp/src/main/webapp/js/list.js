@@ -29,7 +29,7 @@ let boardlist = [
 	
 	boardlist.forEach((board)=>{
 		html+= `<tr> 
-					<td>${board.no}</td><td>${board.title}</td>
+					<td>${board.no}</td><td> <a href="view.html"> ${board.title} </a> </td>
 					<td>${board.writer}</td><td >${board.date}</td>
 					<td>${board.view}</td><td>${board.up}</td>
 					<td>${board.down}</td> 
