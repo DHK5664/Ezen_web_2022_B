@@ -42,7 +42,7 @@
 	font-family: 'RixInooAriDuriR';
 	border-bottom: 2px solid #999999;
 	width: 30%;				/* 박스 가로 길이 */
-	margin: 0 auto;			/* 박스권 가운데 정렬 */
+	margin: 3% auto;		/* 박스권 가운데 정렬 */
 	padding-top: 10%;		/* 안쪽여백 */
 	padding-bottom: 1%;		/* 밑 여백 */
 }
