@@ -36,7 +36,7 @@ document.querySelector('.top_date').innerHTML = `${year}년 ${month}월`;
 		
 		// 4. 1일 ~ 마지막 일 날짜 확인
 		let date = new Date( year , month-1 , day );//console.log(date);
-		let fdate = date_format(date); //console.log(fdate)
+		let fdate = date_format(date); //console.log(fdate);
 		
 		html +=`<div class="day" onclick="openModal( ${fdate} )">
 					 ${ day } ${contents_print( fdate )}
@@ -47,9 +47,17 @@ document.querySelector('.top_date').innerHTML = `${year}년 ${month}월`;
 	document.querySelector('.cal_day').innerHTML=html;
 
 }// f e
-
+// 7. 모달 닫기 함수
+document.querySelector('.modal_close').addEventListener('click',(e)=>{
+	// 1. 모달 배경구역 css 변경해서 모달 숨기기
+	document.querySelector('.modal_wrap').style.display='none';
+})
 // 6. 모달 열기 함수
-function openModal(fdate){alert(fdate+'의 모달 열기'); }
+function openModal(fdate){
+	// 1. 모달 배경 구역 css 변경해서 모달 보이기
+	document.querySelector('.modal_wrap').style.display='flex';
+
+ }
 // 5. 일정 출력 함수
 function contents_print( fdate ){ console.log(fdate)
 		let html = ``
