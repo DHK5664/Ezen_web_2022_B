@@ -15,7 +15,7 @@
 /* 이전달 다음달 버튼 */
 .previousbtn , .nextbtn{
 	background-color: white; border: 1px solid #eeeeee;
-	padding: 5px 20px; color: #ffc0cb; /* 연한 분홍색 */
+	padding: 5px 20px; color: #ffc0cb; /* 연한 분홍색 */ 
 	font-size: 20px;
 }
 /* 상단 연도/월 */
