@@ -35,6 +35,7 @@
 	border: 1px solid #eeeeee;
 	width: 14%;	/* 100/7=14.2~ */
 	height: 100px;
+	overflow: hidden; /* 내용이 현재 구역보다 사이즈가 커졌을 때 숨기기 */
 }
 /* 일정 박스 */
 .content{
@@ -67,7 +68,7 @@
 	/* 자식요소를 중앙 배치 */
 	display: flex; justify-content: center; align-items: center; 
 	/* 버튼에 따른 표시 여부 flex : 모달 열기 / none : 모달 숨기기 */
-	display: none;	/* 기본값 : 모달 숨기기 */
+	display: none;	/* 기본값 : 모달 숨기기*/
 }
 /* 모달 상자 */
 .modal_box{
