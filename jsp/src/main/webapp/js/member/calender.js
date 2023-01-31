@@ -48,6 +48,15 @@ document.querySelector('.top_date').innerHTML = `${year}년 ${month}월`;
 
 }// f e
 
+// 9. 일정 삭제
+function onDelete(i){
+	// 1. 배열 내 해당 인덱스 삭제
+	contents.splice(i,1);
+	// 2. 화면 업데이트
+	document.querySelector('.modal_wrap').style.display='none';
+	cal_print();
+}
+
 // 8. 등록 버튼 눌렀을 때 함수
 document.querySelector('.modal_write').addEventListener('click' , (e)=>{	
 	let content = {// 1. 입력받은 내용과 선택된 날짜 가져와서 객체화
@@ -63,6 +72,7 @@ document.querySelector('.modal_write').addEventListener('click' , (e)=>{
 		cal_print();// 3. 캘린더 재출력[재 랜더링]
 })
 
+
 // 7. 모달 닫기 함수
 document.querySelector('.modal_close').addEventListener('click',(e)=>{
 	// 1. 모달 배경구역 css 변경해서 모달 숨기기
@@ -74,6 +84,21 @@ function openModal(fdate){ // f s
 	document.querySelector('.modal_wrap').style.display = 'flex';
 	// 2. 모달에 선택된 날짜 표시하기
 	document.querySelector('.modal_date').innerHTML = fdate;
+	// 3. 해당 하는 날짜의 모든 일정 출력
+	let html =`<tr><th width="5%"> # </th><th> 일정 내용</th><th width="15%"> 비고 </th></tr>`	
+		// 2. 일정목록 반복문 돌려서 선택된 날짜와 동일한 일정 찾기
+	contents.forEach(( o , i )=>{
+		if( fdate == o.date){// 만약에 모달 클릭시 선택된 날짜와 일정목록에 있는 날짜가 같으면
+			html += `<tr>
+					<td> ${i+1} </td>
+					<td> ${o.content} </td>
+					<td><button onclick="onDelete(${i})" type="button">삭제</button> </td>
+				</tr>`
+			}
+		} )
+	
+	document.querySelector('.table').innerHTML=html;
+	
  } // f e
 // 5. 일정 출력 함수
 function contents_print( fdate ){ console.log(fdate)
