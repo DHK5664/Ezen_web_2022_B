@@ -28,8 +28,23 @@ public class Ex6_비회원게시판_배열버전 {// c s
 			// 4. 바이트 배열 ---> 문자열
 				// new String("유재석");
 				// new String("바이트배열"); new String (바이트배열 , 시작인덱스 , 마지막인덱스);
-			String boardlist = new String(inbytes , 0 , 6 ); // 3. 바이트배열 --> 문자열 변환
-			System.out.println(boardlist);
+			String fStr = new String(inbytes , 0 , bytecount ); // 3. 바이트배열 --> 문자열 변환
+			/*
+				fStr = 안녕하슈,자바글쓰기,김동혁,1234,
+			*/
+			//* 행 기준 자르기
+			String[] boards = fStr.split("\n");	// 행 기준을 분리 [ 만약에 게시물 2개일때는 3조각인데 마지막 인덱스 사용안함 ]
+				
+			System.out.println("----------------게시물 목록 ------------");
+			System.out.printf("%2s %10s%5s\n" , "번호" , "제목" , "작성자" );
+			//* [행마다] 열 기준 자르기 
+			for(int i = 0 ; i<boards.length ; i++) {
+				// * [게시물 마다 열 자르기]
+				String[] cols  = boards[i].split(","); // 4조각
+				String title = cols[0];		String content= cols[1];
+				String writer = cols[2];	String password = cols[3];
+				System.out.printf(" %2d %10s%5s\n" , i , title , writer );
+ 			}
 			
 			System.out.println("메뉴> 게시물 상세보기[번호] 쓰기[-1]   나가기[-2] ");
 			int ch = scanner.nextInt();
