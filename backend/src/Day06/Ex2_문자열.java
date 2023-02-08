@@ -69,8 +69,31 @@ public class Ex2_문자열 {// c s
 		System.out.println(oldStr);
 		System.out.println(newStr);
 		
+		// 4. 161p subString( 인덱스 ) vs split( 기준문자 )
+		String ssn2 = "880815-1234567";
+		System.out.println(ssn2.substring(7) );			// 7 인덱스 전 싹 자르기
+		System.out.println(ssn2.substring(0,6));		// 0~6인덱스 전까지 남기고 뒤 자름
+		
+		System.out.println(ssn2.split("-") );			// "-"기준으로 자르면 2조각/ 인덱스 배열 반환
+		System.out.println(ssn2.split("-")[0] );		// 1번 조각 확인
+		System.out.println(ssn2.split("-")[1] );		// 2번 조각 확인
+		
+		String board = "1,자바 학습,참조 타입 String을 학습합니다. ,홍길동";
+		String[] tokens = board.split(",");	// , 기준으로 분리했을때 4조각/인덱스 --> 배열 반환
+		
+		System.out.println("번호 : " + tokens[0]);
+		System.out.println("제목 : " + tokens[1]);
+		System.out.println("내용 : " + tokens[2]);
+		System.out.println("성명 : " + tokens[3]);
 		
 		
+		// 5. 163p indexOf(찾을문자) vs contains(찾을문자)
+		String subject = "자바 프로그래밍";		// 띄어쓰기도 문자
+		System.out.println(subject.indexOf("자바") );		// 찾으면 0~	인덱스
+		System.out.println(subject.indexOf("파이썬"));	// 없으면 -1
+		
+		System.out.println(subject.contains("자바"));		// 있으면 true
+		System.out.println(subject.contains("파이썬"));	// 없으면 false
 		
 		
 		
@@ -105,6 +128,7 @@ public class Ex2_문자열 {// c s
 		5. .split("자를기준");					: 기준문자 기준으로 자르기
 		6. .indexOf("찾을문자");				: 찾을 문자의 찾은 인덱스 번호 반환
 		7. .contains("찾을문자");				: 찾을 문자가 존재하면 true / false
+		8. .getBytes()						: 해당 문자열 byte화
 */
 
 
