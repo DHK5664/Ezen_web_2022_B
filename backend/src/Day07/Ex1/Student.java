@@ -1,4 +1,4 @@
-package Ex1;
+package Day07.Ex1;
 
 public class Student {// 클래스[클래스는 첫글자 대문자] // 클래스 시작
 

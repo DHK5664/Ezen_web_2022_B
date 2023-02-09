@@ -1,7 +1,7 @@
 // 클래스는 두가지의 사용목적 : 1. 설계도
 
 
-package Ex2;
+package Day07.Ex2;
 
 public class Car {// 클래스 s
 

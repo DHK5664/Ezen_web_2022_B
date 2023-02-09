@@ -1,6 +1,6 @@
 // 클래스는 두가지의 사용목적 : 2. 실행(main함수)
 
-package Ex2;
+package Day07.Ex2;
 
 public class 실행 {
 

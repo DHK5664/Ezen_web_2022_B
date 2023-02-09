@@ -1,4 +1,4 @@
-package Ex1;// 현재 클래스가 위치한 패키지명
+package Day07.Ex1;// 현재 클래스가 위치한 패키지명
 
 public class 실행 {
 	public static void main(String[] args) {
