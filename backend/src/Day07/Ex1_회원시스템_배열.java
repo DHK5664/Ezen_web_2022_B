@@ -38,7 +38,7 @@ public class Ex1_회원시스템_배열 {// c e
 				}// for end
 				
 			}	// 1 if end
-			else if(ch==2) {
+			else if(ch==2) {// 2. 2입력했을때
 				
 				System.out.println("삭제할 번호/인덱스 : ");
 				int no = scanner.nextInt();
@@ -53,7 +53,7 @@ public class Ex1_회원시스템_배열 {// c e
 						if( memberList[i+1] == null ) break;	// 다음 인덱스가 null이면 종료
 				}
 				
-			} // 2. 2입력했을때
+			} 
 			else {}
 			
 		} // while end

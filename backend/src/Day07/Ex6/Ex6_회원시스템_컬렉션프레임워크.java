@@ -18,7 +18,7 @@ public class Ex6_회원시스템_컬렉션프레임워크 { // class s
 			for (int i = 0 ; i<memberList.size() ; i++) {
 				System.out.println(i + "\t" +
 									memberList.get(i).name + "\t"+
-									memberList.get(i).phone);
+									memberList.get(i).phone );
 			}
 			
 			System.out.println("1.회원등록 2.회원삭제 : ");
