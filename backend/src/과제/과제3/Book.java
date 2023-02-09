@@ -8,5 +8,5 @@ public class Book {
 	Member member;	// 대여한 회원객체 대여가 없으면 null
 	// 2. 생성자
 	
-	// 3. 메소드
+	// 3. 메소드 
 }
