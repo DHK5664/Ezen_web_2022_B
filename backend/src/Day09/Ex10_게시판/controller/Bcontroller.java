@@ -3,7 +3,9 @@ package Day09.Ex10_게시판.controller;
 import java.util.ArrayList;
 import java.util.Date;
 
-import 과제.과제4.model.Board;
+import Day09.Ex10_게시판.model.Board;
+
+
 
 public class Bcontroller {
 
@@ -23,12 +25,22 @@ public class Bcontroller {
 		// 1. 유효성 검사 [생략]
 		
 		// 2. 저장[ DB대신 리스트 ]
-			// 1. 객체화[ ]
+			// 1. 객체화	(서로 다른 데이터를 저장할 수 있는공간이 객체뿐이라 객체화)
 		Board board = new Board(title , content , writer , password , date , view);
 			// 2. 객체를 리스트에 담기
 		boardDb.add(board);
 			// 3. 결과 반환
 		return true;
 	}
+	// 3. 모든 게시물[여러개 -> list] 출력 처리 함수
+	public ArrayList<Board> print() {
+		return boardDb;
+	}
 	
+	// 4. 특정 게시물[1개 -> object] 출력 처리 함수
+	public Board view( int bno) {
+		// * 조회수 올리기	// 객체명.set필드명(객체명.get필드명()+1);
+		boardDb.get(bno).setView(boardDb.get(bno).getView()+1);
+		return boardDb.get(bno);
+	}
 }
