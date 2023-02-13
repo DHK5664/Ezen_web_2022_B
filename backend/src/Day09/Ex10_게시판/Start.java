@@ -15,7 +15,7 @@ import Day09.Ex10_게시판.view.Front;
 	- 2. front 클래스에서 사용자로 부터 입·출력 받기
 	- 3. Bcontroller 클래스에서 front로 부터 전달받은 데이터를 처리/로직
 	- 4. Board 클래스에서 게시물의 모델링	
-		
+		 
 */
 
 
