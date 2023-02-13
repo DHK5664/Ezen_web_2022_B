@@ -1,4 +1,4 @@
-package Day09.Ex9;
+package Day09.Ex9_싱글톤;
 /*
 
 	싱글톤 : 프로그램내 하나의 객체를 가지는 패턴
