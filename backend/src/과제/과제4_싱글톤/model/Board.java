@@ -4,7 +4,25 @@ package 과제.과제4_싱글톤.model;
 	model 관계
 		1. 한명의 회원이 글 작성한다.			[object] 
 		2. 회원은 여러개의 글을 작성할 수 있다.	[ArrayList]
-		* 양방향 설정 [ * toString메소드 사용 불가 ]
+		* 양방향 설정 [ * toString메소드 사용 불가 ] : Stackoverflow 글은 사람을 사람은 글을 무한루프되므로 생겨벌임
+			- 객체 호출시 -> 주소값
+			- 스택영역		vs		힙영역
+			
+			Board board = new Board();
+							32번지
+			Member member =new Member();
+							33번지
+							
+			글쓰기 할때 양방향 설정
+				board.setMember;(member);	32번지에 33번지를 대입
+				member.setBoard(board);		33번지에 32번지를 대입
+				
+				board 호출시 32번지가 가지고 있던 member 33번지 호출시 33번지가 가지고 있던 32번지 -->...
+				(순환참조)
+				주소 말고 board.get 이런식으로 주소 말고 안에 내용물을 꺼내자
+			
+			System.out.println( board );
+			// 스택[변수] 가지고 있는 주소 출력
 */
 
 public class Board {
