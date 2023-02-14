@@ -113,15 +113,35 @@ public class Front {// c s
 			
 			System.out.println(" 1.삭제 2.수정 3.뒤로가기 ");
 			int ch3 = scanner.nextInt();
-			if(ch3 == 1) {}
-			else if (ch3 == 2) {}
+			if(ch3 == 1) {delete_page( bno );}// 현재 보고있는걸 삭제하거나 수정하기 위해 보고있는 게시물 번호인 bno를 넘김
+			else if (ch3 == 2) {update_page( bno );}
 			else if (ch3 == 3) {return;}
 		}
-		// 9. 게시물 수정 페이지
-		public void update_page() {}
-			
-		
-		
+		// 9. 게시물 삭제 페이지
+		public void delete_page(int bno) {
+			// 1. 유효성 검사 [ "해당 글의 작성자" 와 "현재 로그인된 회원" 이 같으면]
+			if(Bcontroller.getInstance().getBoard(bno).getMember().equals(
+					Mcontroller.getInstance().getLogSession() ) ) {
+				Bcontroller.getInstance().delete(bno);
+				System.out.println(" [알림] 삭제가 되었습니다. ");
+				return;
+			}
+			// 2.
+			System.out.println("[알림] 삭제 권한이 없습니다. ");
+		}
+		// 10. 게시물 수정 페이지
+		public void update_page(int bno) {
+			// 1. 유효성 검사
+			if(Bcontroller.getInstance().getBoard(bno).getMember().equals(Mcontroller.getInstance().getLogSession()))
+			{
+				System.out.println(" 새로운 제목 : ");	String title = scanner.next();
+				System.out.println(" 새로운 내용 : ");	String content = scanner.next();
+				Bcontroller.getInstance().update(bno, title, content);
+				System.out.println("[알림] 수정이 되었습니다. ");
+				return;
+			}
+			System.out.println("[알림] 수정 권한이 없습니다.");
+		}		
 }// c e
 
 /*
