@@ -17,9 +17,9 @@ public class Member {
 	private String pw;
 	private String name;
 	private String phone;
-	private ArrayList<Product> productList = new ArrayList<>();
-	private ArrayList<Memo> memoList = new ArrayList<>();
-	private ArrayList<Memo> memo2List = new ArrayList<>();
+	private ArrayList<Product> productList; 
+	private ArrayList<Memo> memoList ;
+	private ArrayList<Memo> memo2List;
 	
 	// 생성자
 	public Member() {}

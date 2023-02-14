@@ -22,12 +22,11 @@ public class Member {
 	
 	public Member() {}
 	
-	public Member(String id, String pw, String name, String phone, ArrayList<Board> boardlist) {
+	public Member(String id, String pw, String name, String phone) {
 		this.id = id;
 		this.pw = pw;
 		this.name = name;
 		this.phone = phone;
-		this.boardlist = boardlist;
 	}
 	// 3. 메소드
 

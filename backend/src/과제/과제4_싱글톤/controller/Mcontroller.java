@@ -39,7 +39,7 @@ public class Mcontroller {
 		if(!pw.equals(confirmpw)) {return 1;}
 		// 2. DB에 저장
 			// 1. 객체화 [ 입력받은 데이터 4개와 , 회원마다 글을 저장할 리스트 메모리 초기화 ] 
-		Member m = new Member( id , pw , name , phone , new ArrayList<>() );
+		Member m = new Member( id , pw , name , phone  );
 				//  new ArrayList<>()를 인수로 받아 실행때마다 리스트 생성
 				// id , pw , name , phone : 스택영역에 저장된 힙주소 전달
 				// new ArrayList<>() : 힙영역에 생성된 힙주소 전달
