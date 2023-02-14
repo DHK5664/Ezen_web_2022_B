@@ -2,7 +2,9 @@ package 과제.과제4_싱글톤.view;
 
 import java.util.Scanner;
 
+import 과제.과제4_싱글톤.controller.Bcontroller;
 import 과제.과제4_싱글톤.controller.Mcontroller;
+import 과제.과제4_싱글톤.model.Board;
 
 public class Front {// c s
 		
@@ -50,7 +52,7 @@ public class Front {// c s
 			int result = Mcontroller.getInstance().login(id, pw);
 			if(result == -1 ) {System.out.println("[알림] 로그인 실패 , 패스워드 틀림 .");}
 			else if (result == -2) {System.out.println("[알림] 로그인 실패 , 존재하는 아이디 없습니다.");}
-			else {System.out.println("[알림] 로그인 성공 , 안녕하세요 "); board_page();}
+			else {System.out.println("[알림] 로그인 성공 , 안녕하세요 "); board_page(); }
 			// * 로그인 성공시 게시물 들 볼 수 있도록 board_page() 이동
 		}// end
 		// 4. 아이디찾기 페이지
@@ -72,11 +74,49 @@ public class Front {// c s
 			else {System.out.println("[알림] 회원님의 비밀번호 : " + result + " 입니다. ");}
 		}// end
 		// 6. 로그인성공시 게시물 출력 페이지
-		public void board_page() {}
+		public void board_page() {		
+			while(true) { // 무한루프 [종료조건 : 3 입력시 break; ]
+				System.out.println("---------------커뮤니티--------------");
+				System.out.println("번호\t조회수\t작성자\t제목");				
+				// 출력부 [ 전체출력 ]
+				int i = 0; // 인덱스 용도
+				for(Board b : Bcontroller.getInstance().getList() ) {
+					System.out.println( i +"\t"+b.getView()+"\t"+b.getMember().getId()+"\t"+b.getTitle());
+					i++;
+				}
+				// 메뉴
+				System.out.println("1.쓰기 2.글보기 3.로그아웃 ");
+				int ch2 = scanner.nextInt();
+				if(ch2==1) { write_page();}
+				else if(ch2 == 2) {view_page();}
+				else if(ch2 == 3) {Mcontroller.getInstance().logOut(); return;}
+			}// while end
+		}
 		// 7. 게시물 쓰기 페이지
-		public void write_page() {}
+		public void write_page() {
+			System.out.println("----------------글쓰기 페이지-------------");
+			System.out.println(" 제목 : ");	String title = scanner.next();
+			System.out.println(" 내용 : ");	String content = scanner.next();
+			boolean result = Bcontroller.getInstance().write(title, content);
+			if(result) {System.out.println("[알림] 글 작성 성공 ");}
+			else {System.out.println("[알림] 글 작성 실패");}
+			}
 		// 8. 게시물 상세 페이지
-		public void view_page() {}
+		public void view_page() {
+			System.out.println("* 이동할 게시물 번호[인덱스] : ");
+			int bno = scanner.nextInt();
+			Board result = Bcontroller.getInstance().getBoard(bno);
+			System.out.println("---------------------글 상세 페이지--------------------");
+			System.out.println(" 제목 : " + result.getTitle());
+			System.out.println(" 작성자 : " + result.getMember().getId() + "\t 조회수 : " + result.getView());
+			System.out.println(" 내용 : " + result.getContent());
+			
+			System.out.println(" 1.삭제 2.수정 3.뒤로가기 ");
+			int ch3 = scanner.nextInt();
+			if(ch3 == 1) {}
+			else if (ch3 == 2) {}
+			else if (ch3 == 3) {return;}
+		}
 		// 9. 게시물 수정 페이지
 		public void update_page() {}
 			
@@ -94,3 +134,18 @@ public class Front {// c s
 		C : 입력받은 데이터 유효성 검사 후 저장
 		M : 컨트롤이 데이터를 저장할때 사용되는 모델링
 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
