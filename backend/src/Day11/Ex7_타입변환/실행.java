@@ -11,6 +11,7 @@ public class 실행 {
 					long value4 = value3;
 						float value5 = value4;
 							double value6 = value5;
+							
 		// 2. 기본타입의 강제타입 변환 --> 캐스팅 ( )
 		double value7 = 10.1111111111;
 			float value8 = (float)value7;
@@ -22,6 +23,7 @@ public class 실행 {
 		// 3. 매개변수 , 리턴타입
 		double result = 함수1(value1);
 		byte result2 = (byte)함수2((byte)value3);
+		
 		// 4. 배열 , ArrayList
 		double[] 배열 = new double[3];
 		배열[0] = 3.3;	배열[1] = 3;
