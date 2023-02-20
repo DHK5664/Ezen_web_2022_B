@@ -33,16 +33,15 @@ public class Ex2_p468 {
 				// Integer.parseInt(문자열) -> 정수형
 				// 예외발생 : "100" -> 100 가능 / "1oo" -> 불가능
 			System.out.println("array[" + i + "]" + value);
-		try {
-		}catch(NumberFormatException e) {
-			System.out.println("숫자로 변환할 수 없음 : " +e);
-		}
-		catch(ArrayIndexOutOfBoundsException e) {
-			System.out.println("인덱스 초과 : " +e);
-		}
-		catch( Exception e) {	// 예외 클래스 중에서 최상위클래스는 가장 아래에 작성
-			System.out.println("예외 발생 : " +e);
-		}
+			try {
+			}
+			catch(NumberFormatException e) {
+					System.out.println("숫자로 변환할 수 없음 : " +e);
+			}catch(ArrayIndexOutOfBoundsException e) {
+					System.out.println("인덱스 초과 : " +e);
+			}catch( Exception e) {	// 예외 클래스 중에서 최상위클래스는 가장 아래에 작성
+					System.out.println("예외 발생 : " +e);
+			}
 		}
 	
 	// 3.
