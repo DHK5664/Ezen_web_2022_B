@@ -52,6 +52,13 @@
 			qwe					qwe					- 레코드1[행1 - row]
             asd					asd					- 레코드2[행2]
             zxc					zxc					- 레코드3[행3]
+	
+    - 필드 타입
+		1. 정수형	: int			: 정수
+		2. 문자형	: varchar(길이) 	: 길이만큼 문자열 저장가능
+        3. 실수형	: float , double: 실수
+        4. 날짜형	: data , time , datatime
+        5. 대용량	: text
 */
 
 # 예1 : 데이터베이스[ 저장소 - 여러개 테이블 저장할 수 있는 공간 ]
@@ -98,5 +105,119 @@ select * from member;
 # select 필드명 from 테이블명;
 select * from member2;
 select * from member3;
+
+# 예7 : 해당 테이블 삭제
+drop table member;
+drop table member2;
+drop table member3;
+drop database java;
+
+/* 문제1 : 웹개발 하는데 DB저장소[스키마] 'JSP' 이름으로 생성
+		1. 테이블 2개 ['member' , 'board'] 생성
+		2. member 테이블의 필드 구성
+			id(문자열) , password(문자열)
+		2.board 테이블의 필드 구성
+			title(문자열) , content(문자열)
+
+
+
+*/
+create database jsp;
+use jsp;
+create table member(id varchar(100) , password varchar(100));
+create table board( title varchar(100) , content varchar(100) );
+select * from member;
+select * from board;
+drop database jsp;	-- 데이터베이스 삭제시 안에있던 테이블도 같이 삭제
+
+/*
+	문제2 : 
+		1.'spring' 데이터베이스 생성
+        2. 'member' 테이블 생성
+			[회원번호[정수] , id[문자(최대 20글자)] , password[문자(20)]]
+        3. 'product' 테이블 생성
+			[제품번호[정수] , name[문자열(30)] , price[정수] ]
+		4. 생성한 테이블 2개 검색[확인]
+        5. 데이터베이스 삭제
+*/
+create database spring;
+use spring;
+create table member(cno int , id varchar(20) , password varchar(20));
+create table product(pno int , name varchar(30) , price int);
+select * from member;
+select * from product;
+drop database spring;
+
+# DML
+create database java;
+use java;
+create table 게시판(제목 varchar(20) , 내용 varchar(20));
+
+# 예1) insert	# insert into 테이블명 values (데이터1 , 데이터2);
+    # 필드명이 명시되어 있지 않기 때문에 선언된 필드 순서대로 데이터가 삽입
+insert into 게시판 values('제목구역' , '내용구역');
+	# 확인
+select * from 게시판;
+
+# 예2) insert	# insert into 테이블명 (필드명1 , 필드명2) values(데이터1, 데이터2);
+	# 필드명이 명시되어 있기 때문에 명시된 필드순으로 데이터를 삽입
+insert into 게시판 (제목 , 내용)values('제목구역2' , '제목구역2');
+	# 확인
+select * from 게시판;
+
+# 예3) insert에 매개변수 형식 [ JDBC 사용할 예정 ]
+	# ? : 변수가 들어가는 자리를 뜻 함
+insert into 게시판(제목 , 내용)value( ? , ? );	-- 여기서는 실행 안댐 추후에 JAVA에서 하자
+
+drop database java;
+/*
+	문제3 : 
+		1. 'jsp'라는 이름으로 데이터베이스 생성
+        2. 'member' 라는 이름으로 테이블 생성
+			회원번호[정수] , 아이디[문자열(20)] , 비밀번호[문자열(20)]
+		3. 회원가입 2명 하기
+			insert 2번			1	,	이젠	,	1234
+								2	,	삼성	,	4567
+		4. 테이블 확인
+        5. 데이터베이스 삭제
+*/
+create database jsp;
+use jsp;
+create table member(mno int , mid varchar(20) , mpw varchar(20));
+insert into member( mno , mid , mpw ) values(1 , '이젠' , '1234');
+insert into member values( 2, '삼성' , '4567' );
+insert into member(mid) values( 'LG' );
+select * from member; -- 레코드 생성시 해당 필드의 데이터 생략시 null 대입
+drop database jsp;
+
+/*
+	문제4
+		1. 'spring' 이라는 이름으로 데이터베이스 생성
+        2. 'product' 이라는 이름으로 테이블 생성
+			제품번호[정수] , 제품명[20글자 내 문자열] , 가격[정수]
+		3. 제품등록 3개 [ 레코드 추가 3개 ] 추가
+			1 , '냉장고 ' , 200000
+			2 , '선풍기' , 300000
+            null , '컴퓨터' , null
+		4. 테이블확인
+        5. 데이터베이스 삭제
+*/
+create database spring;
+use spring;
+create table product(pno int , pname varchar(20) , price int);
+insert product values(1 , '냉장고' , 200000);
+insert product values(2 , '선풍기' , 300000);
+insert product(pname) values('컴퓨터');
+select * from product;
+drop database spring;
+
+
+
+
+
+
+
+
+
 
 
