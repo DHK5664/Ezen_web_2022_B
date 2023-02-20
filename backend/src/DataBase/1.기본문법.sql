@@ -205,9 +205,9 @@ drop database jsp;
 create database spring;
 use spring;
 create table product(pno int , pname varchar(20) , price int);
-insert product values(1 , '냉장고' , 200000);
-insert product values(2 , '선풍기' , 300000);
-insert product(pname) values('컴퓨터');
+insert into product values(1 , '냉장고' , 200000);
+insert into product values(2 , '선풍기' , 300000);
+insert into product(pname) values('컴퓨터');
 select * from product;
 drop database spring;
 
