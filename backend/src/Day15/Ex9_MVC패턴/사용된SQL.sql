@@ -11,3 +11,5 @@ create table member(
 -- SQL 처리구문
 -- 4. 회원가입
 insert into member (mid , mpw) values(?,?);
+
+select * from member;
