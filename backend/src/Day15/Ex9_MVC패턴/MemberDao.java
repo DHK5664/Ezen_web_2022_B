@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class MemberDao {
 
@@ -29,7 +30,7 @@ public class MemberDao {
 	
 	// 3. SQL 처리 메소드
 	// 1. 회원가입 메소드 [ 인수 : Dto( id,pw )  , 반환 : 성공[true],실패[false] ]
-	public boolean signup( MemberDto dto ) {
+	public boolean signup( MemberDto dto ) {// 매개변수로 쓰이는 상태라서 자료형인 MemberDto가 앞에 꼭 붙어야댐
 		// 1. SQL 작성한다.
 		String sql = "insert into member (mid , mpw) values(?,?)";
 		// 2. 연동 DB에 SQL 대입한다 . [ ps -> 매개변수 조작 가능 ]
@@ -46,4 +47,25 @@ public class MemberDao {
 		return false;// try{ } 문제가 있으면 실행되는 구역 -> 저장실패
 	}
 	////////////////////////---------------------------------------////////////////////////////
+	
+	// 2. 모든 회원 출력 [ 인수 : X 반환 : 여러명[ ArrayList vs 배열 ] 회원정보 [Member] ]
+	public ArrayList<MemberDto> list() { return null;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
