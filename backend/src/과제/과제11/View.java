@@ -30,6 +30,7 @@ public class View {
 			}
 		}// while end
 	}// index end
+	// 1. 제품등록
 	public void regist() {
 		System.out.println(">>>>>> 제품 등록 페이지 >>>>>>");
 		scanner.nextLine();
@@ -41,7 +42,7 @@ public class View {
 		if(result) {System.out.println("[제품등록]");}
 		else {System.out.println("[등록실패]");}
 	}
-	
+	// 2. 제품출력
 	public void getProductAll() {
 		System.out.printf(" %3s \t %20s \t %10s \t %10s \n" , "번호" , "제품명" , "가격" , "재고");
 		ArrayList<ProductDto> result =  Controller.getInstance().getProductAll();	// 1. 컨트롤에게 모든 제품 요청하기
@@ -51,6 +52,7 @@ public class View {
 		}
 			
 	}
+	// 3. 제품(이름 , 가격)수정
 	public void updateProduct() {
 		System.out.println("-------------------------");
 		System.out.println("제품번호 : ");		int pno = scanner.nextInt();
@@ -61,6 +63,7 @@ public class View {
 		if(result) {System.out.println("[가격 수정]성공");}
 		else {System.out.println("[가격 수정] 실패");}
 	}
+	// 4. 제품(재고)수정
 	public void updateStock() {
 		System.out.println("--------------------------");
 		System.out.println("제품번호 : ");		int pno = scanner.nextInt();
@@ -70,6 +73,7 @@ public class View {
 		if(result) {System.out.println("[재고량 수정] 성공");}
 		else {System.out.println("[재고량 수정] 실패");}
 	}
+	// 5. 제품 삭제
 	public void delete() {
 		System.out.println("--------------------");
 		System.out.println("삭제할 제품번호 : ");
