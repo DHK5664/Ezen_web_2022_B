@@ -6,7 +6,7 @@ public class Controller {
 	// 싱글톤
 	private static Controller con = new Controller();
 	private Controller() {}
-	public static Controller getInController() {return con;}
+	public static Controller getInstance() {return con;}
 	
 	public boolean signup(String mid, String mpw) {
 		// 1. 유효성검사 [ 생략 ]
@@ -19,7 +19,34 @@ public class Controller {
 		return result;
 	}
 	public ArrayList<MemberDto> list() {
-		return null;
+		// 1. 모든 회원을 호출하는 DAO 메소드 호출 해서 결과 얻기
+		ArrayList<MemberDto> result=
+		MemberDao.getInstance().list();
+		// 2.  결과 반환
+		return result;
 	}
+	// 3. 비밀번호 수정
+	public boolean update( int mno , String mpw) {
+		return MemberDao.getInstance().update(mno, mpw);	// 스택영역에 저장 안하는 이유 여쭤보기
+	}
+	// 4. 회원 삭제
+	public boolean delete(int mno) {return MemberDao.getInstance().delete(mno);}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

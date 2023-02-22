@@ -11,5 +11,9 @@ create table member(
 -- SQL 처리구문
 -- 4. 회원가입
 insert into member (mid , mpw) values(?,?);
-
+-- 5. 모든 회원 검색 [* 모든 레코드 검색]
 select * from member;
+-- 6. 2번 회원 비밀번호 수정
+update member set mpw = "zxc" where mno = 2;
+-- 매개변수 ?
+update member set mpw = ? where mno = ?;
