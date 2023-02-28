@@ -1,7 +1,7 @@
 package Day20.gallery.model.Dto;
 
 public class BoardDto {
-
+ 
 	private int bno;	
 	private String btitle;		
 	private String bcontent;
