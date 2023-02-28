@@ -46,7 +46,15 @@ create table reply(
     foreign key(bno_fk) references board(bno) on delete cascade
 );
 
-
+-- 1. 아이디 중복체크 [ 해당 아이디 검색 ]
+	-- 검색 후 레코드가 존재하면 이미 존재하는 아이디 / 레코드가 없으면 존재하지 않는 아이디
+select * from member; -- 모든 회원 검색
+select * from member where mid = 'qwe'; -- 특정 회원아이디가 일치하는 회원 검색
+-- 2. 회원가입
+insert into member(mid , mpw , mname , mphone)
+values('qwe','qwe','유재석','010-4444-4444');
+-- 3. 로그인
+select * from member where mid = 'qwe' and mpw = 'qwe'; -- 아이디와 비밀번호가 일치한 회원 레코드 찾기
 
 
 
