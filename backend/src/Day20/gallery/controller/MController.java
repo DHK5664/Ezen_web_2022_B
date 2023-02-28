@@ -22,5 +22,36 @@ public class MController {
 		MemberDto dto = new MemberDto(0, mid, mpw, mname, mphone);
 		// 3. 회원가입 DB처리 후 db처리 결과를 반환
 		return MemberDao.getInstance().signup(dto);
+		
 	}
+	
+	private int loginSession = 0;	// 로그인 된 회원번호 담기 // 필드 
+	public int getLoginSession() {return loginSession;} // 메소드 
+	
+	// 2. [접근제한자][리턴타입] 함수명
+	public boolean login(String mid , String mpw) {
+		// 1. 유효성검사
+		// 2. 
+		int result =
+		MemberDao.getInstance().login(mid, mpw);
+		// 3. 로그인 성공 증거[ 로그인 정보 저장소 = 세선 ]
+		if(result == 0) {return false;}
+		else {
+			loginSession = result; // * 반환된 회원번호를 세션에 저장
+			return true;
+		}
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+

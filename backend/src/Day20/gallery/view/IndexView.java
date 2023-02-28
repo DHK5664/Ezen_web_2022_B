@@ -43,4 +43,48 @@ public class IndexView {
 		else if(result ==3 ) {System.out.println("[실패] 시스템오류 : 관리자에게 문의");}
 		
 	}
+	// 3. 로그인 페이지
+	public void login() {
+		System.out.println("============로그인===========");
+		System.out.println("아이디 : ");		String mid = scanner.next();
+		System.out.println("비밀번호 : ");		String mpw = scanner.next();
+		
+		boolean result = MController.getInstance().login(mid,mpw);
+		if(result == true) {
+			System.out.println("[로그인성공]");
+			// 게시물 초기메뉴로 이동
+		}
+		else {System.out.println("[로그인실패]");}
+	}
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
