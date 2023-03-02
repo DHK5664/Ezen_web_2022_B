@@ -1,20 +1,57 @@
 
 // JS함수
 // function 함수명 ( 매개변수 ){ 실행코드 }
-function 예제1(){
+function Ex1(){
 	
 	let data = document.querySelector('.inputdata').value;
 	console.log(data); 
 	
 	$.ajax({
-		url :"http://localhost:8080/jspweb/Indextest",	// 통신할 서블릿 주소
+		url :"/jspweb/Ex1",	// 통신할 서블릿 주소
 		method : "post",			// HTTP 메소드
 		data : { "data" :  data },	// 데이터 보내기
 		success : function(result){	// 데이터 받기
 			console.log(result);
-		}
-		
+			Ex2();
+		}		
 	});
+}
+function Ex2(){ // 페이지 열리면 데이터 호출
+	$.ajax({
+		url :"/jspweb/Ex1",
+		method : "get" ,
+		// data : {} ,
+		success : function(result){
+			console.log(result);
+			document.querySelector('.ex2box').innerHTML = result;
+		}
+	});
+}
+function Q1(){
+	let Q1data = document.querySelector('.Q1data').value;
+	console.log(Q1data);
+	
+	$.ajax({
+		url : "/jspweb/Q1",
+		method : "post" ,
+		data : {"Q1data" : Q1data},
+		success : function(result){
+			console.log(result);
+			Q2();
+		}
+	})
+}
+function Q2(){
+	$.ajax({
+		url : "/jspweb/Q1" ,
+		method : "get" ,
+		success : function(result){
+			console.log(result);
+			document.querySelector('.Q1box').innerHTML = result;
+		}
+	})
+	
+}
 	
 	// JS --> 서블릿 이동
 	// 0. $ : jquery 표현식	[ jquery 라이브러리 필요 ]
@@ -51,7 +88,7 @@ function 예제1(){
 			} 
 		});	
 	*/	
-}
+
 
 // document : 미리 만들어진 DOM객체
 		// 1. querySelector( 식별자 ) : tag 1개 -> 변수/객체에 저장
