@@ -20,11 +20,49 @@ function ex1(){ // 함수 정의
 	}
 	console.log(info) // data7 외 모두 문자열 임... [ 추후 형 변환 ]
 	
-	$.ajax({
-		url:"",
-		method : "",
-		data : {},
-		success : function(result){}
+	// 비동기 통신
+	$.ajax({					// *. jquery 라이브러리 필수!!
+		url:"/jspweb/Ex2",		// 1. 서블릿 주소 [ /프로젝트명/서블릿주소 : @WebServlet("/서블릿주소") ]
+		method : "post",			// 2. 메소드 방식 [ doGet vs doPost ]
+		data : info,				// 3. 보낼 데이터 [ 객체 vs { } ]
+		success : function(result){// 4. 받을 데이터
+			console.log(result);
+			if(result == 'true'){alert('등록성공'); getData();	}
+			else{alert('등록실패');	}
+		}	
 	})
 	
-} 
+} // end
+getData();
+function getData(){
+	$.ajax({
+		url : "/jspweb/Ex2",
+		method : "get",
+		success : function(result){
+			console.log(result);
+			document.querySelector(".ex1_box").innerHTML = result;
+		}
+	})
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

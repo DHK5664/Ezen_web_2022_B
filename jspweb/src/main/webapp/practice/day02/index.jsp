@@ -27,6 +27,8 @@
 	<button type="button" onclick="ex1()"> 전송 </button>
 	
 	<h3> 예1) Dao -- 메소드 --> servlet -- AJAX --> JS -- document.querySelecter --> HTML</h3>
+	<div class="ex1_box"></div>
+	
 
 	<!-- 1. JQUERY( ajax 사용하기 위해 ) -->
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
