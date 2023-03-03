@@ -8,6 +8,21 @@ import java.util.ArrayList;
 
 public class Dao {
 	
+	/*
+		create table ex2(
+			data1 varchar(100) ,
+		    data2 varchar(100) ,
+		    data3 double ,
+		    data4 int ,
+		    data5 date ,
+		    data6 datetime ,
+		    data7 char(1) ,
+		    data8 boolean ,
+		    data9 varchar(100) ,
+		    data10 longtext
+		);
+	*/
+	
 	private static Dao dao = new Dao();
 	public static Dao getInstance() {return dao;}
 	
