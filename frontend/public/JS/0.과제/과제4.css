@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+/* *{ background-color: black;} 확인용
+*{ color: white;} 확인용 */
+.content{
+	width: 50%;
+	border: 1px solid white;
+	padding: 20px;
+}
+.머리글자{
+	font-size: 30px;
+	margin: 10px 0px;
+}
+.도서등록{
+	margin: 20px 0px;
+}
+.도서등록 h6{
+	font-size: 20px;
+	margin: 10px 0px;
+}
+.도서등록 input{
+	height: 20px;
+	width: 200px;
+}	
+.도서등록 button{
+	height: 30px;
+	width: 80px;
+}
+.관리자테이블, .printTable{
+	border: 1px black solid;
+	border-collapse : collapse;
+}
+.관리자테이블 th, .관리자테이블 td, .printTable th, .printTable td{
+	border: 1px black solid;
+	padding: 5px 10px;
+	vertical-align:middle;
+}

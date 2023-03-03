@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+	<link href="과제4.css" rel="stylesheet">
+	
+</head>
+<body>
+
+	<div class="wrap">
+		<div class = "content">
+		
+			<h6 class=머리글자> 관리자 페이지 </h6>
+			
+			<fieldset class=도서등록>
+				<legend> 도서 등록</legend>
+				도서명 : <input type="text" class="bookName">
+				<button onclick="bookIn()">도서 등록</button>
+			</fieldset>
+			
+			<fieldset class=관리자현황>
+				<legend> 도서 목록 현황</legend>
+				<table class = "관리자테이블">			
+				</table>
+			</fieldset>
+		</div>
+		
+		<hr/>
+		
+		<div class = "content">
+			<h6 class=머리글자> 고객 페이지 </h6>
+			
+			<fieldset class=고객현황>
+				<legend> 도서 목록 현황</legend>
+				<table class = "printTable"> </table>
+			</fieldset>
+		</div>
+	
+	</div>
+	
+	
+
+	<script src="과제4.js"></script>
+	
+</body>
+</html>
