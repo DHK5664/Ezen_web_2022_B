@@ -44,8 +44,9 @@ public class Ex2 extends HttpServlet {
 		ObjectMapper objectMapper = new ObjectMapper();
 			// 3. objectMapper.writeValueAsString(자바객체) ---> 자바객체를 JSON 형식의 문자열 반환
 		String jsonArray = objectMapper.writeValueAsString(list);
-		System.out.println(list);// 자바객체
-		System.out.println(jsonArray); // 자바객체가 json형식으로 문자열 변환
+			//System.out.println(list);// 자바객체
+				// [ 주소 , 주소 ]
+			//System.out.println(jsonArray); // 자바객체가 json형식으로 문자열 변환
 			// [ {} , {} ]
 		
 		// 2. 요청으로 받은 결과를 JS에게 전달

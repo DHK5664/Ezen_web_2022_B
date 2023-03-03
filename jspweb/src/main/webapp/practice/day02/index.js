@@ -39,13 +39,88 @@ function getData(){
 		url : "/jspweb/Ex2",
 		method : "get",
 		success : function(result){
-			console.log(result);
-			document.querySelector(".ex1_box").innerHTML = result;
+			//console.log(result);
+			let html = `<table border="1">
+							<tr>
+								<th> data1 </th> <th> data2 </th> <th> data3 </th> <th> data4 </th>
+								<th> data5 </th><th> data6 </th> <th> data7 </th> <th> data8 </th>
+								<th> data9 </th> <th> data10 </th>
+							</tr>
+						`
+						
+			result.forEach((o,i)=>{ // 객체명.forEach(( 반복변수 , 반복인덱스 )=>{실행문})
+				
+				html += `
+							<tr>
+								<th> ${o.data1} </th> <th> ${o.data2} </th> <th> ${o.data3} </th>
+								<th> ${o.data4} </th> <th> ${o.data5} </th> <th> ${o.data6} </th>
+								<th> ${o.data7} </th> <th> ${o.data8} </th> <th> ${o.data9} </th>
+								<th> ${o.data10} </th>
+							</tr>
+						`
+				
+			}) // for end
+			html += `</table>`
+			document.querySelector(".ex1_box").innerHTML = html
+			
 		}
 	})
 }
 
-
+function Qex1(){
+	let Qinfo = {
+		Qdata1 : document.querySelector('.Qdata1').value,
+		Qdata2 : document.querySelector('.Qdata2').value,
+		Qdata3 : document.querySelector('.Qdata3').value,
+		Qdata4 : document.querySelector('.Qdata4').value,
+		Qdata5 : document.querySelector('.Qdata5').value,
+		Qdata6 : document.querySelector('input[name="Qdata6"]:checked').value,
+		Qdata7 : document.querySelector('.Qdata7').checked,
+		Qdata8 : document.querySelector('.Qdata8').value,
+		Qdata9 : document.querySelector('.Qdata9').value
+	}
+	console.log(Qinfo);
+	
+	$.ajax({
+		url : "/jspweb/Q2" ,
+		method : "post" ,
+		data : Qinfo ,
+		success : function(result){
+			console.log(result);
+			if(result == 'true'){alert('등록성공'); QgetData();	}
+			else{alert('등록실패');	}
+		}
+	})
+}
+QgetData()
+function QgetData(){
+	$.ajax({
+		url :"/jspweb/Q2" ,
+		method : "get" ,
+		success : function(result){
+			console.log( result );
+			let html = `<table border ="1">
+							<tr>
+								<th>이름</th> <th>전화번호</th> <th>키</th>
+								<th>나이</th> <th>등록일</th> <th>성별</th>
+								<th>동의</th> <th>지역</th> <th>소개</th>
+							</tr>
+						`
+			result.forEach((o,i)=>{
+				
+				html += `
+						<tr>
+							<th> ${o.qdata1} </th> <th> ${o.qdata2} </th> <th> ${o.qdata3} </th>
+							<th> ${o.qdata4} </th> <th> ${o.qdata5} </th> <th> ${o.qdata6} </th>
+							<th> ${o.qdata7} </th> <th> ${o.qdata8} </th> <th> ${o.qdata9} </th>
+						</tr>
+						`		
+			})
+			html += `</table>`
+			document.querySelector(".Q_box").innerHTML = html
+		}
+	})
+}
 
 
 
