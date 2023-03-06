@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class BoardDao {
 	
@@ -32,5 +33,25 @@ public class BoardDao {
 		}catch (Exception e) {System.out.println(e);}
 		return false;
 	}
+	// 2. 모든 방문록 출력 [인수 : X / 반환 : 여러개[list]의 dto ]
+	public ArrayList<BoardDto> onlist(){
+		ArrayList<BoardDto> list = new ArrayList<>();
+		String sql = "select * from ex3";
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			// 레코드 1개 필요할때 = if로 한번에 / 레코드 여러개 필요할때 = while
+			while(rs.next()) {
+				BoardDto dto = new BoardDto(rs.getInt(1) , rs.getString(2) ,
+						rs.getString(3) , rs.getString(4));
+				list.add(dto);
+			} // while end
+		}catch (Exception e) {System.out.println(e);}
+		return list;
+	}
+	
+	// 3.
+	
+	// 4.
 	
 }
