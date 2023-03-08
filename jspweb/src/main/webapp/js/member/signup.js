@@ -1,8 +1,43 @@
 console.log('js열림');
+
+/* 
+	JS 정규 표현식 : 문자 특정 규칙 , 패턴 , 집합표현할때 사용되는 언어
+		-- 문법
+			/^		: 정규표현식 시작
+			$/		: 정규표현식 끝
+			[a-z] 	: 소문자 a~z만 사용하는 패턴
+			[A-Z]	: 대문자 A~Z 패턴
+			[0-9]	: 숫자 0~9패턴
+			[가-힣]	: 한글패턴
+			----
+			[a-zA-Z]		: 영문 입력
+			[a-zA-Z0-9]		: 영문+숫자 입력
+			[a-zA-Z0-9가-힣]	: 영문+숫자+한글 입력
+			
+		-- 패턴 검사 함수
+			정규표현식.test(데이터)	: 패턴이 적합하면 true / 아니면 false
+			ex)	
+			/^[a-z]$/.test( qwe )	-->	true
+			/^[a-z]$/.test( QWE )	-->	false
+			
+*/
+
+// 2. 아이디 유효성검사 [ 1.문자체크 2.중복검사 ]
+function idcheck(){ // onkeyup : 키 누르고 떼었을때 카운트
+	console.log('입력중');
+	// 1. 입력할때마다 입력값 가져오기
+	let mid = document.querySelector('.mid').value;
+	console.log(mid);
+	// 2. 정규표현식 [ 영문(소문자)+숫자 5~30 글자 ]
+	let midj = /^[a-z0-9]{5,30}$/
+	// 3. 정규표현식 검사
+	console.log(midj.test(mid))
+	
+}
+
 // 1. 회원가입
 function signup(){
 	console.log('signup 함수 열림');
-	
 
 	// 1. [첨부파일 있을때] html 에 file input 직접적으로 조작 불가능
 		// 1. form 객체 가져오기
