@@ -13,6 +13,9 @@ console.log('js열림');
 			+ : 앞 에 있는 패턴 1개이상 반복
 			? : 앞 에 있는 패턴 0개 혹은 1개 이상 반복
 			* : 앞 에 있는 패턴 0개 반복
+			
+			\ : 이스케이프 문자
+			
 			----
 			[a-zA-Z]		: 영문 입력
 			[a-zA-Z0-9]		: 영문+숫자 입력
@@ -22,8 +25,20 @@ console.log('js열림');
 				(?=.*[패턴문자])	: 해당 패턴문자가 한개이상 입력
 			(?=.*[a-z]) :	소문자 1개이상 입력
 			(?=.*[A-Z])	:	대문자 1개이상 입력
-			(?=.*[1-9])	:	숫자 1개이상 입력
+			(?=.*[0-9])	:	숫자 1개이상 입력
 			(?=.*[!@#$%^&*]) : 해당하는 특수문자 1개이상 입력
+			----
+			/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,20}$/
+			1. (?=.*[A-Za-z])				: 영대소문자 한개 이상 입력(영문 1개 이상 입력)
+			2. (?=.*\d) vs (?=.*0-9)		: 숫자 한개 이상 입력
+			3. [A-Za-z\d] vs [A-Za-z0-9]	: 영문+숫자
+			--> 영문1개 + 숫자1개 필수를 갖는 5~20글 사이
+			
+			/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z\d]{5,20}$/
+			--> 영대문자1개 + 영소문자1개 + 숫자1개 필수를 갖는 5~20글 사이
+			
+			/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z\d]{5,20}$/
+			--> 영대문자1개 + 영소문자1개 + 숫자1개 + 특정특수문자 1개 필수로 갖는 5~20글 사이
 			
 		-- 패턴 검사 함수
 			정규표현식.test(데이터)	: 패턴이 적합하면 true / 아니면 false
@@ -100,12 +115,40 @@ function pwdconfirmcheck(){
 	}else{
 		checkconfirm[1].innerHTML = '영대소문자+숫자 조합 5~20 글자'
 	}
-}
+}// end
+
+// 5. 이메일
+function emailcheck(){
+		console.log('emailcheck()함수열림')
+	let memail = document.querySelector('.memail').value;
+		console.log('memail : ' + memail);
+	let memailj = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/
+		console.log(memailj.test(memail));
+	if(memailj.test(memail)){checkconfirm[2].innerHTML = 'O'}
+	else{checkconfirm[2].innerHTML = '이메일 형식으로 입력해주세요'}	
+} // 이메일 end
+
+	// 아이디 구역
+	// [a-zA-z0-9] 				: 영문 + 숫자
+	// [a-zA-z0-9_-]			: 영문 + 숫자 + _ + -
+	// +@						: 아이디 와 도메인 사이의 @
+	 
+	// 도메인 구역
+	// [a-zA-z0-9-]				: 영문 + 숫자 + -		naver
+	// +\.						: 도메인 중간에 .		.
+	// [a-zA-Z0-9-]				: 영문 + 숫자 + - 		com
+	// +						: . 1개 이상			.co.kr
+
 
 // 1. 회원가입
 function signup(){
+	let count = 0;
+	for(let i = 0 ; i<checkconfirm.length ; i++){
+		if(checkconfirm[i].innerHTML == 'O'){count++}
+	}// for end
+	if(count != 3){alert('정상적으로 입력되지 않은 데이터가 있습니다.'); return; }
+	
 	console.log('signup 함수 열림');
-
 	// 1. [첨부파일 있을때] html 에 file input 직접적으로 조작 불가능
 		// 1. form 객체 가져오기
 	let signupForm = document.querySelectorAll('.signupForm')[0];	// 첫번째 form 가져오기
