@@ -24,7 +24,7 @@ public class MemberDto {
     	
     	// 1. 보내는 사람의 정보
     	String fromEmail = "네이버아이디"; // 실제 계정정보 git 올리지말기!!!!!
-    	String emailPwd = "해당아이디비밀번호";		  // 실제 계정정보 git 올리지말기!!!!!
+    	String emailPwd = "네이버비번";		  // 실제 계정정보 git 올리지말기!!!!!
     	// 2. 호스팅 설정 [ 네이버 기준 ]
     	Properties properties = new Properties();
     	properties.put("mail.smtp.host", "smtp.naver.com");		// gmail일경우 smtp.gmail.com
