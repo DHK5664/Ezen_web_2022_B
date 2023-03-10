@@ -21,6 +21,17 @@ console.log('js열림');
 			[a-zA-Z0-9]		: 영문+숫자 입력
 			[a-zA-Z0-9가-힣]	: 영문+숫자+한글 입력
 			----
+			// 아이디 구역
+			// [a-zA-z0-9] 				: 영문 + 숫자
+			// [a-zA-z0-9_-]			: 영문 + 숫자 + _ + -
+			// +@						: 아이디 와 도메인 사이의 @
+			 
+			// 도메인 구역
+			// [a-zA-z0-9-]				: 영문 + 숫자 + -		naver
+			// +\.						: 도메인 중간에 .		.
+			// [a-zA-Z0-9-]				: 영문 + 숫자 + - 		com
+			// +						: . 1개 이상			.co.kr
+			----
 			1개 이상 문자가 포함되어야 하는 경우
 				(?=.*[패턴문자])	: 해당 패턴문자가 한개이상 입력
 			(?=.*[a-z]) :	소문자 1개이상 입력
@@ -138,27 +149,88 @@ function pwdconfirmcheck(){
 	}
 }// end
 
-// 5. 이메일
+// 5. 이메일 형식 확인 유효성검사
 function emailcheck(){
 		console.log('emailcheck()함수열림')
 	let memail = document.querySelector('.memail').value;
 		console.log('memail : ' + memail);
 	let memailj = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/
 		console.log(memailj.test(memail));
-	if(memailj.test(memail)){checkconfirm[2].innerHTML = 'O'}
-	else{checkconfirm[2].innerHTML = '이메일 형식으로 입력해주세요'}	
-} // 이메일 end
+	if(memailj.test(memail)){
+		checkconfirm[2].innerHTML = '이메일 형식이 맞습니다 인증해주세요.'
+		document.querySelector('.authbtn').disabled = false;	// 인증버튼 사용
+	}
+	else{
+		checkconfirm[2].innerHTML = '이메일 형식으로 입력해주세요'
+		document.querySelector('.authbtn').disabled = true;		// 인증버튼 미사용
+	}	
+} // f end
 
-	// 아이디 구역
-	// [a-zA-z0-9] 				: 영문 + 숫자
-	// [a-zA-z0-9_-]			: 영문 + 숫자 + _ + -
-	// +@						: 아이디 와 도메인 사이의 @
-	 
-	// 도메인 구역
-	// [a-zA-z0-9-]				: 영문 + 숫자 + -		naver
-	// +\.						: 도메인 중간에 .		.
-	// [a-zA-Z0-9-]				: 영문 + 숫자 + - 		com
-	// +						: . 1개 이상			.co.kr
+// 6. 이메일 인증 함수
+function getauth(){
+	// 1. 인증구역 html 구성
+	let html =
+		`
+		<div class="timebox"> 02 : 00 </div>
+		<input type="text" class="authinput" placeholder="인증코드">
+		<button onclick = "authconfirm()" type="button">확인</button>
+		`
+	// 2. html 대입
+	document.querySelector('.authbox').innerHTML = html;
+	// 3. 타이머 함수 실행
+	auth = 1234;	// 인증코드 대입	[ 이메일에게 보낸 난수 대입 ]
+	timer = 120; 		// 인증시간 대입
+	settimer();		// 타이머 함수 실행
+}// end
+let auth = 0;	// 인증 코드 변수
+let timer = 0;	// 인증 시간 변수
+let timerInter; // Interval 함수를 저장할 변수
+// 7. 타이머 함수
+function settimer(){
+	
+	// setInterval : 특정 시간마다 함수 실행	// setInterval(()=>{},시간/밀리초)
+	// clearInterval : Interval 종료		
+	timerInter = setInterval(()=>{
+		let minutes = parseInt(timer / 60);	// 분 계산 
+		let seconds = parseInt(timer % 60);	// 분 계산 후 나머지가 초
+		// 한자리수 이면 0 추가
+		minutes = minutes < 10 ? "0" + minutes : minutes;
+		seconds = seconds < 10 ? "0" + seconds : seconds;
+		// 시간 구성
+		let timeHTML = minutes + " : " + seconds;	// 시 : 분 형식으로 html 구성
+		// html 대입
+		document.querySelector('.timebox').innerHTML = timeHTML;
+		// 1초 차감
+		timer--;
+		// 만약에 인증시간이 0보다 작으면
+		if(timer<0){
+			clearInterval(timerInter);	// setInterval 정지
+			checkconfirm[2].innerHTML = '인증실패'
+			document.querySelector('.authbox').innerHTML = "";	// auth 내 html 지우기
+		}
+		
+	},1000 );	// 1초마다 { } 코드 실행
+	
+}
+
+// 8. 인증코드 확인
+function authconfirm(){
+	console.log("authconfirm()함수 실행")
+	// 1. 입력받은 인증코드 호출
+	let authinput = document.querySelector('.authinput').value;
+	// 2. 발급된 인증코드와 입력한 인증코드 비교
+	if(auth == authinput){ // 인증코드 일치
+		clearInterval(timerInter);
+		document.querySelector('.authbox').innerHTML = "";
+		document.querySelector('.authbtn').innerHTML = "완료";
+		document.querySelector('.authbtn').disabled = true;
+		checkconfirm[2].innerHTML = 'O';
+	}else{ // 인증코드 불일치
+		checkconfirm[2].innerHTML = '인증코드가 일치하지 않습니다.'
+	}
+}
+
+	
 
 
 // 1. 회원가입
