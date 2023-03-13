@@ -285,16 +285,19 @@ function signup(){
 			console.log('ajax 응답');
 			console.log(r);
 			if(r=='true'){
-				alert('회원가입성공');
-				location.href="/jspweb/index.jsp";	// 해당 페이지 이동
+				
+				openModal();
+				
+				//location.href="/jspweb/index.jsp";	// 해당 페이지 이동
 			}else{ alert('회원가입실패') }
 		}
 	})
-	
+		
+}
 
-	
-	
-	
+function closeModal(){
+	document.querySelector('.modal_wrap').style.display='none';
+	location.href="/jspweb/index.jsp"
 }
 
 	// 1. [첨부파일 없을때]입력받은 값 모두 가져와서 객체화

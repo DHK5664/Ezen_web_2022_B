@@ -19,7 +19,7 @@ a{ color : black; text-decoration: none;}
 	margin : 20px 0px;
 }
 
-.mainlogo{width: 10%;}		/* 로고박스 구역*/
+.mainlogo{width: 15%;}		/* 로고박스 구역*/
 .mainlogo img{width: 100%;} /* 로고 이미지 */
 
 .mainmenu{ /* 메인메뉴구역 */
