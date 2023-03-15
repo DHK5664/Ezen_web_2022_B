@@ -5,18 +5,18 @@ public class BoardDto {
 	private String btitle;
 	private String bcontent;
 	private String bfile;
-	private int bdate;
+	private String bdate;
 	private int bview;
 	private int bup;
 	private int bdown;
 	private int mno;
 	private int cno;
-	// 추가필드 --> 작성자 id
+	// 추가필드 --> 작성자 id ( 같이 출력하고 싶은 필드 )
 	private String mid;
 	// 1. 생성자 [ 빈생성자 ] : 사용할 용도가 적음
 	public BoardDto() {}
 	// 2. 생성자 [ 풀생성자 ] : 객체 만들때 [DAO]
-	public BoardDto(int bno, String btitle, String bcontent, String bfile, int bdate, int bview, int bup, int bdown,
+	public BoardDto(int bno, String btitle, String bcontent, String bfile, String bdate, int bview, int bup, int bdown,
 			int mno, int cno) {
 		super();
 		this.bno = bno;
@@ -40,8 +40,9 @@ public class BoardDto {
 		this.cno = cno;
 	}
 	
+	
 	// 4. 출력용 생성자
-	public BoardDto(int bno, String btitle, String bcontent, String bfile, int bdate, int bview, int bup, int bdown,
+	public BoardDto(int bno, String btitle, String bcontent, String bfile, String bdate, int bview, int bup, int bdown,
 			int mno, int cno, String mid) {
 		super();
 		this.bno = bno;
@@ -56,6 +57,8 @@ public class BoardDto {
 		this.cno = cno;
 		this.mid = mid;
 	}
+	
+	
 	
 	@Override
 	public String toString() {
@@ -87,10 +90,10 @@ public class BoardDto {
 	public void setBfile(String bfile) {
 		this.bfile = bfile;
 	}
-	public int getBdate() {
+	public String getBdate() {
 		return bdate;
 	}
-	public void setBdate(int bdate) {
+	public void setBdate(String bdate) {
 		this.bdate = bdate;
 	}
 	public int getBview() {
