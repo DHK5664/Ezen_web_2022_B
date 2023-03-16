@@ -51,7 +51,8 @@ public class Boardinfo extends HttpServlet {
 			// ------------------ page 처리 코드 ------------------ //
 			// 1.현재페이지[요청된 것] , 2.페이지당 표시할게시물수(페이지당 3개) , 3.현재페이지[게시물시작번호 , 게시물끝번호]
 			int page = Integer.parseInt(request.getParameter("page"));
-			int listsize = 3;	// 표시할 게시물 수ㅎㅎ
+			// int listsize = 3;
+			int listsize = Integer.parseInt(request.getParameter("listsize"));	// 화면에 표시할 게시물 수 요청
 			int startrow = (page-1)*listsize;//해당 페이지에서의 게시물의 시작번호
 			// ------------------- page 버튼 만들기 --------------------- //
 			// 1. 전체페이지수[ 총게시물레코드수/페이지당 표시수 ] 2. 페이지 표시할 최대버튼수 3. 시작버튼 번호

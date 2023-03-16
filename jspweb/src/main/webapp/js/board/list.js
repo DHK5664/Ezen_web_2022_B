@@ -6,7 +6,8 @@ let pageObject = {
 	key : "" ,
 	keyword : "",
 	type :1 ,	// 1:전체출력 2:개별출력
-	cno : document.querySelector('.cno').value // 카테고리 번호
+	cno : document.querySelector('.cno').value , // 카테고리 번호
+	listsize : 3	// 3은 기본값
 };
 
 // -- 카테고리 제목 넣어주기
@@ -51,7 +52,7 @@ function getBoardList( page ){
 				`
 			})
 			document.querySelector('.boardTable').innerHTML = html;
-			// --------------------------------------------------- //
+			// -----------------페이징버튼 출력--------------------- //
 			
 			html = ''; // 기존에 들어있던 내용 제거
 			// 이전 [ 만약에 이전 페이지가 1이하이면 이전페이지 X ]
@@ -72,18 +73,38 @@ function getBoardList( page ){
 					`<button onclick="getBoardList(${page+1})" type="button"> 다음 </button>`
 				
 			document.querySelector('.pagebox').innerHTML = html;
+			// -----------------게시물 수 출력--------------------- //
+			document.querySelector('.searchcount').innerHTML = `게시물 수 : ${r.totalsize}`
+			
 		}// success end
 	})// ajax end
 }// method end
 
-// 2. 
+// 2. 검색 
 function getsearch(){
 	console.log('onsearch()함수');
 	// * 입력받은 데이터를 전역객체 내 필드에 대입	pageObject 얘가 전역 객체임
 	pageObject.key = document.querySelector('.key').value;
 	pageObject.keyword = document.querySelector('.keyword').value;
 	// * 게시물리스트 호출
-	getBoardList(1);
+	getBoardList(1);	// 검색 후 나오는 페이지가 1페이지
+	
+}
+// 3. 검색풀기 : 전체보기
+function setsearch(){
+	pageObject.key = '';		// 검색없애기
+	pageObject.keyword = '';	// 검색없애기
+	getBoardList(1);			// 재호출
+}
+// 4. 화면에 표시할 게시물 수 변경 함수 
+function setlistsize(){
+	// 1. select 에서 선택된 값 가져오기
+	let listsize = document.querySelector('.listsize').value;
+	console.log(listsize);
+	// 2. pageObject 필드에 대입
+	pageObject.listsize = listsize;
+	// 3. 
+	getBoardList(1);	// 재호출
 	
 }
 
