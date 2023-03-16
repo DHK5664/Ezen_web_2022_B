@@ -34,20 +34,23 @@ function getBoardList( page ){
 			// --------------------------------------------------- //
 			
 			html = ''; // 기존에 들어있던 내용 제거
-			// 이전
-			html += `
-					<button onclick="getBoardList(${page-1})" type="button"> 이전 </button>
-					`
+			// 이전 [ 만약에 이전 페이지가 1이하이면 이전페이지 X ]
+			html += page<=1 ? 
+					`<button onclick="getBoardList(${page})" type="button"> 이전 </button>`
+					:
+					`<button onclick="getBoardList(${page-1})" type="button"> 이전 </button>`
 			// 페이징 번호 버튼들
-			for(let i = 1 ; i<=r.totalpage ; i++){	// 1 부터 마지막 페이지수까지 버튼생성
+			for(let i = r.startbtn ; i<=r.endbtn ; i++){	// 시작버튼번호 부터 마지막버튼번호까지 버튼생성
 				html += `
 					<button onclick="getBoardList(${i})" type="button"> ${i} </button>
 					`
 			}
-			// 다음
-				html += `
-					<button onclick="getBoardList(${page+1})" type="button"> 다음 </button>
-					`
+			// 다음 [ 만약에 현재 페이지가 총페이지수 이상이면 다음페이지 없음 ]
+				html += page>=r.totalpage ?
+					`<button onclick="getBoardList(${page})" type="button"> 다음 </button>`
+					:
+					`<button onclick="getBoardList(${page+1})" type="button"> 다음 </button>`
+				
 			document.querySelector('.pagebox').innerHTML = html;
 		}// success end
 	})// ajax end

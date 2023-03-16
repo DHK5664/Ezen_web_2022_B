@@ -49,12 +49,17 @@ public class Boardinfo extends HttpServlet {
 			int totalsize = BoardDao.getInstance().gettotalsize();
 			int totalpage = totalsize % listsize == 0 ?					// 만약 나머지가 0이라믄 몫을 쓰고
 							totalsize/listsize : totalsize/listsize+1; 	// 나머지가 있으믄 +1 해줌
+			int btnsize = 5; // 최대 페이징버튼 출력수
+			int startbtn = ( (page-1) / btnsize ) * btnsize +1 ;
+			int endbtn = startbtn + (btnsize-1);
+			// *단 마지막버튼수가 총 페이지수 보다 커지면
+			if( endbtn > totalpage ) endbtn = totalpage;
 			
 			ArrayList<BoardDto> result = BoardDao.getInstance().getBoardList(startrow,listsize);
 			
 			// page Dto 만들기
-			PageDto pageDto =
-					new PageDto(page, listsize, startrow, totalsize, totalpage, result);
+			PageDto pageDto
+			= new PageDto(page, listsize, startrow, totalsize, totalpage, btnsize, startbtn, endbtn, result);
 			
 			
 			// java 형식 ---> js 형식
@@ -93,8 +98,31 @@ public class Boardinfo extends HttpServlet {
 		 			1페이지 요청 -> (1-1)*3 => 0
 		 			2페이지 요청 -> (2-1)*3 => 3
 		 			3페이지 요청 -> (3-1)*3 => 6
+		 	3. 시작버튼 , 마지막버튼 수
+		 		7페이지	btnsize = 5
+		 				시작번호패턴 : 1 6 11 16 21
+		 		1페이지 -> 1 2 3 4 5
+		 		2페이지 -> 1 2 3 4 5
+		 		3페이지 -> 1 2 3 4 5
+		 		4페이지 -> 1 2 3 4 5
+		 		5페이지 -> 1 2 3 4 5
+		 		6페이지 -> 6 7
+		 		7페이지 -> 6 7
+		 		
+		 		7페이지	btnsize = 3
+		 				시작번호패턴 : 1 4 7 10 ...
 		 	
 			 */
+	
+			/*		
+			1페이지	: 1-1 /5	 *5	+1		-> 0*5+1		1
+			2페이지	: 2-1 /5	 *5	+1		-> 0*5+1		1
+			3페이지	: 3-1 /5	 *5	+1		-> 0*5+1		1
+			4페이지	: 4-1 /5	 *5	+1		-> 0*5+1		1
+			5페이지	: 5-1 /5	 *5	+1		-> 0*5+1		1
+			6페이지	: 6-1 /5	 *5	+1		-> 1*5+1		6
+			7페이지	: 7-1 /5	 *5	+1		-> 1*5+1		6
+			*/
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
