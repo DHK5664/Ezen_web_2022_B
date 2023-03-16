@@ -103,14 +103,80 @@ insert into mpoint(mpcomment , mpamount , mno) values('제품구매' , -3000 , 1
 
 insert into mpoint(mpcomment , mpamount , mno) values('회원가입축하' , 100 , 4);
 
+-- 1. 조건[ where ] 조인[ 합집합 ]
+drop table ex4;
+create table ex4(
+	mno int
+);
+insert into ex4 values(1) , (2) , (3) , (4) , (5);	-- 5개 레코드 추가
+select * from ex4;
+
+drop table ex5;
+create table ex5(
+	mno int
+);
+insert into ex5 values(3) , (4) , (5) , (6) , (7);	-- 5개 레코드 추가
+select * from ex5;
+-- --------------------------------
+select * from ex4 , ex5; -- (5 X 5) = 25 레코드 검색 [ 합 집합 레코드개수 * 레코드개수 ]
+select * from ex4 , ex5 where ex4.mno = ex5.mno; -- 3레코드[ 교 집합 두 레코드의 일치값 [ pk-fk ] ] 꼭 pk와 fk만으로 찾는게 아닌 동일한 데이터의 교집합을 이용하여 찾는것
+
+select * from ex4 natural join ex5; -- natural join 자연조인 [ 암묵적으로 동일한 레코드의 일치값 -> 결론은 교집합 ]
+-- board 테이블에는 mno가 있음 , 원하는건 mno[fk] ---> member테이블의 mno[pk] 외 다른 필드에 접근
+select * from member , board;	-- 합집합
+	-- 1. where 이용한 조인 [ * 다른 조건과 가독성 떨어짐 ]
+	select * from member, board where member.mno=board.mno;
+    -- 2. 테이블명 별칭[별명]
+    select * from member m , board b where m.mno = b.mno;
+    -- 3. A테이블 natural join B테이블 		:자연조인 [ * pk와fk 필드가 1개씩 존재하는 테이블에서 자주 사용 ]
+    select * from member m natural join board;
+    -- 4. A테이블 join B테이블 on 조인조건		: 조인 [ * on 키워드를 사용해서 교집합 조건 사용하면 다른 where과 구분됨 ]
+    select * from member m join board b on m.mno = b.mno;
+-- 결론
+select board.*,member.mid from member natural join board;	-- board테이블 전체와 member테이블의 mid만 출력
+
+select board.*,member.mid,member.mimg from board natural join member where board.bno=?;
+
+-- 1. 출력
+select board.*,member.mid from member natural join board;
+
+-- 2. 특정 개수 만 출력 [ 페이징 조건 ] limit 시작인덱스(레코드인덱스)[0번부터 시작] , 개수
+select b.* , m.mid from member m natural join board b limit 0 , 3;	-- 1페이지
+select b.* , m.mid from member m natural join board b limit 3 , 3;	-- 2페이지
+select b.* , m.mid from member m natural join board b limit 6 , 3;	-- 3페이지
 
 
+select b.* , m.mid from member m natural join board b limit ? , ?;
 
+-- 3. 레코드 수 구하기 count(*)
+select count(*) from member m natural join board b;
 
+-- 4. 조건식 [=같다]
+select * from board where btitle = 'qwe';
+-- 4. 조건식 [like포함된 패턴검색]		필드명 like %데이터%
+select * from board where btitle = 'asd';		-- 제목이 asd인 레코드 찾기
+select * from board where btitle like '%asd%';	-- asd가 포함된 제목의 레코드 찾기
+select * from board where btitle like '_asd_';	-- asd가 2번째 글자에 있는 다 합쳐서 5글자인 제목의 레코드 찾기
+	-- % : 모든 문자 대응 [문자개수 무시]	/	_:_	개수만큼 대응 [ 문자개수 중요 ]
+/*    
+	1asd2		like '_asd_'	--> true	/	like '%asd%'	--> true
+    1asd23		like '_asd_'	--> false	/	like '%asd%'	--> true
+*/
 
+-- 결론
+	-- 1. 검색이 없을때 레코드수 구하기
+    select count(*) from member m natural join board b;
+    -- 2. 검색이 있을때 레코드 수 구하기 [ 검색[조건]된 레코드수 ]
+    select count(*) from member m natural join board b where b.btitle like'%asd%';
+    select count(*) from member m natural join board b where ? like'%?%';
+	-- 3. 자바에서 사용할 경우
+    -- "select count(*) from member m natural join board b where "+key+" like'%"+keyword+"%'";
 
-
-
-
-
-
+	-- 1. 검색이 없을때 레코드 출력
+		select count(*) from member m natural join board b order by b.bdate desc limit ?,?;
+	-- 2. 검색이 있을때 레코드 출력
+		select count(*) from member m natural join board b where b.btitle like '%asd%' order by b.bdate desc limit 0,3;
+	-- 3. 자바에서 사용할 경우
+		-- "select count(*) from member m natural join board b where "+key+" like '%"+keyword+"%' order by b.bdate desc limit ? , ?;"
+        
+        -- 230316 DB 작성 완료

@@ -21,7 +21,21 @@
 		
 		<!-- 페이징처리 버튼들 -->
 		<div class="pagebox">
-
+		</div>
+		
+		<!-- 검색창 -->
+		<div>	<!--
+					 select * from board where 필드명 = 데이터 
+					 select * from board where bno = 1;
+					 	 
+				 -->
+			<select class="key">				<!-- select 시 사용되는 필드명 -->
+				<option value="b.btitle">제목</option>
+				<option value="b.bcontent">내용</option>
+				<option value="m.mid">작성자</option>
+			</select>
+			<input class="keyword" type="text">	<!-- select시 사용되는 조건의 데이터  -->
+			<button onclick="getsearch()" type="button">검색</button>
 		</div>
 		
 	</div>

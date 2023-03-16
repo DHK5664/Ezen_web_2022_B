@@ -39,6 +39,11 @@ public class Boardinfo extends HttpServlet {
 		int type = Integer.parseInt(request.getParameter("type"));
 		if(type ==1) { // 전체 출력
 			
+			// ------------------ 검색 처리 --------------------- //
+			// 1. 검색에 필요한 매개변수 요청 [ key , keyword ]	/ 2.gettotalsize/getBoardList 조건 전달
+			String key = request.getParameter("key");			System.out.println("key :" +key);
+			String keyword = request.getParameter("keyword");	System.out.println("keyword : " +keyword);
+			
 			// ------------------ page 처리 코드 ------------------ //
 			// 1.현재페이지[요청된 것] , 2.페이지당 표시할게시물수(페이지당 3개) , 3.현재페이지[게시물시작번호 , 게시물끝번호]
 			int page = Integer.parseInt(request.getParameter("page"));
@@ -46,7 +51,10 @@ public class Boardinfo extends HttpServlet {
 			int startrow = (page-1)*listsize;//해당 페이지에서의 게시물의 시작번호
 			// ------------------- page 버튼 만들기 --------------------- //
 			// 1. 전체페이지수[ 총게시물레코드수/페이지당 표시수 ] 2. 페이지 표시할 최대버튼수 3. 시작버튼 번호
-			int totalsize = BoardDao.getInstance().gettotalsize();
+				// 1. 검색 업슬때
+			//int totalsize = BoardDao.getInstance().gettotalsize();
+				// 2. 검색 있을때
+			int totalsize = BoardDao.getInstance().gettotalsize( key , keyword );
 			int totalpage = totalsize % listsize == 0 ?					// 만약 나머지가 0이라믄 몫을 쓰고
 							totalsize/listsize : totalsize/listsize+1; 	// 나머지가 있으믄 +1 해줌
 			int btnsize = 5; // 최대 페이징버튼 출력수
@@ -54,8 +62,10 @@ public class Boardinfo extends HttpServlet {
 			int endbtn = startbtn + (btnsize-1);
 			// *단 마지막버튼수가 총 페이지수 보다 커지면
 			if( endbtn > totalpage ) endbtn = totalpage;
-			
-			ArrayList<BoardDto> result = BoardDao.getInstance().getBoardList(startrow,listsize);
+				// 검색 없을때
+			//ArrayList<BoardDto> result = BoardDao.getInstance().getBoardList(startrow,listsize);
+			ArrayList<BoardDto> result
+				= BoardDao.getInstance().getBoardList(startrow,listsize , key , keyword);
 			
 			// page Dto 만들기
 			PageDto pageDto
