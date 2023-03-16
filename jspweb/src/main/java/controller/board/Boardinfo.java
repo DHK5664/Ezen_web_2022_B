@@ -54,6 +54,7 @@ public class Boardinfo extends HttpServlet {
 			// int listsize = 3;
 			int listsize = Integer.parseInt(request.getParameter("listsize"));	// 화면에 표시할 게시물 수 요청
 			int startrow = (page-1)*listsize;//해당 페이지에서의 게시물의 시작번호
+			
 			// ------------------- page 버튼 만들기 --------------------- //
 			// 1. 전체페이지수[ 총게시물레코드수/페이지당 표시수 ] 2. 페이지 표시할 최대버튼수 3. 시작버튼 번호
 				// 1. 검색 업슬때
@@ -67,6 +68,7 @@ public class Boardinfo extends HttpServlet {
 			int endbtn = startbtn + (btnsize-1);
 			// *단 마지막버튼수가 총 페이지수 보다 커지면
 			if( endbtn > totalpage ) endbtn = totalpage;
+			
 				// 검색 없을때
 			//ArrayList<BoardDto> result = BoardDao.getInstance().getBoardList(startrow,listsize);
 			ArrayList<BoardDto> result
