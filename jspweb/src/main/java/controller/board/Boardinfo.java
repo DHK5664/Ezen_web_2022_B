@@ -39,6 +39,10 @@ public class Boardinfo extends HttpServlet {
 		int type = Integer.parseInt(request.getParameter("type"));
 		if(type ==1) { // 전체 출력
 			
+			// ----------------- 카테고리 별 출력 ----------------- //
+			// 1. 카테고리 매개변수 요청 [cno]	2.gettotalsize/getBoardList 조건 전달 
+			int cno = Integer.parseInt(request.getParameter("cno"));
+			
 			// ------------------ 검색 처리 --------------------- //
 			// 1. 검색에 필요한 매개변수 요청 [ key , keyword ]	/ 2.gettotalsize/getBoardList 조건 전달
 			String key = request.getParameter("key");			System.out.println("key :" +key);
@@ -54,7 +58,7 @@ public class Boardinfo extends HttpServlet {
 				// 1. 검색 업슬때
 			//int totalsize = BoardDao.getInstance().gettotalsize();
 				// 2. 검색 있을때
-			int totalsize = BoardDao.getInstance().gettotalsize( key , keyword );
+			int totalsize = BoardDao.getInstance().gettotalsize( key , keyword  , cno);
 			int totalpage = totalsize % listsize == 0 ?					// 만약 나머지가 0이라믄 몫을 쓰고
 							totalsize/listsize : totalsize/listsize+1; 	// 나머지가 있으믄 +1 해줌
 			int btnsize = 5; // 최대 페이징버튼 출력수
@@ -65,7 +69,7 @@ public class Boardinfo extends HttpServlet {
 				// 검색 없을때
 			//ArrayList<BoardDto> result = BoardDao.getInstance().getBoardList(startrow,listsize);
 			ArrayList<BoardDto> result
-				= BoardDao.getInstance().getBoardList(startrow,listsize , key , keyword);
+				= BoardDao.getInstance().getBoardList(startrow,listsize , key , keyword , cno);
 			
 			// page Dto 만들기
 			PageDto pageDto
