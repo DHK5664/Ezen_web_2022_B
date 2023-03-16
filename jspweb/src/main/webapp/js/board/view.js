@@ -36,14 +36,15 @@ function getBoard(){console.log('함수실행');
 // 2. 다운로드 [ 다운로드할 파일명 인수로 받기 ]
 function bdownload(bfile){
 	console.log('선택한 파일명 : ' + bfile);
-	$.ajax({
+	/*$.ajax({
 		url :"/jspweb/filedownload",
 		method : "get",
 		data : {"bfile" : bfile},
 		success : (r)=>{
 			console.log('통신');	console.log(r);
 		}
-	}) // ajax end
+	}) // ajax end*/
+	location.href="/jspweb/filedownload?bfile="+bfile;
 } // m end
 
 /*

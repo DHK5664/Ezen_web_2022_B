@@ -19,6 +19,11 @@
 			
 		</table>
 		
+		<!-- 페이징처리 버튼들 -->
+		<div class="pagebox">
+
+		</div>
+		
 	</div>
 	
 	<script src="/jspweb/js/board/list.js" type="text/javascript"></script>
