@@ -2,7 +2,7 @@ package model.dto;
 
 import java.util.ArrayList;
 
-public class PageDto {
+public class PageDto {	// 스크립트에게 주기위해 만든 DB와 상관없는 DTO
 
 	private int page;		// 현재 페이지
 	private int listsize;	// 페이지당 표시할 게시글 개수

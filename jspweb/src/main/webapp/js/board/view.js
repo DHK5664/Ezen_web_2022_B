@@ -29,7 +29,16 @@ function getBoard(){console.log('함수실행');
 			}else{ // 첨부파일 있을때
 				html = `${r.bfile} <button onclick="bdownload( '${r.bfile}' )" type="button"> 다운로드 </button>`
 				document.querySelector('.bfile').innerHTML = html;	
-			}			
+			}
+			// ----------------230317↓------------------//
+			// 로그인 된 회원과 작성자가 일치하면 수정/삭제 버튼 출력
+			if(memberInfo.mid == r.mid){
+				html =`
+					<button onclick="bdelete( ${bno} , ${r.cno} )" type="button">삭제</button>
+					<button onclick="bupdate( ${bno} )" type="button">수정</button>
+				`;
+				document.querySelector('.btnbox').innerHTML=html;
+			}
 		}
 	}) // ajax end
 }// m end
@@ -64,6 +73,30 @@ function bIncrease(type){
 		}
 	})
 } 
+
+// 4. 삭제
+function bdelete(bno , cno){
+	
+	$.ajax({
+		url:"/jspweb/board/info",
+		method:"delete",
+		data:{"bno" : bno},
+		success :(r)=>{
+			console.log(r);
+			if(r== 'true'){
+				alert('삭제성공');
+				location.href="/jspweb/board/list.jsp?cno="+cno;
+			}else{
+				alert('삭제실패...');
+			}
+		}
+	})	
+}
+// 5. 수정 페이지로 이동
+function bupdate(bno){
+	location.href="/jspweb/board/update.jsp?bno="+bno;
+}
+
 
 /*
 	1. onclick =  JS코드 작성구역
