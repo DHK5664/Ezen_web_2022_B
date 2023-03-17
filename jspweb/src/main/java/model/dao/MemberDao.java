@@ -42,13 +42,36 @@ public class MemberDao extends Dao {
 		}catch (Exception e) {System.out.println(e);}
 		return false;
 	}
+	// 2-2 회원/레코드 수 구하기
+	public int gettotalsize(String key , String keyword){
+		String sql = "";
+		System.out.println("key : " +key + "kw :"+keyword);
+		if(key.equals("")&& keyword.equals("")) {
+			sql = "select count(*) from member";
+		}else {
+			sql = "select count(*) from member where "+key+" like '%"+keyword+"%'"; 
+		}
+		System.out.println(sql);
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			if(rs.next()) return rs.getInt(1);
+		}catch (Exception e) {System.out.println(e+"회원수");} return 0;
+	}
 	
 	// 2. 모든 회원 호출 [ 관리자기준 인수:x 반환:모든회원들의 dto ]
-	public ArrayList<MemberDto> getMemberList(){
+	public ArrayList<MemberDto> getMemberList( int startrow , int listsize , String key, String keyword){
 		ArrayList<MemberDto> list = new ArrayList<>(); // 모든 회원들의 리스트 선언
-		String sql = "select * from member";			// 1. SQL 명령어 작성
+		String sql = "";			// 1. SQL 명령어 작성
+		if(key.equals("") && keyword.equals("")) {
+			sql = "select * from member limit ? , ?";
+		}else {
+			sql = "select * from member  where "+key+" like '%"+keyword+"%' limit ? , ?";
+		}
 		try {	
 			ps = con.prepareStatement(sql);				// 2. 연결된 con에 SQL 대입해서 ps
+			ps.setInt(1, startrow);
+			ps.setInt(2, listsize);
 			rs = ps.executeQuery();						// 3. SQL 실행 후 결과 Rs 담고
 			while(rs.next()) {							// 4. rs.next() : 다음레코드 [ true / false ]
 				MemberDto dto = new MemberDto(			// 5. 레코드 1개 --> dto 1개 생성
@@ -56,7 +79,7 @@ public class MemberDao extends Dao {
 						rs.getString(4), rs.getString(5));	// 5-2 rs.get타입( 필드순서번호 )
 				list.add(dto);							// 6. dto ---> 리스트 담기
 			}// w end			
-		}catch (Exception e) {System.out.println(e);}
+		}catch (Exception e) {System.out.println(e+"모든회원");}
 		return list;									// 7. 리스트 반환 
 	}
 	

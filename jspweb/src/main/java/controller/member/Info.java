@@ -15,7 +15,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import model.dao.BoardDao;
 import model.dao.MemberDao;
+import model.dto.AdminPageDto;
 import model.dto.MemberDto;
 
 /**
@@ -99,11 +101,40 @@ public class Info extends HttpServlet {
  	
     // 2. 로그인 / 회원1명 /회원 여러명 호출
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// ----------- 1. 검색 조건 전달
+		String key = request.getParameter("key");			
+		String keyword = request.getParameter("keyword");
+		
+		
+		int page = Integer.parseInt(request.getParameter("page"));
+		//int listsize = 3;
+		int listsize = Integer.parseInt( request.getParameter("listsize") ) ;
+		int startrow = (page-1)*listsize;
+		
+		
 		// 1. Dao에게 모든 회원명단 요청 후 저장
-		ArrayList<MemberDto> result = MemberDao.getInstance().getMemberList();	System.out.println("result : " + result ); // 얘도 안대면 DAO 보자
+		ArrayList<MemberDto> result = MemberDao.getInstance().getMemberList( startrow , listsize , key , keyword);
+		// 1. 전체페이지수[ 총회원레코드수/페이지당 표시수 ] 2. 페이지 표시할 최대버튼수 3. 시작버튼 번호
+			// 1. 검색이 업슬때
+				// int totalsize = MemberDao.getInstance().gettotalsize();
+			// 2. 검색이 있을때
+		int totalsize = MemberDao.getInstance().gettotalsize(key , keyword);
+		int totalpage = totalsize%listsize == 0 ? totalsize/listsize : totalsize/listsize+1;
+		
+		int btnsize = 5; // 최대 페이징버튼 출력수
+		int startbtn = ( (page-1) / btnsize ) * btnsize +1 ; 
+		int endbtn = startbtn + (btnsize-1);
+		
+		
+		
+		if(endbtn>totalpage) { endbtn=totalpage;}
+		
+		AdminPageDto adminPageDto = new AdminPageDto(page, listsize, startrow, totalsize, totalpage, btnsize, startbtn, endbtn, result);
+		
 		// 2. JAVA객체 ---> JS객체 형변환 [ 서로 다른 언어 사용하니까 ]
 		ObjectMapper mapper = new ObjectMapper();
-		String jsonArray = mapper.writeValueAsString(result);					System.out.println("jsonArray : " + jsonArray );
+		String jsonArray = mapper.writeValueAsString(adminPageDto);					System.out.println("jsonArray : " + jsonArray );
 		// 3. 응답
 		response.setCharacterEncoding("UTF-8");			// 한글인코딩
 		response.setContentType("application/json");	// 전송할 데이터 타입
