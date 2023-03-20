@@ -56,6 +56,26 @@ create table board(
 -- on delete set null	: pk가 삭제되면 fk는 null로 변경
 -- 생략					: fk에 존재하는 식별키[pk]는 삭제 불가능
 
+-- 댓글 테이블 [ 댓글번호 , 내용 , 작성일 , 인덱스(계층구분) , 작성자(*누가) , 게시물번호(*어디에다가)  ]
+create table reply(
+	rno			int auto_increment primary key ,
+    rcontent	longtext ,
+    rdate		datetime default now(),
+    rindex		int default 0 , -- 0 이면 최상위계층 , 1~ 해당 댓글[부모]의 하위 댓글
+    mno			int,
+    bno			int,
+    foreign key(mno) references member(mno) on delete set null ,
+    foreign key(bno) references board(bno) on delete cascade
+);
+/*
+	3번 게시물
+		1번 댓글			[rno = 1 , rindex = 0]
+			3번 댓글		[rno = 3 , rindex = 1]
+			4번 댓글		[rno = 4 , rindex = 1]
+				6번댓글	[rno = 6 , rindex = 4]
+        2번 댓글			[rno = 2 , rindex = 0]
+        5번 댓글			[rno = 5 , rindex = 0]
+*/
 -- 1.
 insert into category(cname) values( '공지사항' );
 insert into category(cname) values( '커뮤니티' );
@@ -180,3 +200,9 @@ select * from board where btitle like '_asd_';	-- asd가 2번째 글자에 있�
 		-- "select count(*) from member m natural join board b where "+key+" like '%"+keyword+"%' order by b.bdate desc limit ? , ?;"
         
         -- 230316 DB 작성 완료
+        select * from member limit 0 ,3 ;
+        select count(*) from member;
+        
+        select * from member  where mid like '%asd%' limit 0 , 3;
+        
+        select * from member limit 0 , 5;

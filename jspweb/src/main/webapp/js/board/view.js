@@ -1,9 +1,13 @@
 console.log('js 실행')
 
+// * 현재 보고있는게시물 번호
+let bno = document.querySelector('.bno').innerHTML;
+
+// 1. 해당 게시물 호출
 getBoard();
 function getBoard(){console.log('함수실행');
 
-	let bno = document.querySelector('.bno').innerHTML;
+
 	console.log("bno :" + bno);
 	
 	$.ajax({
@@ -97,6 +101,21 @@ function bupdate(bno){
 	location.href="/jspweb/board/update.jsp?bno="+bno;
 }
 
+// 6. 댓글 쓰기
+function rwrite(){
+
+	$.ajax({
+		url : "/jspweb/board/reply",
+		method : "post" ,
+		data : {"bno" : bno , "rcontent" : document.querySelector('.rcontent').value },
+		success :(r)=>{
+			console.log(r)
+			if(r=="true"){alert('댓글작성성공');}
+			else{alert('댓글작성실패');}
+		}
+	});
+}
+
 
 /*
 	1. onclick =  JS코드 작성구역
@@ -109,9 +128,14 @@ function bupdate(bno){
 	<button onclick="bdownload( '짱구4.jpg' )" type="button">
 */
 
-
-
-
+/*
+	rno			X
+    rcontent	longtext ,
+    rdate		X
+    rindex		X
+    mno			세션[서블릿]
+    bno			전역변수
+ */
 
 
 
