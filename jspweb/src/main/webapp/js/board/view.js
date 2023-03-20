@@ -43,6 +43,8 @@ function getBoard(){console.log('함수실행');
 				`;
 				document.querySelector('.btnbox').innerHTML=html;
 			}
+			// 댓글출력
+			getReplyList();
 		}
 	}) // ajax end
 }// m end
@@ -107,14 +109,75 @@ function rwrite(){
 	$.ajax({
 		url : "/jspweb/board/reply",
 		method : "post" ,
-		data : {"bno" : bno , "rcontent" : document.querySelector('.rcontent').value },
+		data : {
+			"type" : 1 ,	// 1: 상위댓글 / 2: 하위댓글
+			"bno" : bno ,
+			"rcontent" : document.querySelector('.rcontent').value },
 		success :(r)=>{
 			console.log(r)
-			if(r=="true"){alert('댓글작성성공');}
+			if(r=="true"){
+				alert('댓글작성성공');
+				document.querySelector('.rcontent').value=''
+				// jquery : 특정 div만 새로고침[랜더링]↓
+				// $(".replylistbox").load( location.href+' .replylistbox');
+				// js : 현재페이지(전체) 새로고침[랜더링]↓
+				location.reload();
+			}
 			else{alert('댓글작성실패');}
 		}
 	});
 }
+// 7. 댓글 출력
+function getReplyList(){
+	$.ajax({
+		url:"/jspweb/board/reply",
+		method:"get",
+		data:{"bno":bno},
+		success:(r)=>{
+			console.log(r);
+			
+			let html = ''
+			r.forEach((o,i)=>{
+				html +=`
+					<div>
+						<span>${o.mimg} </span>
+						<span>${o.mid} </span>
+						<span>${o.rdate}</span>
+						<span>${o.rcontent} </span>
+						<button onclick="rereplyview(${o.rno})" type="button">댓글달기</button>
+						<div class="rereplybox${o.rno}"></div>
+					</div>
+				`
+			})
+			document.querySelector('.replylistbox').innerHTML=html;
+		}
+	})
+}// end
+function rereplyview(rno){
+
+	let html = `
+				<textarea class="rrcontent${rno}">  </textarea>
+				<button type="button" onclick="rrwrite(${rno})"> 대댓글작성 </button>
+			`
+
+	document.querySelector('.rereplybox'+rno).innerHTML = html;
+	
+}// end
+// 하위 댓글 쓰기 (대댓글, 대대댓글 다 포함!)
+function rrwrite(rno){
+	// bno , mno , rrcontent , rindex(상위댓글번호) , type
+	$.ajax({
+		url:"/jspweb/board/reply",
+		method : "post" ,
+		data : {
+			"type" : 2 , "bno" : bno , "rindex" : rno , 
+			"rcontent" : document.querySelector('.rrcontent'+rno).value},
+		success:(r)=>{
+			console.log(r)
+		}
+	})
+}// end
+	
 
 
 /*
