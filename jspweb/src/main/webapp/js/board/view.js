@@ -1,7 +1,14 @@
-console.log('js 실행')
+
+
+// * 로그인이 안되어있으면 사용 불가
+if(memberInfo.mid == null){
+	document.querySelector('.rcontent').disabled = true;
+	document.querySelector('.rwritebtn').disabled = '로그인 후 작성 쌉가능';
+	document.querySelector('.rwritebtn').disabled = true;
+}
 
 // * 현재 보고있는게시물 번호
-let bno = document.querySelector('.bno').innerHTML;
+let bno = document.querySelector('.bno').value;
 
 // 1. 해당 게시물 호출
 getBoard();
@@ -22,24 +29,34 @@ function getBoard(){console.log('함수실행');
 						${r.bview} /
 						<button onclick="bIncrease(2)" type="button">${r.bup}</button> /
 						<button onclick="bIncrease(3)" type="button">${r.bdown}</button> /`
-			
-			document.querySelector('.infobox').innerHTML = html;
-			document.querySelector('.pimgbox').innerHTML = r.mid;
+						
+			document.querySelector('.mimg').src=`/jspweb/member/pimg/${r.mimg==null ? 'default.webp' : r.mimg}`
+			document.querySelector('.mid').innerHTML=r.mid;
+			document.querySelector('.bdate').innerHTML=r.bdate;
+			document.querySelector('.bview').innerHTML=r.bview;
+			document.querySelector('.bup').innerHTML=r.bup;
+			document.querySelector('.bdown').innerHTML=r.bdown;
 			document.querySelector('.btitle').innerHTML = r.btitle;
 			document.querySelector('.bcontent').innerHTML = r.bcontent;
 			
 			if(r.bfile == null){ // 첨부파일 없을때
-				document.querySelector('.bfile').innerHTML = '첨부파일없음';
+			
 			}else{ // 첨부파일 있을때
-				html = `${r.bfile} <button onclick="bdownload( '${r.bfile}' )" type="button"> 다운로드 </button>`
+				//html = `${r.bfile} <button onclick="bdownload( '${r.bfile}' )" type="button"> 다운로드 </button>`
+				html = `<a href="/jspweb/filedownload?bfile=${r.bfile}"> 
+								<i class="fas fa-download"></i> ${r.bfile}</a>`
+								
+								/*html = `<a href="/jspweb/filedownload?bfile=${ r.bfile }" > 
+							<i class="fas fa-download"></i>${ r.bfile } 
+						</a>`*/
 				document.querySelector('.bfile').innerHTML = html;	
 			}
 			// ----------------230317↓------------------//
 			// 로그인 된 회원과 작성자가 일치하면 수정/삭제 버튼 출력
 			if(memberInfo.mid == r.mid){
 				html =`
-					<button onclick="bdelete( ${bno} , ${r.cno} )" type="button">삭제</button>
-					<button onclick="bupdate( ${bno} )" type="button">수정</button>
+					<button onclick="bdelete( ${bno} , ${r.cno} )" type="button" class="bbtn">삭제</button>
+					<button onclick="bupdate( ${bno} )" "type="button" class="bbtn">수정</button>
 				`;
 				document.querySelector('.btnbox').innerHTML=html;
 			}
@@ -66,7 +83,6 @@ function bdownload(bfile){
 bIncrease(1);	// 현재 jsp/js가 열리는 순간 [조회수 증가]
 function bIncrease(type){
 	// 1. 현재 게시물의 번호 [ 증가할 대상 ]
-	let bno = document.querySelector('.bno').innerHTML;
 	console.log("bno : " +bno);
 	// 2.
 	$.ajax({
@@ -102,10 +118,8 @@ function bdelete(bno , cno){
 function bupdate(bno){
 	location.href="/jspweb/board/update.jsp?bno="+bno;
 }
-
 // 6. 댓글 쓰기
 function rwrite(){
-
 	$.ajax({
 		url : "/jspweb/board/reply",
 		method : "post" ,
@@ -132,7 +146,7 @@ function getReplyList(){
 	$.ajax({
 		url:"/jspweb/board/reply",
 		method:"get",
-		data:{"bno":bno},
+		data:{"type" : 1 , "bno":bno},
 		success:(r)=>{
 			console.log(r);
 			
@@ -144,7 +158,7 @@ function getReplyList(){
 						<span>${o.mid} </span>
 						<span>${o.rdate}</span>
 						<span>${o.rcontent} </span>
-						<button onclick="rereplyview(${o.rno})" type="button">댓글달기</button>
+						<button onclick="rereplyview(${o.rno})" type="button">답변보기</button>
 						<div class="rereplybox${o.rno}"></div>
 					</div>
 				`
@@ -153,19 +167,46 @@ function getReplyList(){
 		}
 	})
 }// end
+// 8. 하위 댓글 구역 표시
 function rereplyview(rno){
-
-	let html = `
+	$.ajax({
+		url : "/jspweb/board/reply" ,
+		async : 'false',	// 동기화 통신
+		method : "get" ,
+		data : {"type" : 2 , "rindex" : rno , "bno" : bno},
+		success:(r)=>{
+			console.log(r);
+			
+			let html = ''
+			r.forEach((o)=>{ // 대댓글 html 구성
+				
+				html +=`-------------------------
+				<div>
+						<span>${o.mimg} </span>
+						<span>${o.mid} </span>
+						<span>${o.rdate}</span>
+						<span>${o.rcontent} </span>
+					</div>
+				`
+				
+			});
+			html += `
 				<textarea class="rrcontent${rno}">  </textarea>
 				<button type="button" onclick="rrwrite(${rno})"> 대댓글작성 </button>
 			`
+			document.querySelector('.rereplybox'+rno).innerHTML = html;
+		}// success end
+	})// ajax end
 
-	document.querySelector('.rereplybox'+rno).innerHTML = html;
+	
+
+	
 	
 }// end
-// 하위 댓글 쓰기 (대댓글, 대대댓글 다 포함!)
+// 9. 하위 댓글 쓰기 (대댓글, 대대댓글 다 포함!)
 function rrwrite(rno){
 	// bno , mno , rrcontent , rindex(상위댓글번호) , type
+	console.log('rno' + rno)
 	$.ajax({
 		url:"/jspweb/board/reply",
 		method : "post" ,
@@ -174,6 +215,10 @@ function rrwrite(rno){
 			"rcontent" : document.querySelector('.rrcontent'+rno).value},
 		success:(r)=>{
 			console.log(r)
+			if(r == "true"){
+				alert('대댓글 출력');
+				location.reload();
+			}
 		}
 	})
 }// end

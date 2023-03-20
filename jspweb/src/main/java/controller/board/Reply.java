@@ -35,11 +35,18 @@ public class Reply extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. 
-		int bno = Integer.parseInt(
-				request.getParameter("bno")
-				);
+		int bno = Integer.parseInt(	request.getParameter("bno")	);		System.out.println("bno : " +bno);
+		int type = Integer.parseInt(request.getParameter("type"));		System.out.println("type : " +type);
+		int rindex = 0;
+		
+		if(type == 1) {// 상위댓글 출력
+			
+		}else if(type == 2) {// 하위댓글 출력
+			rindex = Integer.parseInt(request.getParameter("rindex"));	System.out.println("rindex : " +rindex);
+		}
+		
 		// 2. 
-		ArrayList<ReplyDto> result = BoardDao.getInstance().getReplyList(bno);
+		ArrayList<ReplyDto> result = BoardDao.getInstance().getReplyList(bno,rindex);
 		// 3. 
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonArray = mapper.writeValueAsString(result);
@@ -57,12 +64,11 @@ public class Reply extends HttpServlet {
 		// 1. 
 		request.setCharacterEncoding("UTF-8");
 		int bno = Integer.parseInt(request.getParameter("bno"));
-		int mno = MemberDao.getInstance().getMno(
-				(String)request.getSession().getAttribute("login")
-				);
+		int mno = MemberDao.getInstance().getMno((String)request.getSession().getAttribute("login"));
 		String rcontent = request.getParameter("rcontent");
 		
 		int type = Integer.parseInt(request.getParameter("type"));
+		
 		ReplyDto dto = new ReplyDto(rcontent, mno, bno);
 		if(type == 1) { // 상위 댓글
 		}else if (type == 2) { // 하위 댓글

@@ -5,6 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+	
+
 </head>
 <body>
 	
@@ -37,13 +42,19 @@
 						<option value="4">노하우</option>
 					</select>	<br/>
 			제목 : <input name="btitle" type="text"> <br/>
-			내용 : <textarea name="bcontent" rows="3" cols="3"></textarea>	<br/>
+			내용 : <textarea id="summernote" name="bcontent"></textarea>	<br/>
 			첨부파일 : <input name="bfile" type="file">		<br/>
 		</form>
 		<button onclick="bwrite()" type="button">쓰기</button>
 	</div>
 	
+	
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+	
 	<script src="/jspweb/js/board/write.js" type="text/javascript"></script>
+	
 	
 	<!-- 
 		HTML --- > form	[ 동기식 : 페이지전환이 있음 ]

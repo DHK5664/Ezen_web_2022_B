@@ -1,5 +1,8 @@
 package model.dto;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class BoardDto {
 	private int bno;
 	private String btitle;
@@ -12,7 +15,24 @@ public class BoardDto {
 	private int mno;
 	private int cno;
 	// 추가필드 --> 작성자 id ( 같이 출력하고 싶은 필드 )
-	private String mid;
+	private String mid;	// 작성자 아이디
+	private String mimg;// 작성자 프로필이미지
+	private int rcount;	// 댓글 개수
+	
+	public String getMimg() {
+		return mimg;
+	}
+	public void setMimg(String mimg) {
+		this.mimg = mimg;
+	}
+	public int getRcount() {
+		return rcount;
+	}
+	public void setRcount(int rcount) {
+		this.rcount = rcount;
+	}
+	
+	
 	// 1. 생성자 [ 빈생성자 ] : 사용할 용도가 적음
 	public BoardDto() {}
 	// 2. 생성자 [ 풀생성자 ] : 객체 만들때 [DAO]
@@ -49,7 +69,22 @@ public class BoardDto {
 		this.btitle = btitle;
 		this.bcontent = bcontent;
 		this.bfile = bfile;
-		this.bdate = bdate;
+		
+		// 오늘 날짜와 작성일이 동일하면 시간표기 / 아니면 날짜 표기
+			// 1. 오늘날짜[ Date클래스 : java.util ]
+		Date date = new Date();
+			// 2. DB에서 사용하고 있는 날짜와 형식을 맞추기 위해서 이렇게 씀
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String now = sdf.format(date);
+		System.out.println(now);
+			// 2. 만약에 오늘 날짜와 작성일이 동일하면 [ split 문자열 자르기 ]
+				//"yyyy-MM-dd hh:mm:ss".split(" ") --> 날짜와 시간 분해
+				// now.split(" ")[0] : 날짜		now.split(" ")[1] : 시간
+		if(now.split(" ")[0].equals(bdate.split(" ")[0])) {
+			this.bdate = bdate.split(" ")[1];	// 오늘과 같으면 시간
+		}else {
+			this.bdate = bdate.split(" ")[0];	// 오늘과 다르면 날짜
+		}
 		this.bview = bview;
 		this.bup = bup;
 		this.bdown = bdown;

@@ -32,24 +32,24 @@ function getBoardList( page ){
 		success : (r)=>{	// java인 Servlet에서 Dto를 json으로 변환해서 결과값을 받았기때문에 이름을 result 즉 r로 받은것 
 			console.log('통신');	console.log(r);
 			// ------------------- 테이블 출력 ---------------------- //
-			let html = `
-						<tr>
-							<th>번호</th>	<th>제목</th>	<th>작성자</th> <th>작성일</th>
-							<th>조회수</th> <th>좋아요</th>	<th>싫어요</th>
-						</tr>`
+			let html = ``
 			r.boardlist.forEach((o,i)=>{	// r은 Dto , boardlist는 리스트라 forEach가능
-				html +=
-				`
-				<tr>
-					<td>${o.bno}</td>
-					<td><a href="/jspweb/board/view.jsp?bno=${o.bno}">${o.btitle}</a></td>
-					<td>${o.mid}</td>
-					<td>${o.bdate}</td>
-					<td>${o.bview}</td>
-					<td>${o.bup}</td>
-					<td>${o.bdown}</td>
-				</tr>
-				`
+				html +=`
+					<div class="boardcontent">
+						<div>
+							<img alt="" class="hpimg" src="/jspweb/member/pimg/${o.mimg == null ? 'default.webp' : o.mimg}">
+							<span class="mid"> ${o.mid} </span>
+							<span class="bdate"> ${o.bdate} </span>
+						</div>
+						<div class="btitle">
+							<a href="/jspweb/board/view.jsp?bno=${o.bno}"> ${o.btitle}</a> </div>
+						<div class="contentbottom">
+							<span> <i class="far fa-eye"></i> <span class="bview">${o.bview}</span> </span>
+							<span> <i class="far fa-thumbs-up"></i> <span class="bup">${o.bup}</span> </span>
+							<span> <i class="far fa-thumbs-down"></i> <span class="bdown">${o.bdown}</span> </span>
+							<span> <i class="far fa-comment-dots"></i> <span class="rcount">${o.rcount}</span> </span>
+						</div>
+					</div>`;
 			})
 			document.querySelector('.boardTable').innerHTML = html;
 			// -----------------페이징버튼 출력--------------------- //
@@ -57,20 +57,20 @@ function getBoardList( page ){
 			html = ''; // 기존에 들어있던 내용 제거
 			// 이전 [ 만약에 이전 페이지가 1이하이면 이전페이지 X ]
 			html += page<=1 ? 
-					`<button onclick="getBoardList(${page})" type="button"> 이전 </button>`
+					`<button onclick="getBoardList(${page})" class="pagebtn" type="button"> < </button>`
 					:
-					`<button onclick="getBoardList(${page-1})" type="button"> 이전 </button>`
+					`<button onclick="getBoardList(${page-1})" class="pagebtn" type="button"> < </button>`
 			// 페이징 번호 버튼들
 			for(let i = r.startbtn ; i<=r.endbtn ; i++){	// 시작버튼번호 부터 마지막버튼번호까지 버튼생성
 				html += `
-					<button onclick="getBoardList(${i})" type="button"> ${i} </button>
+					<button onclick="getBoardList(${i})" class="pagebtn" type="button"> ${i} </button>
 					`
 			}
 			// 다음 [ 만약에 현재 페이지가 총페이지수 이상이면 다음페이지 없음 ]
 				html += page>=r.totalpage ?
-					`<button onclick="getBoardList(${page})" type="button"> 다음 </button>`
+					`<button onclick="getBoardList(${page})" class="pagebtn" type="button"> > </button>`
 					:
-					`<button onclick="getBoardList(${page+1})" type="button"> 다음 </button>`
+					`<button onclick="getBoardList(${page+1})" class="pagebtn" type="button"> > </button>`
 				
 			document.querySelector('.pagebox').innerHTML = html;
 			// -----------------게시물 수 출력--------------------- //
