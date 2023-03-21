@@ -131,6 +131,7 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 		"https://api.odcloud.kr/api/15090398/v1/uddi:6fe0e3f2-0285-4999-9edf-995afe19a6ea?page=1&perPage=96&serviceKey=NRQcpmSIDAXX6nXAgxoMBrAIBSh0dS19ZpH0BEs4gK942%2BEMswPGduxk575l4vUtjoRQHILalRyMKHITTU5wUw%3D%3D",
     	// 결과
     	(r)=>{	
+			console.log(r)
         // let 리턴된값들 = map.(()=>{return 리턴값 })    
         var markers = $(r.data).map(function(i, o) {
 			
@@ -143,8 +144,13 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
             //------------------------ 마커 클릭 이벤트 ----------------------------- //
 			// 위에서 생성된 마커객체의 클릭 이벤트 추가하기
 			kakao.maps.event.addListener(marker, 'click', function() {
-		    	// 마커 위에 인포윈도우를 표시합니다
-		    	alert(o.충전소명 + '의 버섯 클릭했습니다.');
+				
+				// 모달에 정보 담기
+				document.querySelector('.modal_title').innerHTML = o.충전소명;
+				document.querySelector('.modal_title').style.fontSize='15px';
+				document.querySelector('.modal_content').innerHTML=o.소재지지번주소;
+		    	// 모달 띄우기
+		    	openModal();
 			});
 			// 리턴해서 markers에 대입하기 [map함수 제공]
 			return marker;

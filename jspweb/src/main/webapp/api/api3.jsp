@@ -7,8 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	<%@ include file = "/header.jsp" %>		<!-- modal.css , modal.js 포함되어있음 -->
+	<%@ include file="/header.jsp" %>
 	<!-- 모달 HTML -->
 	<div class="modal_wrap">
 		<div class="modal_box">
@@ -29,9 +28,8 @@
 	</div>
 	
 	<!-- 카카오 지도에 필요한 클래스/메소드 가지고 있는 js라이브러리 -->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9f2696c7ce73b2c3c992ea91cbfd4905&libraries=clusterer""></script>
-	
-	<script src="/jspweb/js/api/api2.js" type="text/javascript"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9f2696c7ce73b2c3c992ea91cbfd4905&libraries=services,clusterer,drawing"></script>
+	<script src="/jspweb/js/api/api3.js" type="text/javascript"></script>
 
 </body>
 </html>
