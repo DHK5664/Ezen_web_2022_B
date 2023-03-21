@@ -17,7 +17,7 @@
 	</div>
 	
 	<!-- 카카오 지도에 필요한 클래스/메소드 가지고 있는 js라이브러리 -->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9f2696c7ce73b2c3c992ea91cbfd4905"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9f2696c7ce73b2c3c992ea91cbfd4905&libraries=clusterer""></script>
 	
 	<script src="/jspweb/js/api/api2.js" type="text/javascript"></script>
 
