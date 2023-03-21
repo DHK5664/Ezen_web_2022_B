@@ -82,26 +82,27 @@ $.ajax({
 			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 			
 			        // 결과값으로 받은 위치를 마커로 표시합니다
-			        return new kakao.maps.Marker({
+			        let marker= new kakao.maps.Marker({
 			            position: coords,
 			            image:markerImage
 			        });
-			        
+			        kakao.maps.event.addListener(marker, 'click', function() {
+				
+						// 모달에 정보 담기
+						document.querySelector('.modal_title').innerHTML = o.약국명;
+						document.querySelector('.modal_title').style.fontSize='15px';
+						document.querySelector('.modal_content').innerHTML=o.주소;
+				    	// 모달 띄우기
+				    	openModal();
+					});
+			        clusterer.addMarker(marker);
 			             
 			    } 
 			});
 			// 클릭이벤트
-			kakao.maps.event.addListener(marker, 'click', function() {
-				
-				// 모달에 정보 담기
-				document.querySelector('.modal_title').innerHTML = o.약국명;
-				document.querySelector('.modal_title').style.fontSize='15px';
-				document.querySelector('.modal_content').innerHTML=o.주소;
-		    	// 모달 띄우기
-		    	openModal();
-			});
+			
 		})
-		clusterer.addMarkers(markers);	// 클러스터러에 마커들/배열 을 추가합니다
+			// 클러스터러에 마커들/배열 을 추가합니다
 	}
 
 })
