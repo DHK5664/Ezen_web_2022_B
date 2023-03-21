@@ -7,6 +7,21 @@ $.ajax({
 	 success:(r)=>{ console.log(r); }
 })
 */
+// 공공데이터 : 시도별 미세먼지 실시간 현황
+getapi2();
+function getapi2(){
+	$.ajax({
+		url:"https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=NRQcpmSIDAXX6nXAgxoMBrAIBSh0dS19ZpH0BEs4gK942%2BEMswPGduxk575l4vUtjoRQHILalRyMKHITTU5wUw%3D%3D&returnType=json&numOfRows=200&pageNo=1&sidoName=%EA%B2%BD%EA%B8%B0&ver=1.0",
+		method : "get",
+		success:(r)=>{
+			console.log(r);
+			console.log(r.response.body.items);
+		}
+	})
+}
+
+
+// 공공데이터 : 전기차충전소 현황
 getapi1()
 function getapi1(){
 	$.ajax({
