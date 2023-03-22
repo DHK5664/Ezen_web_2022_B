@@ -14,7 +14,10 @@
 	display:flex;
 	justify-content: flex-end;
 	align-items: flex-end;
-	
+	margin-top: 15px;
+}
+.secontent .content{ /* 보낼때 내용상자 색상 */
+	background-color: #ffeb33;
 }
 .date{ /* 시간 */
 	font-size: 2px; margin: 0px 5px;
@@ -35,8 +38,25 @@
 	background-color: #b1c3d5;
 	border-radius: 10px;
 }
-
-
+.tocontent{
+	display: flex; 
+	justify-content: flex-start;
+	margin-top: 15px;
+}
+.name{
+	font-size: 12px;
+}
+.rcontent{
+	margin-left: 8px;
+}
+.contentdate .content{
+	background-color: white;
+}
+.contentdate{
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-start;
+}
 
 
 

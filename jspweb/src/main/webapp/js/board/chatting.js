@@ -47,7 +47,7 @@
 			@Onopen : 클라이언트소켓이 접속했을때 매핑[연결]
 		
 */
-/**/
+/* 채팅창 내용들이 출력되는 상자 */
 let contentbox = document.querySelector('.contentbox')
 
 let 클라이언트소켓 = null;
@@ -63,7 +63,7 @@ if(memberInfo.mid == null){ // memberInfo : 헤더js에 존재하는 객체
 }
 
 // ☆☆☆☆☆☆ 2. 클라이언트소켓이 접속했을때 이벤트/함수 정의 ☆☆☆☆☆☆	굳이 안넣어도 open은 되는데 open했을때 이 함수를 실행한다
-function 서버소켓연결(e){contentbox.innerHTML += `<div>---- ${memberInfo.mid}님이 채팅방에 입장하셨습니다. ----</div>`;}		// 접속했을때 하고 싶은 함수 정의
+function 서버소켓연결(e){contentbox.innerHTML += `<div class="alarm"><span>채팅방 입장하셨습니다</span></div>`;}		// 접속했을때 하고 싶은 함수 정의
 
 
 // ☆☆☆☆☆☆ 3. 클라이언트소켓이 서버에게 메시지를 보내기 [ @OnMessage ] ☆☆☆☆☆☆
@@ -79,7 +79,36 @@ function 메시지받기(e){	// <--------- e <--------getBasicRemote().sendText(
 	console.log(e);
 	console.log(e.data);	// e.data : 문자열타입 vs JSON.parse(e.data) : 객체타입
 	console.log(JSON.parse(e.data)); // 문자열json -> 객체json 형변환
-	contentbox.innerHTML += `<div>${e.data}</div>`
+	
+	let data = JSON.parse(e.data);		// 전달받은 메시지 dto
+	
+	// 보낸사ㅓ람과 현재 유저가 일치하면 [ 내가 보낸 메시지 ]
+	if(data.frommid == memberInfo.mid){
+		contentbox.innerHTML += `<div class="secontent">
+									<div class="date">${data.time}</div>
+									<div class="content">${data.msg}</div>
+								</div>`
+	}else{ // [ 내가 받은 메시지 ]
+		contentbox.innerHTML += `<div class="tocontent">
+									<div> <img src="/jspweb/member/pimg/${data.frommimg == null ? 'default.webp' : data.frommimg}" class="hpimg"> </div>
+									<div class="rcontent">
+										<div class="name"> ${data.frommid }</div>
+										<div class="contentdate">
+											<div class="content"> ${data.msg} </div>
+											<div class="date"> ${data.time} </div>
+										</div>
+									</div>
+								</div>`
+	}
+	// ------------- 스크롤 최 하단으로 내리기 ------------- //
+/*	let top = contentbox.scrollTop;	// 현재 스크롤의 상단위치 좌표
+		console.log(top);
+	let height = contentbox.scrollHeight; // 현재 스크롤 전체의 높이 [ 기본값 contentbox height ];
+		console.log(height);
+	contentbox.scrollTop = height;*/
+	// 스크롤막대의 상단 위치를 스크롤막대의 가장 아래의 위치로 대입
+	contentbox.scrollTop = contentbox.scrollHeight;
+
 }
 
 
@@ -88,6 +117,14 @@ function 연결해제(e){
 	console.log('연결해제');
 }
 
+// 6. 엔터키 눌렀을때
+function enterkey(){
+	// 만약에 입력한 키 코드가 13[엔터] 이면 메시지전송
+	console.log(window.event.keyCode)
+	if(window.event.keyCode == 13){
+		보내기();
+	}
+}
 
 /*
 	클라이언트소켓 필드							서버소켓
