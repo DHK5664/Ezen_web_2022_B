@@ -56,7 +56,8 @@ if(memberInfo.mid == null){ // memberInfo : 헤더js에 존재하는 객체
 	alert('로그인부터 하고 온나잉ㅡㅡ'); location.href="/jspweb/member/login.jsp";
 }else{
 	// ☆☆☆☆☆☆ 1. 클라이언트소켓 생성과 서버소켓 연결 [ @OnOpen ]☆☆☆☆☆☆
-	클라이언트소켓 = new WebSocket('ws://localhost:8080/jspweb/chatting/'+memberInfo.mid);
+	클라이언트소켓 = new WebSocket('ws://192.168.17.123:8080/jspweb/chatting/'+memberInfo.mid);
+	//클라이언트소켓 = new WebSocket('ws://localhost:8080/jspweb/chatting/'+memberInfo.mid);
 	클라이언트소켓.onopen = function(e){서버소켓연결(e);}			// 클라이언트소켓 객체에 정의한 함수 대입
 	클라이언트소켓.onmessage = function(e){메시지받기(e);}	// java에서 통신된 이벤트 결과를 e로 받음
 	클라이언트소켓.OnClose = function(e){연결해제(e)}
