@@ -1,8 +1,13 @@
 @charset "UTF-8";
-.chattingbox{
-	width: 30%;
-	margin: 50px auto;
+.chattingwrap{	/* 채팅과 명단 포함된 구역 */
+	display: flex;	justify-content: center;
 }
+.connectlistbox{width: 15%; padding: 10px;}
+.connectbox{display: flex;	align-items: center; margin-bottom: 15px;}
+.connectbox .name{margin-left: 10px;}
+
+.chattingbox{width: 35%;}
+
 .contentbox{ /* 채팅 정보가 출력되는 구역 */
 	background-color: #BACEE0;
 	height: 700px;
@@ -66,9 +71,10 @@
 	padding: 15px;
 	resize: none;
 }
+/* 이모티콘 버튼 , 보내기 버튼 구역 */
 .chattingbtnbox{
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
 }
 .sendbtn{
 	padding : 10px;
@@ -79,3 +85,41 @@
 	border-radius: 5px;
 	font-weight: bold;
 }
+.emobtn{
+	background-color: transparent;
+	border: none;
+	padding: 5px;
+	font-size: 23px;
+}
+/* 드롭다운시 보이는 구역 */
+.emolist{
+	width: 300px;	height: 300px;
+	overflow-y:scroll; 
+}
+/* 내용물안에 사진이 있으면 배경 투명 */
+.emocontent{
+	background-color: transparent !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

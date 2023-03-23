@@ -56,25 +56,52 @@ if(memberInfo.mid == null){ // memberInfo : 헤더js에 존재하는 객체
 	alert('로그인부터 하고 온나잉ㅡㅡ'); location.href="/jspweb/member/login.jsp";
 }else{
 	// ☆☆☆☆☆☆ 1. 클라이언트소켓 생성과 서버소켓 연결 [ @OnOpen ]☆☆☆☆☆☆
-	클라이언트소켓 = new WebSocket('ws://192.168.17.123:8080/jspweb/chatting/'+memberInfo.mid);
-	//클라이언트소켓 = new WebSocket('ws://localhost:8080/jspweb/chatting/'+memberInfo.mid);
+	//클라이언트소켓 = new WebSocket('ws://192.168.17.14:8080/jspweb/chatting/'+memberInfo.mid);
+	클라이언트소켓 = new WebSocket('ws://localhost:8080/jspweb/chatting/'+memberInfo.mid);
+	console.log( 클라이언트소켓 )
 	클라이언트소켓.onopen = function(e){서버소켓연결(e);}			// 클라이언트소켓 객체에 정의한 함수 대입
 	클라이언트소켓.onmessage = function(e){메시지받기(e);}	// java에서 통신된 이벤트 결과를 e로 받음
-	클라이언트소켓.OnClose = function(e){연결해제(e)}
+	클라이언트소켓.onclose = function(e){연결해제(e)}
 }
 
 // ☆☆☆☆☆☆ 2. 클라이언트소켓이 접속했을때 이벤트/함수 정의 ☆☆☆☆☆☆	굳이 안넣어도 open은 되는데 open했을때 이 함수를 실행한다
-function 서버소켓연결(e){contentbox.innerHTML += `<div class="alarm"><span>채팅방 입장하셨습니다</span></div>`;}		// 접속했을때 하고 싶은 함수 정의
+function 서버소켓연결(e){
+	
+	자료보내기(memberInfo.mid+"님 이 채팅방에 접속하셨습니다.","alarm");
+
+}	// 접속했을때 하고 싶은 함수 정의
 
 
-// ☆☆☆☆☆☆ 3. 클라이언트소켓이 서버에게 메시지를 보내기 [ @OnMessage ] ☆☆☆☆☆☆
+// ☆☆☆☆☆☆ 3. 클라이언트소켓이 서버에게 메시지를 보내기 [ @OnMessage ] (1. 보내기버튼 눌렀을때 2. 입력창에서 엔터버튼 눌렀을때) type = msg ☆☆☆☆☆☆
 function 보내기(){
 	let msgbox = document.querySelector('.msgbox').value;
 	// ** 서버소켓에게 메시지 전송하기
-	클라이언트소켓.send(msgbox);
+		// JSON형식의 문자열타입 만들어서 문자열 타입으로 전송
+		// JSON.parse(JSON형식의 문자열타입)	:	문자열타입 --> JSON 타입으로 변환
+		// JSON.stringify(JSON객체))		:	JSON타입 --> JSON 형식[모양]의 String 타입으로 변환 *JSON객체랑 JS객체랑 같음*
+		let info = {
+			type : 'msg',
+			msgbox : msgbox
+		}
+	클라이언트소켓.send(JSON.stringify(info));
 	// 전송 성공시 채팅입력창 초기화
 	document.querySelector('.msgbox').value = '';
 }
+
+// 4-2 type에 따른 html 구별
+function 메시지타입구분(msg){
+	
+	let json = JSON.parse(msg);
+	
+	let html = '';
+	if(json.type == 'msg'){
+		html += `<div class="content">${json.msgbox}</div>`
+	} else if(json.type=='emo'){
+		html += `<div class="content emocontent"><img src="/jspweb/img/imoji/emo${json.msgbox}.gif"></div>`
+	}
+	return html;
+}
+
 // ☆☆☆☆☆☆ 4. 서버로부터 메시지가 왔을때 메시지 받기 ☆☆☆☆☆☆
 function 메시지받기(e){	// <--------- e <--------getBasicRemote().sendText(msg)
 	console.log(e);
@@ -82,12 +109,40 @@ function 메시지받기(e){	// <--------- e <--------getBasicRemote().sendText(
 	console.log(JSON.parse(e.data)); // 문자열json -> 객체json 형변환
 	
 	let data = JSON.parse(e.data);		// 전달받은 메시지 dto
+		console.log(data);	// msg가 모양은 JSON이지만 문자열이고
+	//let msg = JSON.parse(data.msg);	// 한번더 파싱(형변환)을 해서		// 명단에는 data.msg없음
+		//console.log(msg);	// msg확인해보면 JSON형식 타입이 된다
+		
+	// 명단[여러개=list/Array] vs 메시지정보[1개=dto/object]	
+		// Array 타입 확인 : Array.isArray(객체): 해당 객체가 배열/리스트이면 true
+	if(Array.isArray( data ) ){
+		let html = '';
+		data.forEach((o)=>{
+			
+			html += `
+					<div class="connectbox">	<!-- 접속 명단 1명 기준 -->
+						<div> <img alt="" src="/jspweb/member/pimg/${o.frommimg==null? 'default.webp' : o.frommimg}" class="hpimg"> </div>
+						<div class="name">${o.frommid}</div>
+					</div>
+					`
+			
+		});
+		document.querySelector('.connectlistbox').innerHTML = html;
+		
+	}	
+	else if(JSON.parse(data.msg).type == 'alarm'){
+			contentbox.innerHTML += `
+							<div class="alarm">
+										<span>${JSON.parse(data.msg).msgbox}</span>
+							</div>
+							`
+	}
 	
 	// 보낸사ㅓ람과 현재 유저가 일치하면 [ 내가 보낸 메시지 ]
-	if(data.frommid == memberInfo.mid){
+	else if(data.frommid == memberInfo.mid){
 		contentbox.innerHTML += `<div class="secontent">
 									<div class="date">${data.time}</div>
-									<div class="content">${data.msg}</div>
+									${메시지타입구분(data.msg)}
 								</div>`
 	}else{ // [ 내가 받은 메시지 ]
 		contentbox.innerHTML += `<div class="tocontent">
@@ -95,7 +150,7 @@ function 메시지받기(e){	// <--------- e <--------getBasicRemote().sendText(
 									<div class="rcontent">
 										<div class="name"> ${data.frommid }</div>
 										<div class="contentdate">
-											<div class="content"> ${data.msg} </div>
+											${메시지타입구분(data.msg)}
 											<div class="date"> ${data.time} </div>
 										</div>
 									</div>
@@ -115,7 +170,8 @@ function 메시지받기(e){	// <--------- e <--------getBasicRemote().sendText(
 
 // ☆☆☆☆☆☆ 5. 서버와 연결이 끊겼을때.[ 클라이언트소켓 객체가 초기화될때 -> F5 , 페이지 전환할때 등등 ] ☆☆☆☆☆☆
 function 연결해제(e){
-	console.log('연결해제');
+	// 이미 세션이 종료후에 발생하는 함수이므로 아래 코드는 다른 세션에게 전달 불가능
+	// 자료보내기(memberInfo.mid+"님 이 채팅방에서 나가셨습니다.","alarm");
 }
 
 // 6. 엔터키 눌렀을때
@@ -126,7 +182,23 @@ function enterkey(){
 		보내기();
 	}
 }
-
+getemo();
+// 7. 이모티콘 출력
+function getemo(){
+	let html ='';
+	for(let i = 1 ; i<=43; i++){	// 이모티콘 개수가 43개라서 43번
+		html+=`<img onclick="자료보내기(${i} , 'emo')" alt="" src="/jspweb/img/imoji/emo${i}.gif" width="60px">`
+	}
+	document.querySelector('.emolist').innerHTML = html;
+}
+// 8. 타입형 메시지 전송하기
+function 자료보내기(msgbox , type){
+	let msg = {
+			type : type,
+			msgbox : msgbox
+		}
+	클라이언트소켓.send(JSON.stringify(msg)); // ----> @OnMessage
+}
 /*
 	클라이언트소켓 필드							서버소켓
 	(↑얘는 이미 정의가 되어있는 상태(존재하는상태)라서 = 대입연산자 사용 즉 = 없어도 실행은 된다)
