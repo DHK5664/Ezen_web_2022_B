@@ -116,6 +116,7 @@ function 메시지받기(e){	// <--------- e <--------getBasicRemote().sendText(
 	// 명단[여러개=list/Array] vs 메시지정보[1개=dto/object]	
 		// Array 타입 확인 : Array.isArray(객체): 해당 객체가 배열/리스트이면 true
 	if(Array.isArray( data ) ){
+		
 		let html = '';
 		data.forEach((o)=>{
 			
@@ -128,6 +129,7 @@ function 메시지받기(e){	// <--------- e <--------getBasicRemote().sendText(
 			
 		});
 		document.querySelector('.connectlistbox').innerHTML = html;
+		console.log("132 : " +Array.isArray( data ));
 		
 	}	
 	else if(JSON.parse(data.msg).type == 'alarm'){
@@ -136,9 +138,10 @@ function 메시지받기(e){	// <--------- e <--------getBasicRemote().sendText(
 										<span>${JSON.parse(data.msg).msgbox}</span>
 							</div>
 							`
+							console.log("141 : " +data);
 	}
 	
-	// 보낸사ㅓ람과 현재 유저가 일치하면 [ 내가 보낸 메시지 ]
+	// 보낸사람과 현재 유저가 일치하면 [ 내가 보낸 메시지 ]
 	else if(data.frommid == memberInfo.mid){
 		contentbox.innerHTML += `<div class="secontent">
 									<div class="date">${data.time}</div>

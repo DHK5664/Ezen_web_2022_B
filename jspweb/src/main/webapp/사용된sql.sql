@@ -206,3 +206,20 @@ select * from board where btitle like '_asd_';	-- asd가 2번째 글자에 있�
         select * from member  where mid like '%asd%' limit 0 , 3;
         
         select * from member limit 0 , 5;
+        
+        
+/* 제품 테이블 */ -- 2023-03-23
+create table product(
+	pno int	auto_increment primary key , -- 제품번호	
+    pname varchar(500) not null , -- 제품명	
+    pcomment text not null , -- 제품설명
+    pprice bigint not null , -- 제품가격
+    pstate int default 1, -- 상태[ 1:판매중 2:거래중 3:판매완료 등등 ]
+    plat varchar(100) not null, -- 위도
+    plng varchar(100) not null, -- 경도
+    pview int default 0 , -- 조회수
+    pdate datetime default now() -- 등록일
+);
+/* 제품 사진 테이블 */
+/* 제품 찜하기 테이블 */
+/* 제품 쪽지 테이블 */

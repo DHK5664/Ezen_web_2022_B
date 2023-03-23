@@ -71,17 +71,17 @@ public class Chatting {
 	@OnMessage	// [ Session[누가] , String[내용물] ]
 	public void onMessage(Session session , String msg) throws Exception {
 		
+		// 메시지 받는 프로그램[JS] : JSON 으로 형변환 // * Session 객체를 json형식으로 변환 불가능
 		ObjectMapper mapper = new ObjectMapper();
 		String json = null;
 		
 		// 2. 접속명단 알림
 		if(msg.equals("enter")) {
-			// 회원명단[이미지 , 아이디] 포함된 회원리스트 생성
-			ArrayList<MessageDto> list = new ArrayList<>();
+			ArrayList<MessageDto> list = new ArrayList<>();	// 회원명단[이미지 , 아이디] 포함된 회원리스트 생성
 			for(ClientDto dto : 접속명단) {
 				list.add(new MessageDto(dto.getSession() , null));	// 현재 접속된 회원정보 객체 생성
 			}
-			json = mapper.writeValueAsString(list);
+			json = mapper.writeValueAsString(list);	// 접속자 명단 객체 여러개
 		// 1.메시지
 		}else {
 			MessageDto messageDto = new MessageDto(session, msg);
@@ -91,7 +91,7 @@ public class Chatting {
 		// 메시지형식 구성
 		
 		
-		// 메시지 받는 프로그램[JS] : JSON 으로 형변환 // * Session 객체를 json형식으로 변환 불가능 
+		 
 		
 
 		// ** 서버가 클라이언트 소켓에게 메시지를 보내기
