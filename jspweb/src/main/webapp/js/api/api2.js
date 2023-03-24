@@ -19,10 +19,10 @@
 ];*/
 // ----------------------- 전기충전소 객체 ----------------------------- //
 let positions = [];
-//$.get({"url" , (r)=>{}});
-//$.post({"url" , (r)=>{}});
-//$.put({"url" , (r)=>{}});
-//$.delete({"url" , (r)=>{}});
+//$.get("url" , (r)=>{});
+//$.post("url" , (r)=>{});
+//$.put("url" , (r)=>{});
+//$.delete("url" , (r)=>{});
 /*
 $.ajax({
 	url :"https://api.odcloud.kr/api/15090398/v1/uddi:6fe0e3f2-0285-4999-9edf-995afe19a6ea?page=1&perPage=96&serviceKey=NRQcpmSIDAXX6nXAgxoMBrAIBSh0dS19ZpH0BEs4gK942%2BEMswPGduxk575l4vUtjoRQHILalRyMKHITTU5wUw%3D%3D",
