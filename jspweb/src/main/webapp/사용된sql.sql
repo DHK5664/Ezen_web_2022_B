@@ -220,6 +220,17 @@ create table product(
     pview int default 0 , -- 조회수
     pdate datetime default now() -- 등록일
 );
+select * from jspweb.product where 동 >=plng  && 서 <= plng and  남<= plat and 북 >= plat; -- 얘도 포함해서
 /* 제품 사진 테이블 */
-/* 제품 찜하기 테이블 */
+
+/* 제품 찜하기 테이블 */ -- 2023-03-24
+drop table if exists plike;
+create table plike(
+	plikeno bigint auto_increment primary key , /*식별키*/
+    mno int , -- 회원번호 = 누가
+    pno int , -- 제품번호 = 어떤제품 찜했는지
+    foreign key (mno) references member(mno) on delete cascade ,
+    foreign key (pno) references product(pno) on delete cascade
+);
+
 /* 제품 쪽지 테이블 */

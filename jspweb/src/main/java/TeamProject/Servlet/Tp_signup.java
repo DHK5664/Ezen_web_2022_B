@@ -53,7 +53,7 @@ public class Tp_signup extends HttpServlet {
 		String mresidence = multi.getParameter("mresidence");
 		String memail = multi.getParameter("memail");
 		String mmw = multi.getParameter("mmw");
-		int mphone = Integer.parseInt(multi.getParameter("mphone"));
+		String mphone = multi.getParameter("mphone");
 		String mimg = multi.getFilesystemName("mimg");	// 첨부된 파일명 호출
 		
 		MemberDto dto = new MemberDto(0, mname, mid, mpwd, mresidence, memail, mmw, mmw, mimg);
