@@ -12,7 +12,7 @@ console.log('dd')
 $.get("/jspweb/product/info", (r)=>{console.log(r)});
 
 let productList = null;
-function productlistprint(r){
+function productlistprint(){
 		let html = '<h3>제품목록페이지</h3>';
 		productList.forEach((p)=>{
 			html +=`<div>
@@ -41,13 +41,17 @@ function productlistprint(r){
         minLevel: 7 // 클러스터 할 최소 지도 레벨 
     });
  
-    // 데이터를 가져오기 위해 jQuery를 사용합니다
-    // 데이터를 가져와 마커를 생성하고 클러스터러 객체에 넘겨줍니다
-    $.get("/jspweb/product/info", (r)=>{console.log(r);
-
-		
+    // 1. 제품목록 호출 [ 1. 현재 보이는 지도 조표내 포함된 제품만 2. ]
+function getproductlist(동 , 서 , 남 , 북){	
+	$.ajax({
+		url : "/jspweb/product/info",
+		method : "get" ,
+		async : false,
+		data : {"동" : 동 , "서" : 서 , "남" : 남 , "북" : 북},
+		success:(r)=>{
+		console.log(r)
 		// ------------------- 사이드바 제품 목록 --------------------------
-		productList = r;		// 제품목록 결과 
+		productList = r;		// 제품목록 결과를 전역변수 담아주기 
 		productlistprint(  );
 		//--------------------- 마커 작업 -----------------------
         var markers = r.map((p)=>{
@@ -70,17 +74,44 @@ function productlistprint(r){
 						<div> <button type="button"> ♡ </div>
 					</div>`
 				document.querySelector('.productlistbox').innerHTML=html;
-			});
-            
-            return marker;
-            
-        });
+				}); // 클릭이벤트 end
+	            
+	            return marker;
+	            
+	        }); // map end
+	
+	        // 클러스터러에 마커들을 추가합니다
+	        clusterer.addMarkers(markers);
+	        //-----------------------------------------
+	    } // success end
+	}); // ajax end
+} // m end
+    
+    
+    // 데이터를 가져오기 위해 jQuery를 사용합니다
+    // 데이터를 가져와 마커를 생성하고 클러스터러 객체에 넘겨줍니다
+ 
+// -------------- 
+// 지도가 이동, 확대, 축소로 인해 중심좌표가 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
+kakao.maps.event.addListener(map, 'dragend', function() {
 
-        // 클러스터러에 마커들을 추가합니다
-        clusterer.addMarkers(markers);
-    });
+    
+    var bounds = map.getBounds(); // 지도의 현재 영역을 얻어옵니다 
     
     
+    var swLatLng = bounds.getSouthWest(); // 영역의 남서쪽 좌표를 얻어옵니다 
+    
+    
+    var neLatLng = bounds.getNorthEast();  // 영역의 북동쪽 좌표를 얻어옵니다
+    
+    
+    let 남 = swLatLng.getLat();
+    let 서 = swLatLng.getLng();
+    let 북 = neLatLng.getLat();
+    let 동 = neLatLng.getLng();
+    getproductlist(동,서,남,북);
+    console.log(북)
+});
     
     
     	// $(r).map((인덱스,반복객체명)=>{})		실행문에서 return 값을 배열에 대입
