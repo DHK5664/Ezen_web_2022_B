@@ -80,8 +80,9 @@ public class Productinfo extends HttpServlet {
 		try {
 			// 5. 매개변수 요청해서 리스트에 담기 [ 무조건 예외처리 발생 ]
 			List<FileItem> 파일아이템목록 = 파일업로드객체.parseRequest(request);
-			List<String> 일반필드목록 = new ArrayList<>();
-			List<String> 파일필드목록 = new ArrayList<>();
+				// * DB에 저장할 데이터를 분류(일반필드와 첨부파일필드로 분류)
+				List<String> 일반필드목록 = new ArrayList<>();
+				List<String> 파일필드목록 = new ArrayList<>();
 			// 6.
 			for(FileItem item :파일아이템목록) {	// 요청된 모든 매개변수들을 반복문 돌려서 확인
 				
@@ -92,7 +93,7 @@ public class Productinfo extends HttpServlet {
 					일반필드목록.add(item.getString()); // 입력받은 값을 요청해서 리스트 저장
 				}else {
 					System.out.println("[첨부파일 인 필드명: " + item.getFieldName());
-					System.out.println("[첨부파일 인 필드의 파일명: " + item.getName());
+					System.out.println("[첨부파일 인 필드의 파일명: " + item.getName());	// 여기서 String을 쓰면 첨부파일의 byte가 나옴
 					
 					// 9. 첨부파일 이름 식별이름 변경	
 						// 1. 파일명에 공백이 존재하면 -로 변경 [.replaceAll("기존문자","새로운문자") 문자열 치환함수 ]
@@ -112,13 +113,16 @@ public class Productinfo extends HttpServlet {
 			//
 			System.out.println(일반필드목록.toString()); 
 			System.out.println(파일필드목록.toString());
-			
+			// 제품등록한 회원번호
 			int mno = MemberDao.getInstance().getMno((String)request.getSession().getAttribute("login"));
-			
+			// dto 구성
 			ProductDto dto = new ProductDto(
 					일반필드목록.get(0), 일반필드목록.get(1), Integer.parseInt(일반필드목록.get(2)),
 					일반필드목록.get(3), 일반필드목록.get(4), mno, 파일필드목록);
-			
+			System.out.println( " dto : " + dto );
+			// dao
+			boolean result = ProductDao.getInstance().write(dto);
+			response.getWriter().print(result);		
 		}catch (Exception e) {System.out.println("파일저장 실패");}
 		
 		
@@ -146,7 +150,7 @@ public class Productinfo extends HttpServlet {
 		String pfile2 = multi.getFilesystemName("pfile2");
 		String pfile3 = multi.getFilesystemName("pfile3");
 		
-		// 첨부파일 여러개 이름 가져오기2		multiple	O
+		// 첨부파일 여러개 이름 가져오기2		multiple	O	--> 멀티플은 되지만 1개밖에 안나옴
 			// multiple input 에 등록된 여러 사진들의 이름 가져오기 불가능 [ cos.jar 제공X ]
 			// 다른 라이브러리 사용
 		Enumeration pfiles = multi.getFileNames();
