@@ -139,7 +139,7 @@ function chatprint(i){
 		data:{"pno" : p.pno},
 		async : false , /* 동기식 */
 		success:(r)=>{
-			
+			console.log(r)
 			r.forEach((o)=>{
 				if(o.frommno == memberInfo.mno ){ // 현재 로그인된 회원과 보낸 사람이 일치하면
 					chathtml += `<div class="sendbox"> ${o.ncontent} </div> `
