@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import model.dto.ChatDto;
 import model.dto.ProductDto;
 
 public class ProductDao extends Dao{
@@ -99,6 +100,18 @@ public class ProductDao extends Dao{
 		try {
 			ps=con.prepareStatement(sql);	rs=ps.executeQuery();
 			if(rs.next()) {return true;}
+		}catch (Exception e) {System.out.println(e);} return false;
+	}
+	
+	// 5. 
+	public boolean setChat(ChatDto dto) {
+		String sql = "insert into note(ncontent , pno , frommno , tomno)values(?,?,?,?)";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, dto.getNcontent());	ps.setInt(2, dto.getPno());
+			ps.setInt(3, dto.getFrommno());	ps.setInt(4, dto.getTomno());
+			ps.executeUpdate();
+			return true;
 		}catch (Exception e) {System.out.println(e);} return false;
 	}
 }

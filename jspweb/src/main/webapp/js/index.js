@@ -1,11 +1,5 @@
 console.log('dd')
-/*$.ajax({
-	url:"/jspweb/product/info",
-	method : "get",
-	success : (r)=>{
-		console.log(r)
-	}
-})
+/*$.ajax({url:"/jspweb/product/info",	method : "get",	success : (r)=>{console.log(r)}})
 */
 // vs
 
@@ -22,29 +16,161 @@ function getplike(pno){
 		success : (r)=>{
 			console.log(r)
 			if(r=="true"){document.querySelector('.plikebtn').innerHTML = '♥';}
-			else{document.querySelector('.plikebtn').innerHTML = '♡';;}
+			else{document.querySelector('.plikebtn').innerHTML = '♡';}
 		}
 	})
 }
 
 
-$.get("/jspweb/product/info", (r)=>{console.log(r)});
-
+//$.get("/jspweb/product/info", (r)=>{console.log(r)});
+// *제품 목록 출력
 let productList = null;
 function productlistprint(){
-		let html = '<h3>제품목록페이지</h3>';
-		productList.forEach((p)=>{
-			html +=`<div>
-						<span> ${p.pname} </span>
-						<span> ${p.pcomment} </span>
-						<span> ${p.pprice} </span>
-						<span> ${p.pstate} </span>
-						<span> ${p.pview} </span>
-						<span> ${p.pdate} </span>
-					</div>`
+		let html = '';
+		productList.forEach((p,i)=>{
+			html +=`
+			<div onclick="productprint( ${i})" class="productbox">
+				<div class="pimgbox">
+					<img src="/jspweb/product/pimg/${p.pimglist[0]}">
+				</div>
+				<div class="pcontentbox">
+					<div class="pdate"> ${p.pdate}  </div>
+					<div class="pname"> ${p.pname} </div>
+					<div class="pprice"> ${p.pprice.toLocaleString()} </div>
+					<div class="petc">  
+						<i class="far fa-eye"></i>${p.pview}
+						<i class="far fa-thumbs-up"></i>5
+						<i class="far fa-comment-dots"></i>2
+					</div>
+				</div>
+			</div>`
 			
 		});
 		document.querySelector('.productlistbox').innerHTML=html;
+} // end
+
+// 제품 개별 조회
+function productprint(i){	
+	let p = productList[i];
+	
+	// 이미지 슬라이드에 대입할 html 구성
+	let imghtml = '';
+	p.pimglist.forEach((img , i)=>{
+		// bs class : active 현재 보여지는 이미지
+		if(i==0){	// 첫 이미지에만 active 클래스 적용
+			imghtml +=`<div class="carousel-item active">
+				      <img src="/jspweb/product/pimg/${img}" class="d-block w-100" alt="...">
+				    </div>
+				    `
+		}else{
+			imghtml +=`<div class="carousel-item">
+				     	 <img src="/jspweb/product/pimg/${img}" class="d-block w-100" alt="...">
+				       </div>
+				      `
+		}
+		
+	})
+	
+		let html = '';
+		html += `
+		<div class="pviewbox">
+				
+				<div class="pviewinfo">
+					<div class="mimgbox">
+						<img src="/jspweb/member/pimg/${p.mimg == null ? 'default.webp' : p.mimg}" class="hpimg">
+						<span class="mid"> ${p.mid} </span>
+					</div>
+					<div>
+						<button onclick="productlistprint()" class="pbadge" type="button"> 목록보기 </button>
+					</div>
+				</div>
+				
+				<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+				  <div class="carousel-inner">
+				    ${imghtml}
+				    
+				  </div>
+				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Previous</span>
+				  </button>
+				  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Next</span>
+				  </button>
+				</div>
+				<!-- 제품 상세 내용물 -->
+				<div class="pdate"> ${p.pdate}</div>
+				<div class="pname"> ${p.pname}</div>
+				<div class="pcomment"> ${p.pcomment} </div>
+				<div class="pstate">
+					<span class="pbadge">
+						${p.pstate == 1 ? '판매중' : p.pstate == 2 ? '거래중' : '판매완료'}
+					</span>
+				</div>
+				<div class="pprice"> ${p.pprice.toLocaleString()} </div>
+				<div class="petc"> 
+					<i class="far fa-eye"></i>${p.pview}
+						<i class="far fa-thumbs-up"></i>5
+						<i class="far fa-comment-dots"></i>2
+				</div>				
+				<div class="pviewbtnbox"> 
+					<button class="plikebtn" onclick="setplike(${p.pno})" type="button"> <i class="far fa-heart"></i> </button>
+					<button onclick="chatprint(${i})" type="button"> 채팅 </button>
+				</div>
+				
+			</div>`
+			document.querySelector('.productlistbox').innerHTML=html;
+			getplike(p.pno); // 찜하기 상태호출
+}// end
+// 채팅 페이지 이동
+function chatprint(i){
+	
+	if(memberInfo.mid == null){
+		alert('회원기능 입니다. 로그인 후 이용해주십쇼.');return;
+	}
+	
+	let p = productList[i];
+	let html = `
+			<div class="chatbox">
+				
+				<div class="pviewinfo">
+					<div class="mimgbox">
+						<img src="/jspweb/product/pimg/${p.pimglist[0]}" class="hpimg">
+						<span class="pname"> ${p.pname} </span>
+					</div>
+					<div>
+						<button onclick="productlistprint()" class="pbadge" type="button"> 목록보기 </button>
+					</div>
+				</div>
+				
+				<div class="chatcontent">
+					<div class="sendbox">구매가능할까요?</div>
+					<div class="receivebox">네 구매 가능합니다.</div>
+				</div>
+				
+				<div class="chatbtn">
+					<textarea class="ncontentinput" rows="" cols=""></textarea>
+					<button onclick="sendchat(${p.pno} , ${p.mno})" type="button">전송</button>
+				</div>
+			</div>
+			`;
+	document.querySelector('.productlistbox').innerHTML=html;
+}// end
+// 5.
+function sendchat(pno , tomno){
+	let ncontent = document.querySelector('.ncontentinput').value;
+	$.ajax({
+		url:"/jspweb/product/chat",
+		method:"post",
+		data:{"pno" : pno ,"tomno" : tomno , "ncontent" : ncontent},
+		success:(r)=>{
+			console.log(r)
+			if(r=='true'){
+				document.querySelector('.ncontentinput').value = '';
+			}
+		}
+	})
 }
 
   var map = new kakao.maps.Map(document.getElementById('map'), { // 지도를 표시할 div
@@ -58,7 +184,15 @@ function productlistprint(){
         averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
         minLevel: 7 // 클러스터 할 최소 지도 레벨 
     });
- 
+ //------------------------ 마커 이미지 변경 ----------------------------- //
+var imageSrc = '/jspweb/img/pngegg.png', // 마커이미지의 주소입니다    
+    imageSize = new kakao.maps.Size(50, 55), // 마커이미지의 크기입니다
+    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+      
+// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+    markerPosition = new kakao.maps.LatLng(37.54699, 127.09598); // 마커가 표시될 위치입니다
+    
     // 1. 제품목록 호출 [ 1. 현재 보이는 지도 조표내 포함된 제품만 2. ]
 function getproductlist(동 , 서 , 남 , 북){	
 	clusterer.clear();	// 클러스터 비우기 [기존 마커들 제거]
@@ -72,28 +206,16 @@ function getproductlist(동 , 서 , 남 , 북){
 		productList = r;		// 제품목록 결과를 전역변수 담아주기 
 		productlistprint(  );
 		//--------------------- 마커 작업 -----------------------
-        var markers = r.map((p)=>{
-			console.log(p)
+        var markers = r.map((p , i)=>{console.log(p)
 			
             let marker = new kakao.maps.Marker({
-                position : new kakao.maps.LatLng(p.plat, p.plng)
+                position : new kakao.maps.LatLng(p.plat, p.plng),
+                image : markerImage
             });
             
             // 마커에 클릭이벤트를 등록합니다
 			kakao.maps.event.addListener(marker, 'click', function() {
-				let html = '<button onclick="productlistprint()"> <== </button><h3>제품상세페이지</h3>';
-				html +=`<div>
-						<div> ${p.pname} </div>
-						<div> ${p.pcomment} </div>
-						<div> ${p.pprice} </div>
-						<div> ${p.pstate} </div>
-						<div> ${p.pview} </div>
-						<div> ${p.pdate} </div>
-						<div> <button class="plikebtn" onclick="setplike(${p.pno})" type="button"> </button> </div>
-					</div>`
-				document.querySelector('.productlistbox').innerHTML=html;
-				
-				getplike( p.pno );
+				productprint(i)
 				
 				}); // 클릭이벤트 end
 	            
