@@ -146,10 +146,7 @@ function chatprint(i){
 				}else{
 					chathtml += `<div class="receivebox"> ${o.ncontent} </div> `
 				}
-			})
-			
-				
-			
+			})			
 		}
 	}) // end
 	
