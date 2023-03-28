@@ -21,6 +21,7 @@ public class ChatDto {
 		this.tomno = tomno;
 	}
 	
+	
 	@Override
 	public String toString() {
 		return "ChatDto [nno=" + nno + ", ncontent=" + ncontent + ", ndate=" + ndate + ", pno=" + pno + ", frommno="

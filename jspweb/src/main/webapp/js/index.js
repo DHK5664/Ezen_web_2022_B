@@ -131,6 +131,28 @@ function chatprint(i){
 	}
 	
 	let p = productList[i];
+	
+	let chathtml = '';
+	$.ajax({
+		url:"/jspweb/product/chat",
+		method : "get",
+		data:{"pno" : p.pno},
+		async : false , /* 동기식 */
+		success:(r)=>{
+			
+			r.forEach((o)=>{
+				if(o.frommno == memberInfo.mno ){ // 현재 로그인된 회원과 보낸 사람이 일치하면
+					chathtml += `<div class="sendbox"> ${o.ncontent} </div> `
+				}else{
+					chathtml += `<div class="receivebox"> ${o.ncontent} </div> `
+				}
+			})
+			
+				
+			
+		}
+	}) // end
+	
 	let html = `
 			<div class="chatbox">
 				
@@ -145,8 +167,7 @@ function chatprint(i){
 				</div>
 				
 				<div class="chatcontent">
-					<div class="sendbox">구매가능할까요?</div>
-					<div class="receivebox">네 구매 가능합니다.</div>
+					${chathtml}
 				</div>
 				
 				<div class="chatbtn">
@@ -171,6 +192,11 @@ function sendchat(pno , tomno){
 			}
 		}
 	})
+}
+
+// 6.
+function receivechat(){
+	
 }
 
   var map = new kakao.maps.Map(document.getElementById('map'), { // 지도를 표시할 div
