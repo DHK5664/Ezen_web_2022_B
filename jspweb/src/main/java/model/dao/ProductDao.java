@@ -124,11 +124,17 @@ public class ProductDao extends Dao{
 			ps= con.prepareStatement(sql);
 			ps.setInt(1, pno);	ps.setInt(2, mno); ps.setInt(3, mno);
 			rs = ps.executeQuery();
-			while(rs.next()) {
-				list.add(new ChatDto(
-						rs.getInt(1), rs.getString(2), 
-						rs.getString(3), rs.getInt(4), 
-						rs.getInt(5), rs.getInt(6)) );
+			while(rs.next()) {				
+				ChatDto dto = new ChatDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6));
+				// 보낸회원의 정보 호출
+				sql = "select mid , mimg from member where mno = " + rs.getInt(5);	//rs.getInt(5) = frommno
+				ps = con.prepareStatement(sql);
+				ResultSet rs2 = ps.executeQuery();
+				if(rs2.next()) {
+					dto.setFrommid(rs2.getString(1));
+					dto.setFrommimg(rs2.getString(2));
+				}
+				list.add(dto);
 			}
 		}catch (Exception e) {System.out.println(e);}
 		return list;

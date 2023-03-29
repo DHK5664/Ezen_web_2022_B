@@ -21,10 +21,19 @@
 		<div class="productlistbox">
 		
 			
+			
+			
+			
+			
 		</div>
 	</div>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9f2696c7ce73b2c3c992ea91cbfd4905&libraries=clusterer"></script>
 	<script src="/jspweb/js/index.js" type="text/javascript"></script>
+	
+</body>
+</html>
+
+
 	
 	<!-- <div class="productbox">
 				<div class="pimgbox">
@@ -66,5 +75,13 @@
 				</div>
 			</div>
 	 -->
-</body>
-</html>
+	<!-- 
+	<div class="chatlist">
+				<div class="frommimg"><img src="/jspweb/member/pimg/커비.jpg" class="hpimg"></div>
+				<div class="frominfo">
+					<div class="fromndate"> 2023-03-29 10:02 </div>
+					<div class="frommid">qwe123</div>
+					<div class="fromncontent">구매 할 수 있을까요?</div>
+				</div>
+			</div>
+	 -->
