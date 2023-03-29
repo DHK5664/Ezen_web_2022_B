@@ -116,7 +116,8 @@ html , body{
 .pdate{font-size: 10px;}
 .petc{
 	font-size:12px;
-	text-align : right; 
+	text-align : right;
+	margin-left: 10px;
 }
 
 /* ---------- 제품상세 ----------- */
