@@ -81,7 +81,7 @@ function onalarm(e){
 		// Dao 메소드에 synchronized 키워드 사용
 		// 스레드1 해당 메소드를 사용하고 있을때 [ return 전 ] 다른 스레드2 해당 메소드에 대기상태
 		// 멀티스레드 : HttpServlet 에 포함
-	getcontent();
+	getcontent(); // 채팅 받았을때 채팅방내 채팅내용 렌더링
 	
 }
 
