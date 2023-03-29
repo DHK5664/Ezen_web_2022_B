@@ -13,8 +13,8 @@ public class ProductDao extends Dao{
 	private ProductDao() {};
 	public static ProductDao getInstance() {return dao;}
 	
-	// 1. 제품등록
-	public boolean write(ProductDto dto) {
+	// 1. 제품등록 [ synchronized : 멀티스레드 사용시(서블릿) 해당 메소드 동시사용불가 대기 만들기 = waiting ]
+	public synchronized boolean write(ProductDto dto) {
 		// 1. 제품 우선 등록
 		String sql = "insert into product(pname , pcomment , pprice , plat , plng , mno)"
 				+ " values(?,?,?,?,?,?)";
@@ -41,7 +41,7 @@ public class ProductDao extends Dao{
 	}
 	
 	// 2. 제품 호출
-	public ArrayList<ProductDto> getProductList(String 동 , String 서 , String 남 , String 북){
+	public synchronized ArrayList<ProductDto> getProductList(String 동 , String 서 , String 남 , String 북){
 		ArrayList<ProductDto> list = new ArrayList<>();
 		String sql = "select p.*,m.mid ,m.mimg from product p natural join member m "
 				+ " where ? >= p.plng and ? <= p.plng and ? <=p.plat and ? >=p.plat";
@@ -74,7 +74,7 @@ public class ProductDao extends Dao{
 	}
 	
 	// 3. 찜하기 등록/취소
-	public boolean setplike(int pno , int mno) {
+	public synchronized boolean setplike(int pno , int mno) {
 		// 1. 등록할지 취소할지 검색 먼저하기
 		String sql = "select * from plike where pno = "+pno+" and mno = "+mno;
 		try {
@@ -95,7 +95,7 @@ public class ProductDao extends Dao{
 	}
 	
 	// 4. 현재 회원이 해당 제품의 찜하기 상태 확인
-	public boolean getplike(int pno , int mno) {
+	public synchronized boolean getplike(int pno , int mno) {
 		String sql = "select * from plike where pno = "+pno+" and mno = "+mno;
 		try {
 			ps=con.prepareStatement(sql);	rs=ps.executeQuery();
@@ -104,7 +104,7 @@ public class ProductDao extends Dao{
 	}
 	
 	// 5. 제품에 채팅 등록
-	public boolean setChat(ChatDto dto) {
+	public synchronized boolean setChat(ChatDto dto) {
 		String sql = "insert into note(ncontent , pno , frommno , tomno)values(?,?,?,?)";
 		try {
 			ps = con.prepareStatement(sql);
@@ -115,14 +115,40 @@ public class ProductDao extends Dao{
 		}catch (Exception e) {System.out.println(e);} return false;
 	}
 	
-	// 6. 제품에 등록된 채팅 출력 [ 제품번호 일치 , 현재 보고있는 회원[로그인된회원] 받거나 보낸 내용들 ]
-	public ArrayList<ChatDto> getChatList( int pno , int mno){
+	// 6. 제품에 등록된 채팅 출력 [ 1.채팅목록출력[js.9] 2.채팅방내 메시지목록출력[js.10] ]
+	public synchronized ArrayList<ChatDto> getChatList( int pno , int mno , int chatmno){
 		ArrayList<ChatDto> list = new ArrayList<>();
-		String sql = "select * from note where pno = ? and (frommno = ? or tomno = ?)";
+		
+		String sql = "";
+		
+		if(chatmno !=0) { // 현재 같이 채팅하고 있는 대상자들[로그인된 회원, 채팅대상자] 의 내용물만 출력
+			sql = "select * from note where pno = ? and "
+					+ " ((frommno = ? and tomno =?) or (frommno = ? and tomno =?)) ";
+		}else {// 채팅목록출력[js.9]
+			sql = "select * from note where pno = ? and (frommno = ? or tomno = ?)";
+		}
+		
+		/*
+		  	- 1. 로그인된 회원기준으로 보내거나 받은 메시지 모두 출력
+		  		select * from note where pno = ? and (frommno = ? or tomno = ?)
+		  		1. 구매자 문제 없음 2.판매자는 채팅 대상만의 메시지만 출력해야함 문제 발생
+		  	
+		  	- 2.
+		  		만약에 채팅방에 4번회원 과 5번회원 존재
+		  		frommno = 4 이면서 tomno = 5		이거나		frommno = 5 이면서 tomno = 4
+		  		- 4번 회원이 보냈거나 받았으면 5번 회원이 받았거나 보냈으면
+		*/
 		
 		try {
 			ps= con.prepareStatement(sql);
-			ps.setInt(1, pno);	ps.setInt(2, mno); ps.setInt(3, mno);
+			ps.setInt(1, pno);	
+			if(chatmno != 0) {
+			ps.setInt(2, mno);		ps.setInt(3, chatmno);
+			ps.setInt(4, chatmno);	ps.setInt(5, mno);
+			}else {
+				ps.setInt(2, mno);	ps.setInt(3, mno);
+			}
+			
 			rs = ps.executeQuery();
 			while(rs.next()) {				
 				ChatDto dto = new ChatDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6));

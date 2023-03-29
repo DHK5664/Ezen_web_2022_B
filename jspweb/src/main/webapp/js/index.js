@@ -11,6 +11,9 @@ console.log('dd')
 */
 // *전역변수
 let productList = null; // getproductlist()의 ajax 로 부터 요청된 결과를 담는곳
+let index = 0;		// 현재 보고있는 제품의 제품인덱스
+let chatmno = 0;	// 현재 채팅하고 있는 상대방의 mno
+
 // 1.모든 제품 목록 html 출력 함수
 function productlistprint(){
 		let html = '';
@@ -118,7 +121,7 @@ function chatlistprint(i){
 	$.ajax({
 		url : "/jspweb/product/chat",
 		method : "get",
-		data : {"pno" : p.pno},
+		data : {"pno" : p.pno , "chatmno" : 0},
 		async : false ,
 		success:(r)=>{
 			console.log(r)
@@ -147,9 +150,7 @@ function chatlistprint(i){
 	document.querySelector('.productlistbox').innerHTML=html;
 }// end
 
-// *
-let index = 0;		// 현재 보고있는 제품의 제품인덱스
-let chatmno = 0;	// 현재 채팅하고 있는 상대방의 mno
+
 
 // 10. 채팅방 내용물 요청해서 해당 html에 출력
 function getcontent(){
@@ -158,12 +159,11 @@ function getcontent(){
 	$.ajax({
 		url:"/jspweb/product/chat",
 		method : "get",
-		data:{"pno" : pno},
+		data:{"pno" : pno , "chatmno" : chatmno},
 		async : false , /* 동기식 */
 		success:(r)=>{
-			console.log(r)
 			r.forEach((o)=>{
-				if(o.frommno == memberInfo.mno ){ // 현재 로그인된 회원과 보낸 사람이 일치하면
+				if(o.frommno == memberInfo.mno){ // 현재 로그인된 회원과 보낸 사람이 일치하면
 					chathtml += `<div class="sendbox"> ${o.ncontent} </div> `
 				}else{
 					chathtml += `<div class="receivebox"> ${o.ncontent} </div> `
@@ -211,10 +211,12 @@ function chatinfoprint(i , tomno){
 // 3. 채팅 페이지 이동 [로그인 검사 , 등록자인지 검사 ]
 function chatprint(i){
 	
+	let p = productList[i];
+	
 	if(memberInfo.mid == null){ // 로그인 검사
 		alert('회원기능 입니다. 로그인 후 이용해주십쇼.'); return;
 	}	
-	let p = productList[i];
+	
 	// 만약 제품 등록한 회원이면[판매자]
 	if(memberInfo.mno == p.mno){ 
 		alert('본인 제품입니다.'); 
@@ -237,6 +239,7 @@ function sendchat(pno){
 			console.log(r)
 			if(r=='true'){
 				document.querySelector('.ncontentinput').value = '';
+				getcontent(); // 채팅창 목록 새로고침 
 			}
 		}
 	})
