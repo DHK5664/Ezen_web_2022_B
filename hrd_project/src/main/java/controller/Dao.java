@@ -71,5 +71,31 @@ public class Dao {
 		}catch (Exception e) {System.out.println(e);} return list;
 	}
 	
+	// 4. 특정 회원 출력
+	public MemberDto getmember(int custno) {
+		String sql = "select * from member_tbl_02 where custno ="+custno;
+		try {
+			ps = con.prepareStatement(sql); rs= ps.executeQuery();
+			while(rs.next()) {
+				return new MemberDto(rs.getInt(1),rs.getString(2),rs.getString(3),
+						rs.getString(4),rs.getString(5),rs.getString(6),rs.getInt(7)
+						);
+			}
+		}catch (Exception e) {System.out.println(e);} return null;
+	}
+	
+	// 5. 회원수정
+	public boolean update(MemberDto dto) {
+		String sql = "update member_tbl_02 set custno =? , custname =? , phone =? , address =? ,"
+				+ " joindate =? , grade =? , city =? where custno = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, dto.getCustno());		ps.setString(2, dto.getCustname());
+			ps.setString(3, dto.getPhone());	ps.setString(4, dto.getAddress());
+			ps.setString(5, dto.getJoindate());	ps.setString(6, dto.getGrade());
+			ps.setInt(7, dto.getCity());		ps.setInt(8, dto.getCustno());
+			ps.executeUpdate(); return true;
+		}catch (Exception e) {System.out.println(e);} return false;
+	}
 }
 
