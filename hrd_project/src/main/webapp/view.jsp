@@ -8,9 +8,9 @@
 </head>
 <body>
 
-	<center>
-		HRDKOREA Copyrightⓒ2016 All rights
-	</center>
+	<%@include file="header.jsp" %>
+	조회 페이지
+	<%@include file="footer.jsp" %>
 	
 </body>
 </html>

@@ -8,5 +8,22 @@
 </head>
 <body>
 
+	<%@include file="header.jsp" %>
+	
+		<center>
+			<h3>쇼핑몰 회원관리 프로그램</h3> 
+		</center>
+		<p>~~~~~~~~</p>
+		<ol>
+			<li> ~~ </li>
+			<li> ~~ </li>
+			<li> ~~ </li>
+			<li> ~~ </li>
+			<li> ~~ </li>
+			<li> ~~ </li>
+		</ol>
+	
+	<%@include file="footer.jsp" %>
+	
 </body>
 </html>

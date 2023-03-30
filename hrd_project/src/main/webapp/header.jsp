@@ -7,6 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
+	
+	<center> <h1> 쇼핑몰 회원관리 </h1> </center>
+	<table>
+		<tr>
+			<td> <a href="/hrd_project/join.jsp">회원등록</a> </td>
+			<td> <a href="/hrd_project/view.jsp">회원목록조회/수정</a> </td>
+			<td> <a href="/hrd_project/sum.jsp">회원매출조회</a> </td>
+			<td> <a href="/hrd_project/index.jsp">홈으로.</a> </td>
+		</tr>
+	</table>
 
 </body>
 </html>
