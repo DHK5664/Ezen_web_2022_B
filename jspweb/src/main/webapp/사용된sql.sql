@@ -218,10 +218,19 @@ create table product(
     plat varchar(100) not null, -- 위도
     plng varchar(100) not null, -- 경도
     pview int default 0 , -- 조회수
-    pdate datetime default now() -- 등록일
+    pdate datetime default now() ,-- 등록일
+    mno int, -- 등록한 회원번호 
+     foreign key (mno) references member(mno) on delete cascade
 );
 select * from jspweb.product where 동 >=plng  && 서 <= plng and  남<= plat and 북 >= plat; -- 얘도 포함해서
 /* 제품 사진 테이블 */
+drop table if exists pimg;
+create table pimg(
+	pimgno bigint auto_increment primary key , -- 사진식별번호
+    pimgname longtext not null, -- 사진명
+    pno int , -- 해당 사진의 연결된 제품번호
+    foreign key (pno) references product(pno) on delete cascade
+);
 
 /* 제품 찜하기 테이블 */ -- 2023-03-24
 drop table if exists plike;
@@ -246,3 +255,55 @@ create table note(
     foreign key(frommno) references member(mno) on delete cascade,
     foreign key(tomno) references member(mno) on delete cascade
 );
+
+select * from note;
+
+select * from note where pno = 9 and (frommno = 2 or tomno = 10);
+
+select * from note where pno = 9 and ((frommno = 2 and tomno =10) or (frommno = 10 and tomno =2));
+
+/* 230331 */
+-- 날짜별 포인트 충전 내역 
+	-- 1.
+	select * from mpoint;
+    -- 2. 특정 필드만 [ ]
+    select 
+		if(mpcomment = '포인트 충전' , mpamount , 0) as 충전된포인트,
+        date_format(mdate, '%y%m%d')
+	from mpoint;
+    -- 3. mysql 날짜형식변경 함수 [ date_format(날짜 , 형식) ]
+    select date_format(now() , '%Y %m %d'); -- 2023 03 31
+    -- 4. 충전된포인트총합계
+     select 
+		sum(if(mpcomment = '포인트 충전' , mpamount , 0)) as 충전된포인트총합계
+	from mpoint;
+	-- 5. 날짜별 포인트 충전합계
+    select 
+		sum(if(mpcomment = '포인트 충전' , mpamount , 0))as 충전된포인트,
+        date_format(mdate, '%y%m%d') as 충전날짜
+	from mpoint
+    group by  date_format(mdate, '%y%m%d');
+    -- 6. 날짜별 포인트 충전합계[최근 5개]
+    select 
+       sum( if( mpcomment ='포인트 충전'  , mpamount , 0 ) ) as 충전된포인트총합계 ,
+        date_format( mdate , '%Y%m%d' ) as 충전날짜
+    from mpoint
+    group by date_format( mdate , '%Y%m%d' )
+    order by 충전날짜 desc
+    limit 5;
+    
+    -- 7. 검색된 날짜별 포인트 충전 합계 [ 최근 5개 ] * 별칭은 where에서는 사용 불가능
+    select 
+       sum( if( mpcomment ='포인트 충전'  , mpamount , 0 ) ) as 충전된포인트총합계 ,
+        date_format( mdate , '%Y%m%d' ) as 충전날짜
+    from mpoint
+    where date_format(mdate , '%Y%m%d') between '20230301' and '20230331'	-- where date_format(mdate , '%Y%m%d') >= '20230301' and date_format(mdate , '%Y%m%d') <= '20230331' 둘이 같음
+    group by date_format( mdate , '%Y%m%d' )
+    order by 충전날짜 desc
+    limit 5;
+    -- 샘플 데이터
+    insert into mpoint(mpcomment , mpamount , mdate , mno) values( '포인트 충전' , 10000 , '2023-03-30' ,  4 );
+    insert into mpoint(mpcomment , mpamount , mdate , mno) values( '포인트 충전' , 20000 , '2023-03-29' ,  4 );
+    insert into mpoint(mpcomment , mpamount , mdate , mno) values( '포인트 충전' , 50000 , '2023-03-28' ,  4 );
+    insert into mpoint(mpcomment , mpamount , mdate , mno) values( '포인트 충전' , 3000 , '2023-03-27' ,  4 );
+    insert into mpoint(mpcomment , mpamount , mdate , mno) values( '포인트 충전' , 100 , '2023-03-26' ,  4 );

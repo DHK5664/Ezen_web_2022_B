@@ -1,5 +1,53 @@
 // js -> admin -> info.js
 
+/*
+	JSON = JS객체
+	let 객체명 = { 필드명/키 : 데이터 , 필드명/키 : 데이터 , 필드명/키 : 데이터 }
+	
+		1. 해당 객체의 필드명만 호출/추출
+			Object.keys(객체명) : 객체내 모든 필드명/키 이름을 배열로 추출
+		
+		2. 해당 객체의 값만 호출/추출
+			Object.values(객체명) : 객체내 모든 데이터 를 배열로 추출
+*/
+
+const ctx = document.getElementById('myChart');
+
+$.get("/jspweb/point" , (r)=>{
+	console.log(r); console.log(Object.keys(r)); console.log(Object.values(r));
+	
+	// ---------------- chart.js 차트 -----------------//
+
+	// new Chart( 'dom객체' , {차트옵션} );
+	// { type : '차트이름' , data : { 차트에 표시할 데이터 } , options : {차트옵션} }
+		// labels : 가로축
+
+  new Chart(ctx, {
+    type: 'line', // bar : 막대차트 , line : 선차트
+    data: {
+      labels: Object.keys(r),	// 가로축	// 날짜필드명
+      datasets: 
+      [
+		  {
+	        label: '포인트 충전 내역', // 데이터 항목명
+	        data: Object.values(r), // 해당 항목의 데이터 // 데이터 값  
+	        borderWidth: 1
+	      }
+      ]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+	
+	
+	
+})
+
 let memberPageObject = {
 	page : 1 ,
 	key : "",
@@ -64,7 +112,7 @@ function getMemberList(page){
 			<button onclick="getMemberList(${ page+1 })" type="button"> 다음 </button>
 			`
 			document.querySelector('.adminpagebox').innerHTML = html;
-			document.querySelector('.seachcount').innerHTML = `게시물 수 : ${ r.totalsize } `
+			document.querySelector('.seachcount').innerHTML = `회원 수 : ${ r.totalsize } `
 		}
 	})
 }
