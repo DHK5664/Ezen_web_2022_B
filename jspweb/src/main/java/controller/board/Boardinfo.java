@@ -28,8 +28,7 @@ public class Boardinfo extends HttpServlet {
        
 
     public Boardinfo() {
-        super();
-     
+        super();     
     }
 
 	/**
