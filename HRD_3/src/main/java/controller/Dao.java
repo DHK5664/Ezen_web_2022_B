@@ -55,7 +55,7 @@ public class Dao {
 		return list;
 	}
 	
-	// 4-2 투표 하기
+	// 4-2 투표하기
 	public boolean vote(Dto dto) {
 		String sql ="insert into tbl_vote_202005 values (?, ?, ?, ?, ?, ?)";
 		try {
@@ -66,6 +66,46 @@ public class Dao {
 			ps.executeUpdate(); return true;
 		}catch (Exception e) {System.out.println(e);}
 		return false;
+	}
+	
+	// 4-3 투표검수 조회
+	public List<Dto> getVoteConfirm(){
+		List<Dto> list = new ArrayList<>();
+		String sql="select * from tbl_vote_202005 where v_area = '제1투표장'";		
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Dto dto = new Dto(
+						rs.getString(3),
+						rs.getString(1),rs.getString(2),
+						rs.getString(4),rs.getString(6));
+				list.add(dto);
+			}
+		}catch (Exception e) {System.out.println(e);}
+		return list;
+	}
+	// 4-4 후보자등수 조회
+	public List<Dto> getVoteTop(){
+		List<Dto> list = new ArrayList<>();
+		String sql = "select B.m_no , B.m_name, count(*) v_total "
+				+ "from "
+				+ "	tbl_vote_202005 A inner join tbl_member_202005 B "
+				+ "on "
+				+ "	A.m_no = B.m_no "
+				+ "where "
+				+ "	A.v_confirm = 'Y' "
+				+ "group by B.m_no , B.m_name order by v_total DESC";
+		try {
+			ps= con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Dto dto = new Dto(rs.getString(1),
+						rs.getString(2), rs.getInt(3));
+				list.add(dto);
+			}
+		}catch (Exception e) {System.out.println(e);}
+		return list;
 	}
 }
 

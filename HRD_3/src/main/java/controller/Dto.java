@@ -17,12 +17,72 @@ public class Dto {
 	private String v_area;
 	private String v_confirm;
 	
+	private int v_total;
+	
+	
+	
+	public int getV_total() {
+		return v_total;
+	}
+
+	public void setV_total(int v_total) {
+		this.v_total = v_total;
+	}
+
+	// 4. 후보자 등수에 사용되는 생성자
+	public Dto(String m_no, String m_name, int v_total) {
+		super();
+		this.m_no = m_no;
+		this.m_name = m_name;
+		this.v_total = v_total;
+	}	
+	
 	public Dto() {}
 	
+
+
+	// 3. 투표 검수시 사용되는 생성자
+	public Dto(String m_no, String v_jumin, String v_name, String v_time, String v_confirm) {
+	super();
+	this.m_no = m_no;
+	this.v_jumin = v_jumin;
+	this.v_name = v_name;
+	this.v_time = v_time;
+	this.v_confirm = v_confirm;
+	}
 	
+	// 2. 투표시  사용되는 생성자
+	public Dto(String m_no, String v_jumin, String v_name, String v_time, String v_area, String v_confirm) {
+		super();
+		this.m_no = m_no;
+		this.v_jumin = v_jumin;
+		this.v_name = v_name;
+		this.v_time = v_time;
+		this.v_area = v_area;
+		this.v_confirm = v_confirm;
+	}
+	
+	// 1. 후보 조회시 사용되는 생성자
+	public Dto(String m_no, String m_name, String p_name, String p_school, String m_jumin, String m_city, String p_tel1,
+			String p_tel2, String p_tel3) {
+		super();
+		this.m_no = m_no;
+		this.m_name = m_name;
+		this.p_name = p_name;
+		this.p_school = p_school;
+		this.m_jumin = m_jumin;
+		this.m_city = m_city;
+		this.p_tel1 = p_tel1;
+		this.p_tel2 = p_tel2;
+		this.p_tel3 = p_tel3;
+	}
+	
+	// get , set 메소드 [ 추후 필드 추가시 다시 자동완성 ]
 	public String getV_jumin() {
 		return v_jumin;
 	}
+
+
 
 
 	public void setV_jumin(String v_jumin) {
@@ -68,37 +128,6 @@ public class Dto {
 	public void setV_confirm(String v_confirm) {
 		this.v_confirm = v_confirm;
 	}
-
-
-	// 2. 투표시  사용되는 생성자
-	public Dto(String m_no, String v_jumin, String v_name, String v_time, String v_area, String v_confirm) {
-		super();
-		this.m_no = m_no;
-		this.v_jumin = v_jumin;
-		this.v_name = v_name;
-		this.v_time = v_time;
-		this.v_area = v_area;
-		this.v_confirm = v_confirm;
-	}
-
-
-
-	// 1. 후보 조회시 사용되는 생성자
-	public Dto(String m_no, String m_name, String p_name, String p_school, String m_jumin, String m_city, String p_tel1,
-			String p_tel2, String p_tel3) {
-		super();
-		this.m_no = m_no;
-		this.m_name = m_name;
-		this.p_name = p_name;
-		this.p_school = p_school;
-		this.m_jumin = m_jumin;
-		this.m_city = m_city;
-		this.p_tel1 = p_tel1;
-		this.p_tel2 = p_tel2;
-		this.p_tel3 = p_tel3;
-	}
-	
-	// get , set 메소드 [ 추후 필드 추가시 다시 자동완성 ]
 	public String getM_no() {
 		return m_no;
 	}
