@@ -8,7 +8,7 @@
 </head>
 <body>
 	<center>
-		[*푸터]시험장에서 보이는 그대로 작성
+		<h3>[*푸터 내용 작성]</h3>
 	</center>
 </body>
 </html>

@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Add
+ * Servlet implementation class vote
  */
-@WebServlet("/add")
-public class Add extends HttpServlet {
+@WebServlet(name = "Vote", urlPatterns = { "/vote" })
+public class vote extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Add() {
+    public vote() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,22 +34,23 @@ public class Add extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 한글 인코딩
+		// 1. 한글 인코딩
 		request.setCharacterEncoding("UTF-8");
-		// 1. 매개변수 [form name 동일] 요청
-		String sno = request.getParameter("sno");
-		int ekor = Integer.parseInt(request.getParameter("ekor"));
-		int emath = Integer.parseInt(request.getParameter("emath")); 
-		int eeng = Integer.parseInt(request.getParameter("eeng"));
-		int ehist = Integer.parseInt(request.getParameter("ehist"));
-				
-		Dto dto = new Dto(sno, ekor, emath, eeng, ehist);	// 2. dto
-		
-		Dao dao = new Dao();	// 3. dao
-		boolean result = dao.add(dto);
-		if(result) {response.sendRedirect("/HRD_2/add.jsp");} // 4. 결과에 따른 페이지 응답
-		else {}
-		
+		// 2. 매개변수 요청
+		String v_jumin = request.getParameter("v_jumin");
+		String v_name = request.getParameter("v_name");
+		String m_no = request.getParameter("m_no");
+		String v_time = request.getParameter("v_time");
+		String v_area = request.getParameter("v_area");
+		String v_confirm = request.getParameter("v_confirm");
+		// 3. Dto 생성
+		Dto dto = new Dto(m_no, v_jumin, v_name, v_time, v_area, v_confirm);
+		// 4. Dao 처리
+		Dao dao = new Dao();
+		boolean result = dao.vote(dto);
+		// 5. 성공시 페이지 전환
+		if(result) response.sendRedirect("/HRD_3/index.jsp");
+		else response.sendRedirect("/HRD_3/vote.jsp");
 	}
 
 	/**
